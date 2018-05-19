@@ -10,6 +10,9 @@
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\importLevel.gml</script>
+  </scripts>
   <objects name="objects">
     <object>objects\objControl</object>
   </objects>
