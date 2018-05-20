@@ -2,8 +2,13 @@ var file;
 
 ds[0] = ds_grid_create(1,1); // BG
 ds[1] = ds_grid_create(1,1); // FG
+ds[2] = ds_grid_create(1,1); // TOP
+ds[3] = ds_grid_create(1,1); // OBJ
+
 ds_grid_clear(ds[0],0);
 ds_grid_clear(ds[1],0);
+ds_grid_clear(ds[2],0);
+ds_grid_clear(ds[3],0);
 
 if (file_exists(argument0))
     file = file_text_open_read(argument0);
@@ -30,6 +35,8 @@ while (!file_text_eof(file))
         w = real(string_digits(str));
         ds_grid_resize(ds[0], w, h);
         ds_grid_resize(ds[1], w, h);
+        ds_grid_resize(ds[2], w, h);
+        ds_grid_resize(ds[3], w, h);
     }
     if (h == 1 && string_pos('height="', f) != 0)
     {
@@ -37,6 +44,8 @@ while (!file_text_eof(file))
         h = real(string_digits(str));
         ds_grid_resize(ds[0], w, h);
         ds_grid_resize(ds[1], w, h);
+        ds_grid_resize(ds[2], w, h);
+        ds_grid_resize(ds[3], w, h);        
     }
     
     if (string_pos('<tile gid=',f) != 0)
@@ -53,7 +62,7 @@ while (!file_text_eof(file))
         {
             l++;
             j = 0;
-            if (l > 1) break; // 2 layers: fg and obj
+            if (l > 3) break; // 0..BG, 1..FG, 2..TOP, 3..OBJ
         }
     }
     
