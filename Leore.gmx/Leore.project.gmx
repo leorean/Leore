@@ -27,6 +27,7 @@
   <sprites name="sprites">
     <sprite>sprites\mskControl</sprite>
     <sprite>sprites\mskSolid</sprite>
+    <sprite>sprites\mskPlayer</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>
@@ -40,6 +41,7 @@
   <objects name="objects">
     <object>objects\objControl</object>
     <object>objects\objSolid</object>
+    <object>objects\objPlayer</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\GAME</room>
