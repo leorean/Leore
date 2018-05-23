@@ -1,15 +1,12 @@
 var file;
+var deep = 5;
 
-ds[0] = ds_grid_create(1,1); // BG
-ds[1] = ds_grid_create(1,1); // FG
-ds[2] = ds_grid_create(1,1); // TOP
-ds[3] = ds_grid_create(1,1); // OBJ
-
-ds_grid_clear(ds[0],0);
-ds_grid_clear(ds[1],0);
-ds_grid_clear(ds[2],0);
-ds_grid_clear(ds[3],0);
-
+// BG, FG, WATER, TOP, OBJ
+for (var d = 0; d < deep; d++) {
+    ds[d] = ds_grid_create(1, 1);
+    ds_grid_clear(ds[d], 0);
+}
+    
 if (file_exists(argument0))
     file = file_text_open_read(argument0);
 else
@@ -33,19 +30,15 @@ while (!file_text_eof(file))
     {
         var str = string_copy(f, string_pos('width="', f) + 7, 5);
         w = real(string_digits(str));
-        ds_grid_resize(ds[0], w, h);
-        ds_grid_resize(ds[1], w, h);
-        ds_grid_resize(ds[2], w, h);
-        ds_grid_resize(ds[3], w, h);
+        for (var d = 0; d < deep; d++)
+            ds_grid_resize(ds[d], w, h);
     }
     if (h == 1 && string_pos('height="', f) != 0)
     {
         var str = string_copy(f, string_pos('height="', f) + 8, 5);
         h = real(string_digits(str));
-        ds_grid_resize(ds[0], w, h);
-        ds_grid_resize(ds[1], w, h);
-        ds_grid_resize(ds[2], w, h);
-        ds_grid_resize(ds[3], w, h);        
+        for (var d = 0; d < deep; d++)
+            ds_grid_resize(ds[d], w, h);
     }
     
     if (string_pos('<tile gid=',f) != 0)
@@ -62,7 +55,7 @@ while (!file_text_eof(file))
         {
             l++;
             j = 0;
-            if (l > 3) break; // 0..BG, 1..FG, 2..TOP, 3..OBJ
+            if (l > deep) break; // 0..BG, 1..FG, 2..WATER, 3..TOP, 4..OBJ
         }
     }
     

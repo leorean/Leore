@@ -23,8 +23,9 @@ for (var i = 0; i<w; i ++)
     {
         bg = ds_grid_get(data[0],i,j);
         fg = ds_grid_get(data[1],i,j);
-        top = ds_grid_get(data[2],i,j);
-        obj = ds_grid_get(data[3],i,j);
+        water = ds_grid_get(data[2],i,j);
+        top = ds_grid_get(data[3],i,j);
+        obj = ds_grid_get(data[4],i,j);
 
         if (bg > 0) //bg tiles
             addTile(bg, i*TILE, j*TILE, LAYER_BG);
@@ -32,6 +33,11 @@ for (var i = 0; i<w; i ++)
             addTile(fg, i*TILE, j*TILE, LAYER_FG);
             instance_create(i*TILE, j*TILE, objSolid);
         }
+        if (fg > 0) {//water tiles
+            addTile(fg, i*TILE, j*TILE, LAYER_WATER);
+            //tile_set_alpha(t, .75);
+        }
+        
         if (top > 0) //top tiles
             addTile(top, i*TILE, j*TILE, LAYER_TOP);
             

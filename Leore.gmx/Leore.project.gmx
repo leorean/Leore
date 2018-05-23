@@ -46,9 +46,10 @@
   <rooms name="rooms">
     <room>rooms\GAME</room>
   </rooms>
-  <constants number="4">
+  <constants number="5">
     <constant name="TILE">16</constant>
     <constant name="LAYER_BG">100</constant>
+    <constant name="LAYER_WATER">98</constant>
     <constant name="LAYER_FG">99</constant>
     <constant name="LAYER_TOP">-10</constant>
   </constants>
