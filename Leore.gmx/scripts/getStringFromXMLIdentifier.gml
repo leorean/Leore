@@ -1,8 +1,13 @@
 // getStringFromXMLIdentifier(string, identifier)
 
-// <object name="Player" type="Player" x="176" y="96" width="16" height="16"/>
-var _start = string_pos(argument1, argument0) + string_length(argument1);
+var _id = argument1 + '="'
+var _start = string_pos(_id, argument0) + string_length(_id);
 
-// Player" x="176" y="96" width="16" height="16"/>
-var _sub = string_delete(argument0, 0, _start);
-
+var _sub = "";
+for(var i = _start; i < string_length(argument0); i++) {
+    var _c = string_copy(argument0, i, 1);    
+    if (_c != '"')
+        _sub += _c;
+    else
+        return _sub;
+}

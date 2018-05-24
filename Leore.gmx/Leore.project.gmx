@@ -38,6 +38,7 @@
     <script>scripts\createLevel.gml</script>
     <script>scripts\addTile.gml</script>
     <script>scripts\getStringFromXMLIdentifier.gml</script>
+    <script>scripts\array.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\objControl</object>

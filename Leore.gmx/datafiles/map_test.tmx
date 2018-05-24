@@ -57620,15 +57620,22 @@
   </data>
  </layer>
  <objectgroup name="OBJ">
-  <object name="Player" type="Player" x="176" y="96" width="16" height="16"/>
-  <object name="Door" type="Door" x="256" y="96" width="16" height="16">
+  <object name="Player" type="player" x="176" y="96" width="16" height="16"/>
+  <object name="Door" type="door" x="256" y="96" width="16" height="16">
    <properties>
     <property name="target" value="map_test"/>
     <property name="tx" value="22"/>
     <property name="ty" value="8"/>
    </properties>
   </object>
-  <object name="Door" type="Door" x="320" y="80" width="16" height="16">
+  <object name="Door" type="door" x="320" y="80" width="16" height="16">
+   <properties>
+    <property name="target" value="map_test"/>
+    <property name="tx" value="16"/>
+    <property name="ty" value="9"/>
+   </properties>
+  </object>
+  <object name="Door" type="door" x="272" y="48" width="16" height="16">
    <properties>
     <property name="target" value="map_test"/>
     <property name="tx" value="16"/>
