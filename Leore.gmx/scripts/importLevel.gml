@@ -41,7 +41,7 @@ while (!file_text_eof(file))
             ds_grid_resize(ds[d], w, h);
     }
     
-    if (string_pos('<tile gid=',f) != 0)
+    if (string_pos('<tile gid=', f) != 0)
     {
         ds_grid_add(ds[l], i, j, real(string_digits(f)) - 1);
         i++;
@@ -55,8 +55,35 @@ while (!file_text_eof(file))
         {
             l++;
             j = 0;
-            if (l > deep + 1) break; // 0..BG, 1..FG, 2..WATER, 3..TOP, 4..OBJ
+            if (l > deep - 1) break; // 0..BG, 1..FG, 2..WATER, 3..TOP
         }
+    }
+    /*
+     <objectgroup name="OBJ">
+  <object name="Player" type="Player" x="176" y="96" width="16" height="16"/>
+  <object name="Door" type="Door" x="256" y="96" width="16" height="16">
+   <properties>
+    <property name="target" value="map_test"/>
+    <property name="tx" value="22"/>
+    <property name="ty" value="8"/>
+   </properties>
+  </object>
+  <object name="Door" type="Door" x="320" y="80" width="16" height="16">
+   <properties>
+    <property name="target" value="map_test"/>
+    <property name="tx" value="16"/>
+    <property name="ty" value="9"/>
+   </properties>
+  </object>
+ </objectgroup>
+    */
+    if (string_pos('<object ', f) != 0)
+    {
+        var o_type = getStringFromXMLIdentifier(f, 'type');
+        
+/*        var o_type_start = string_pos('type="', f) + 6;
+        var o_type_sub = 
+        var o_type = string_delete(f, 0, o_type_start)*/
     }
     
     file_text_readln(file);
