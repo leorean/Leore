@@ -75,17 +75,10 @@ if (hold &amp;&amp; mouse_check_button_released(mb_left)) {
     
     hold = false;
 }
-/*if (abs(xVel) &gt; 0.2)
-    xVel *= .99;
-else
-    xVel = 0;
-    
-if (abs(yVel) &gt; 0.2)
-    yVel *= .99;
-else
-    yVel = 0;*/
+
 xVel *= .985;
 yVel *= .985;
+angle = point_direction(x, y, x + xVel, y + yVel);
 
 if (tile_layer_find(LAYER_FG, x + xVel, y) == -1)
     x += xVel;
