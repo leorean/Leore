@@ -70,7 +70,7 @@
   </rooms>
   <constants number="7">
     <constant name="WIDTH">688</constant>
-    <constant name="HEIGHT">384</constant>
+    <constant name="HEIGHT">416</constant>
     <constant name="TILE">16</constant>
     <constant name="LAYER_BG">100</constant>
     <constant name="LAYER_WATER">98</constant>

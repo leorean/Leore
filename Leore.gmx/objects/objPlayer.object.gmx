@@ -26,6 +26,13 @@
           <argument>
             <kind>1</kind>
             <string>instance_create(x, y, objCamera);
+
+mx = x;
+my = y;
+xVel = 0;
+yVel = 0;
+
+hold = false;
 </string>
           </argument>
         </arguments>
@@ -48,10 +55,49 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (mouse_check_button(mb_left)) {
+            <string>/*if (mouse_check_button(mb_left)) {
     x = mouse_x;
     y = mouse_y;
+}*/
+
+if (!hold &amp;&amp; mouse_check_button_pressed(mb_left)) {
+    mx = x;
+    my = y;
+    hold = true;
 }
+
+if (hold &amp;&amp; mouse_check_button_released(mb_left)) {
+    angle = point_direction(mx, my, mouse_x, mouse_y);
+    vel = min(point_distance(mx, my, mouse_x, mouse_y) / 32, 6);
+    
+    xVel = lengthdir_x(vel, angle);
+    yVel = lengthdir_y(vel, angle);
+    
+    hold = false;
+}
+/*if (abs(xVel) &gt; 0.2)
+    xVel *= .99;
+else
+    xVel = 0;
+    
+if (abs(yVel) &gt; 0.2)
+    yVel *= .99;
+else
+    yVel = 0;*/
+xVel *= .985;
+yVel *= .985;
+
+if (tile_layer_find(LAYER_FG, x + xVel, y) == -1)
+    x += xVel;
+else
+    xVel = -xVel;
+
+if (tile_layer_find(LAYER_FG, x, y + yVel) == -1)
+    y += yVel;
+else
+    yVel = -yVel;
+
+
 </string>
           </argument>
         </arguments>
