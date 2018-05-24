@@ -57,8 +57,13 @@ for (var i = 0; i < ds_list_size(objects); i++) {
     
     switch(obj_type) {
         case "player":
-            instance_create(obj_x, obj_y, objPlayer);
-            
+            instance_create(obj_x + 8, obj_y + 8, objPlayer);
+        break;
+        case "door":
+            var door = instance_create(obj_x, obj_y, objDoor);
+            door.tx = real(ds_map_find_value(obj, "tx"));
+            door.ty = real(ds_map_find_value(obj, "ty"));
+            door.target = ds_map_find_value(obj, "target");
         break;
     }
 }
