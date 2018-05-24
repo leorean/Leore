@@ -5,7 +5,7 @@
   </Configs>
   <datafiles number="1" name="datafiles">
     <datafile>
-      <name>map0.tmx</name>
+      <name>map_test.tmx</name>
       <exists>-1</exists>
       <size>1004</size>
       <exportAction>2</exportAction>
@@ -19,7 +19,7 @@
           <CopyToMask>9223372036854775807</CopyToMask>
         </Config>
       </ConfigOptions>
-      <filename>map0.tmx</filename>
+      <filename>map_test.tmx</filename>
     </datafile>
   </datafiles>
   <NewExtensions/>
@@ -42,11 +42,14 @@
     <object>objects\objControl</object>
     <object>objects\objSolid</object>
     <object>objects\objPlayer</object>
+    <object>objects\objCamera</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\GAME</room>
   </rooms>
-  <constants number="5">
+  <constants number="7">
+    <constant name="WIDTH">688</constant>
+    <constant name="HEIGHT">384</constant>
     <constant name="TILE">16</constant>
     <constant name="LAYER_BG">100</constant>
     <constant name="LAYER_WATER">98</constant>

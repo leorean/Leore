@@ -55,7 +55,7 @@ while (!file_text_eof(file))
         {
             l++;
             j = 0;
-            if (l > deep) break; // 0..BG, 1..FG, 2..WATER, 3..TOP, 4..OBJ
+            if (l > deep + 1) break; // 0..BG, 1..FG, 2..WATER, 3..TOP, 4..OBJ
         }
     }
     
