@@ -28,17 +28,22 @@
             <string>animation_tile_index = 0;
 animation_direction = RIGHT;
 
-//animation_tiles = tile_get_ids_at_depth(LAYER_WATER);
-
 var all_tiles = tile_get_ids();
 var l = 0;
+var animated_indices = array(658, 705);
+
 for (var i = 0; i &lt; array_length_1d(all_tiles); i++) {
-    var t = all_tiles[i];    
-    var a = getTileCoordinatesForIndex(658);
+    var t = all_tiles[i];
     
-    if (tile_get_left(t) == a[0] &amp;&amp; tile_get_top(t) == a[1]) {
-        animation_tiles[l] = t;        
-        l++;
+    for (var j = 0; j &lt; array_length_1d(animated_indices); j++) {
+        var a = getTileCoordinatesForIndex(animated_indices[j]);
+        
+        show_debug_message(string(a[0]) + ", " + string(a[1]));
+        
+        if (tile_get_left(t) == a[0] &amp;&amp; tile_get_top(t) == a[1]) {
+            animation_tiles[l] = t;       
+            l++;
+        }
     }
 }
 
