@@ -27,12 +27,51 @@
             <kind>1</kind>
             <string>instance_create(x, y, objCamera);
 
-mx = x;
-my = y;
+mx[0] = x;
+my[0] = y;
+mx[1] = x;
+my[1] = y;
+
 xVel = 0;
 yVel = 0;
 
-hold = false;
+isHold = false;
+
+dir = DOWN;
+angle = 270;
+spd = 1;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>up = keyboard_check(vk_up);
+down = keyboard_check(vk_down);
+left = keyboard_check(vk_left);
+right = keyboard_check(vk_right);
+
+up = (up &amp;&amp; !down);
+down = (!up &amp;&amp; down);
+left = (left &amp;&amp; !right);
+right = (!left &amp;&amp; right);
+
 </string>
           </argument>
         </arguments>
@@ -55,42 +94,88 @@ hold = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/*if (mouse_check_button(mb_left)) {
-    x = mouse_x;
-    y = mouse_y;
+            <string>/*if (left) {
+    dir = LEFT;
+    xVel = -spd;    
+} else if (right) {
+    dir = RIGHT;
+    xVel = spd;
+} else {
+    xVel = 0;
+}
+
+if (up) {
+    dir = UP;
+    yVel = -spd;    
+} else if (down) {
+    dir = DOWN;
+    yVel = spd;
+} else {
+    yVel = 0;
 }*/
 
-if (!hold &amp;&amp; mouse_check_button_pressed(mb_left)) {
-    mx = x;
-    my = y;
-    hold = true;
+if (!isHold &amp;&amp; mouse_check_button_pressed(mb_left)) {
+    mx[0] = window_view_mouse_get_x(0);
+    my[0] = window_view_mouse_get_y(0);
+    isHold = true;
 }
 
-if (hold &amp;&amp; mouse_check_button_released(mb_left)) {
-    angle = point_direction(mx, my, mouse_x, mouse_y);
-    vel = min(point_distance(mx, my, mouse_x, mouse_y) / 32, 6);
-    
-    xVel = lengthdir_x(vel, angle);
-    yVel = lengthdir_y(vel, angle);
-    
-    hold = false;
+if (isHold) {
+    mx[1] = window_view_mouse_get_x(0);
+    my[1] = window_view_mouse_get_y(0);
+
+    if (mouse_check_button_released(mb_left)) {
+        angle = point_direction(mx[0], my[0], mx[1], my[1]);
+        vel = min(point_distance(mx[0], my[0], mx[1], my[1]) / 32, 6);
+        
+        xVel = lengthdir_x(vel, angle);
+        yVel = lengthdir_y(vel, angle);
+        
+        isHold = false;
+    }
 }
 
-xVel *= .985;
-yVel *= .985;
-angle = point_direction(x, y, x + xVel, y + yVel);
+if (!isHold) {
+    xVel *= .985;
+    yVel *= .985;
+} else {
+    xVel *= .9;
+    yVel *= .9;
+}
+/*
+if (abs(xVel) &gt; 0 || abs(yVel) &gt; 0)
+    angle = point_direction(x, y, x + xVel, y + yVel);
 
-if (tile_layer_find(LAYER_FG, x + xVel, y) == -1)
+var collision_x = false;
+var collision_y = false;
+for (var col_x = -8; col_x &lt;=8; col_x++) {
+    for (var col_y = -8; col_y &lt;=8; col_y++) {
+        if (!collision_x &amp;&amp; tile_layer_find(LAYER_FG, x + col_x + xVel, y)) {
+            collision_x = true;
+        }
+        if (!collision_y &amp;&amp; tile_layer_find(LAYER_FG, x, y + col_y + yVel)) {
+            collision_y = true;
+        }
+    }
+}*/
+
+if (!place_meeting(x + xVel, y, objSolid)) {
     x += xVel;
-else
+} else {
     xVel = -xVel;
-
-if (tile_layer_find(LAYER_FG, x, y + yVel) == -1)
+}
+if (!place_meeting(x, y + yVel, objSolid)) {
     y += yVel;
-else
+} else {
     yVel = -yVel;
-
-
+}
+/*
+for (var a = 0; a &lt; 360; a++) {
+    if (tile_layer_find(LAYER_FG, x + lengthdir_x(4, a), y + lengthdir_y(4, a))) {
+        x -= lengthdir_x(4, a);
+        y -= lengthdir_y(4, a);        
+    }
+}*/
 </string>
           </argument>
         </arguments>

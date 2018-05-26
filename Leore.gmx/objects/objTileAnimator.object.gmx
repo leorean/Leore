@@ -30,15 +30,16 @@ animation_direction = RIGHT;
 
 var all_tiles = tile_get_ids();
 var l = 0;
-var animated_indices = array(658, 705);
+var animated_indices = array(
+658, // flower
+705, 752, 799, 846, 893, 940, 987, 1034, 1081, 1128, 1175, 1222 // water
+);
 
 for (var i = 0; i &lt; array_length_1d(all_tiles); i++) {
     var t = all_tiles[i];
     
     for (var j = 0; j &lt; array_length_1d(animated_indices); j++) {
         var a = getTileCoordinatesForIndex(animated_indices[j]);
-        
-        show_debug_message(string(a[0]) + ", " + string(a[1]));
         
         if (tile_get_left(t) == a[0] &amp;&amp; tile_get_top(t) == a[1]) {
             animation_tiles[l] = t;       

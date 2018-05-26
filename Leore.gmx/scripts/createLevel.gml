@@ -35,7 +35,7 @@ for (var i = 0; i<w; i ++)
             addTile(bg, i*TILE, j*TILE, LAYER_BG);
         if (fg > 0) {//fg tiles (+ solid)
             addTile(fg, i*TILE, j*TILE, LAYER_FG);
-            //instance_create(i*TILE, j*TILE, objSolid); <- handling collision by tile finding?
+            instance_create(i*TILE, j*TILE, objSolid); // <- handling collision by tile finding?
         }
         if (water > 0) {//water tiles
             var t = addTile(water, i*TILE, j*TILE, LAYER_WATER);

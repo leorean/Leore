@@ -60,6 +60,10 @@ if (keyboard_check_pressed(ord('R'))) room_restart();
 global.timer = (global.timer + 1) % 900000000000;
 
 
+var b = TILE;
+instance_deactivate_object(objSolid);
+instance_activate_region(view_xview[0] - b, view_yview[0] - b, view_wview[0] + 2*b, view_hview[0] + 2*b, true);
+
 /*for (var i = 0; i &lt; room_width; i+= TILE) {
 for (var j = 0; j &lt; room_height; j+= TILE) {
     var t = tile_layer_find(LAYER_WATER, i, j);

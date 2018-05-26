@@ -57,13 +57,15 @@ h = HEIGHT / 2;
             <string>if (!instance_exists(objPlayer))
     exit;
     
-if (max(abs(objPlayer.x - x), abs(objPlayer.y - y)) &gt; 2)
-{
-    xVel = (objPlayer.x - x) / 16;
-    yVel = (objPlayer.y - y) / 16;
-    _x += xVel;
-    _y += yVel;
-}
+xVel = (objPlayer.x - x) / 16;
+yVel = (objPlayer.y - y) / 16;
+
+if (abs(xVel) &lt; .5) xVel = 0;
+if (abs(yVel) &lt; .5) yVel = 0;
+
+_x += xVel;
+_y += yVel;
+
 x = round(_x);
 y = round(_y);
 </string>
