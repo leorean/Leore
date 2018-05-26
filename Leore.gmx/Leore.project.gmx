@@ -47,6 +47,8 @@
     <sprite>sprites\mskPlayer</sprite>
     <sprite>sprites\mskDoor</sprite>
     <sprite>sprites\sprPlayer</sprite>
+    <sprite>sprites\sprVector</sprite>
+    <sprite>sprites\sprShadow</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>
@@ -63,10 +65,10 @@
   <objects name="objects">
     <object>objects\objSolid</object>
     <objects name="Misc">
+      <object>objects\objControl</object>
       <object>objects\objCamera</object>
       <object>objects\objPlayer</object>
       <object>objects\objDoor</object>
-      <object>objects\objControl</object>
       <object>objects\objTileAnimator</object>
     </objects>
   </objects>

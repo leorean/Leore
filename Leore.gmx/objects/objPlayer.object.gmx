@@ -34,9 +34,15 @@ my[1] = y;
 
 xVel = 0;
 yVel = 0;
+zVel = 0;
+zGrav = .1;
+z = 0;
 maxVel = 6;
+xBeforeWater = x;
+yBeforeWater = y;
 
 isHold = false;
+inWater = false;
 
 angle = 270;
 spd = 1;
@@ -46,6 +52,7 @@ fCur = 0;
 frame = 0;
 fSpeed = 0;
 dir = DOWN;
+row = 0;
 
 </string>
           </argument>
@@ -101,27 +108,7 @@ right = (!left &amp;&amp; right);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/*if (left) {
-    dir = LEFT;
-    xVel = -spd;    
-} else if (right) {
-    dir = RIGHT;
-    xVel = spd;
-} else {
-    xVel = 0;
-}
-
-if (up) {
-    dir = UP;
-    yVel = -spd;    
-} else if (down) {
-    dir = DOWN;
-    yVel = spd;
-} else {
-    yVel = 0;
-}*/
-
-if (!isHold &amp;&amp; mouse_check_button_pressed(mb_left)) {
+            <string>if (!isHold &amp;&amp; mouse_check_button_pressed(mb_left)) {
     mx[0] = device_mouse_x_to_gui(0);
     my[0] = device_mouse_y_to_gui(0);
     isHold = true;
@@ -129,7 +116,7 @@ if (!isHold &amp;&amp; mouse_check_button_pressed(mb_left)) {
 }
 
 if (isHold) {
-    fSpeed = min(fSpeed + .1, .6);
+    show_debug_message(fSpeed);
     mx[1] = device_mouse_x_to_gui(0);
     my[1] = device_mouse_y_to_gui(0);
     angle = point_direction(mx[0], my[0], mx[1], my[1]);
@@ -141,41 +128,60 @@ if (isHold) {
         yVel = lengthdir_y(vel, angle);             
         isHold = false;
     }
+} else {
+    if (max(abs(xVel), abs(yVel)) &gt; .2) {
+        angle = point_direction(x, y, x + xVel, y + yVel);
+    }
 }
 
+inWater = tile_layer_find(LAYER_WATER, x + lengthdir_x(8, angle), y + lengthdir_y(8, angle));
+
 if (state == ROLL) {
-    fSpeed = .6 * sqrt(abs(xVel) + abs(yVel)) / maxVel;
     if (abs(xVel) &lt;= .1 &amp;&amp; abs(yVel) &lt;= .1) 
-    if (!isHold) {
-        fSpeed = .1;
-        state = IDLE;
+    {
+        if (!isHold) {
+            state = IDLE;
+        }
+    } else {
+        fSpeed = .6 * sqrt(abs(xVel) + abs(yVel)) / maxVel;
+    }
+}
+
+if (max(abs(xVel), abs(yVel)) &gt; .2) {
+    if (abs(xVel) &gt; abs(yVel)) {
+        dir = sign(xVel);
+    } else {
+        dir = 2*sign(yVel);
     }
 }
 
 if (!isHold) {
     xVel *= .985;
     yVel *= .985;
+    fSpeed = max(.1, .6 * sqrt(abs(xVel) + abs(yVel)) / maxVel);
 } else {
     xVel *= .9;
     yVel *= .9;
+    fSpeed = max(.1, .6 * vel / maxVel);
 }
-/*
-if (abs(xVel) &gt; 0 || abs(yVel) &gt; 0)
-    angle = point_direction(x, y, x + xVel, y + yVel);
 
-var collision_x = false;
-var collision_y = false;
-for (var col_x = -8; col_x &lt;=8; col_x++) {
-    for (var col_y = -8; col_y &lt;=8; col_y++) {
-        if (!collision_x &amp;&amp; tile_layer_find(LAYER_FG, x + col_x + xVel, y)) {
-            collision_x = true;
-        }
-        if (!collision_y &amp;&amp; tile_layer_find(LAYER_FG, x, y + col_y + yVel)) {
-            collision_y = true;
-        }
+if (inWater) {
+    xVel *= .9;
+    yVel *= .9;
+    
+    if (sqrt(abs(xVel) + abs(yVel)) &lt; .3) {
+        // Drown!
+        xVel = 0;
+        yVel = 0;
+        x = xBeforeWater;
+        y = yBeforeWater;
     }
-}*/
+} else {
+    xBeforeWater = x - xVel;
+    yBeforeWater = y - yVel;    
+}
 
+// collision
 if (!place_meeting(x + xVel, y, objSolid)) {
     x += xVel;
 } else {
@@ -186,13 +192,6 @@ if (!place_meeting(x, y + yVel, objSolid)) {
 } else {
     yVel = -yVel;
 }
-/*
-for (var a = 0; a &lt; 360; a++) {
-    if (tile_layer_find(LAYER_FG, x + lengthdir_x(4, a), y + lengthdir_y(4, a))) {
-        x -= lengthdir_x(4, a);
-        y -= lengthdir_y(4, a);        
-    }
-}*/
 </string>
           </argument>
         </arguments>
@@ -226,20 +225,35 @@ for (var a = 0; a &lt; 360; a++) {
     break;
 }
 
-draw_sprite_part(sprPlayer, -1, frame*32, 0, 32, 32, x - 16, y - 16);
+switch(dir) {
+    case UP:
+        row = 1;
+    break;
+    case DOWN:
+        row = 0;
+    break;
+    case LEFT:
+        row = 3;
+    break;
+    case RIGHT:
+        row = 2;
+    break;
+}
+
+draw_sprite_ext(sprShadow, -1, x, y, 1, 1, 0, c_white, .3);
+draw_sprite_part(sprPlayer, -1, frame*32, row * 32, 32, 32, x - 16, y - 16);
 
 if (isHold) {
-    var v = vel / maxVel * 64;
-    var seg = 18;
-    var color = make_color_hsv(80 - 80 * vel / maxVel, 255, 255);
-    draw_set_color(color);
-    for(var i = 0; i &lt; seg; i+= 3) {
-        draw_circle(x + lengthdir_x(i * v / seg, angle),
-                    y + lengthdir_y(i * v / seg, angle),
-                    2, 0);
-        //draw_line_width(x, y, x + lengthdir_x(v, angle), y + lengthdir_y(v, angle), 2);        
+    if (vel &gt; .05) {
+        var v = vel / maxVel * 64;
+        var seg = 18;
+        var color = make_color_hsv(80 - 80 * vel / maxVel, 255, 255);
+        for(var i = 0; i &lt;= seg; i+= 3) {
+            draw_sprite_ext(sprVector, 0 + (i == seg),
+            x + lengthdir_x(i * v / seg, angle),
+            y + lengthdir_y(i * v / seg, angle), 1, 1, angle, color, 1);
+        }
     }
-    draw_set_color(c_white);
 }
 </string>
           </argument>

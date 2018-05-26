@@ -103,7 +103,7 @@ instance_create(0, 0, objTileAnimator);
 
 global.timer = 0;
 
-surface_resize(application_surface, WIDTH, HEIGHT);
+surface_resize(application_surface, 2*WIDTH, 2*HEIGHT);
 window_center();
 window_set_size(2*WIDTH, 2*HEIGHT);
 
