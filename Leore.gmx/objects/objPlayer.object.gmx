@@ -34,12 +34,19 @@ my[1] = y;
 
 xVel = 0;
 yVel = 0;
+maxVel = 6;
 
 isHold = false;
 
-dir = DOWN;
 angle = 270;
 spd = 1;
+
+state = IDLE;
+fCur = 0;
+frame = 0;
+fSpeed = 0;
+dir = DOWN;
+
 </string>
           </argument>
         </arguments>
@@ -115,23 +122,33 @@ if (up) {
 }*/
 
 if (!isHold &amp;&amp; mouse_check_button_pressed(mb_left)) {
-    mx[0] = window_view_mouse_get_x(0);
-    my[0] = window_view_mouse_get_y(0);
+    mx[0] = device_mouse_x_to_gui(0);
+    my[0] = device_mouse_y_to_gui(0);
     isHold = true;
+    state = ROLL;
 }
 
 if (isHold) {
-    mx[1] = window_view_mouse_get_x(0);
-    my[1] = window_view_mouse_get_y(0);
+    fSpeed = min(fSpeed + .1, .6);
+    mx[1] = device_mouse_x_to_gui(0);
+    my[1] = device_mouse_y_to_gui(0);
+    angle = point_direction(mx[0], my[0], mx[1], my[1]);
+    vel = min(point_distance(mx[0], my[0], mx[1], my[1]) / 64, maxVel);
 
     if (mouse_check_button_released(mb_left)) {
-        angle = point_direction(mx[0], my[0], mx[1], my[1]);
-        vel = min(point_distance(mx[0], my[0], mx[1], my[1]) / 32, 6);
         
         xVel = lengthdir_x(vel, angle);
-        yVel = lengthdir_y(vel, angle);
-        
+        yVel = lengthdir_y(vel, angle);             
         isHold = false;
+    }
+}
+
+if (state == ROLL) {
+    fSpeed = .6 * sqrt(abs(xVel) + abs(yVel)) / maxVel;
+    if (abs(xVel) &lt;= .1 &amp;&amp; abs(yVel) &lt;= .1) 
+    if (!isHold) {
+        fSpeed = .1;
+        state = IDLE;
     }
 }
 
@@ -176,6 +193,54 @@ for (var a = 0; a &lt; 360; a++) {
         y -= lengthdir_y(4, a);        
     }
 }*/
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>switch(state) {
+    case IDLE:
+        fCur = (fCur + fSpeed) % 2;
+        frame = floor(fCur);
+    break;
+    case ROLL:
+        fCur = (fCur + fSpeed) % 4;
+        frame = 2 + floor(fCur);
+    break;
+}
+
+draw_sprite_part(sprPlayer, -1, frame*32, 0, 32, 32, x - 16, y - 16);
+
+if (isHold) {
+    var v = vel / maxVel * 64;
+    var seg = 18;
+    var color = make_color_hsv(80 - 80 * vel / maxVel, 255, 255);
+    draw_set_color(color);
+    for(var i = 0; i &lt; seg; i+= 3) {
+        draw_circle(x + lengthdir_x(i * v / seg, angle),
+                    y + lengthdir_y(i * v / seg, angle),
+                    2, 0);
+        //draw_line_width(x, y, x + lengthdir_x(v, angle), y + lengthdir_y(v, angle), 2);        
+    }
+    draw_set_color(c_white);
+}
 </string>
           </argument>
         </arguments>

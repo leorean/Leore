@@ -46,6 +46,7 @@
     <sprite>sprites\mskSolid</sprite>
     <sprite>sprites\mskPlayer</sprite>
     <sprite>sprites\mskDoor</sprite>
+    <sprite>sprites\sprPlayer</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>
@@ -72,7 +73,7 @@
   <rooms name="rooms">
     <room>rooms\GAME</room>
   </rooms>
-  <constants number="11">
+  <constants number="13">
     <constant name="WIDTH">688</constant>
     <constant name="HEIGHT">416</constant>
     <constant name="TILE">16</constant>
@@ -84,6 +85,8 @@
     <constant name="RIGHT">1</constant>
     <constant name="UP">-2</constant>
     <constant name="DOWN">2</constant>
+    <constant name="IDLE">0</constant>
+    <constant name="ROLL">1</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>
