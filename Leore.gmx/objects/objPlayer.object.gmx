@@ -108,7 +108,9 @@ right = (!left &amp;&amp; right);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (!inWater) {
+            <string>if (keyboard_check_pressed(vk_space)) { zVel = -2; }
+
+if (!inWater) {
     if (!isHold &amp;&amp; mouse_check_button_pressed(mb_left)) {
         mx[0] = device_mouse_x_to_gui(0);
         my[0] = device_mouse_y_to_gui(0);
@@ -172,7 +174,7 @@ inWater = z == 0 &amp;&amp; tile_layer_find(LAYER_WATER, x + xVel, y + yVel);
 if (inWater) {
     xVel *= .9;
     yVel *= .9;
-    
+        
     if (sqrt(abs(xVel) + abs(yVel)) &lt; .3) {
         // Drown!
         xVel = 0;
@@ -194,15 +196,11 @@ if (z &gt;= 0) {
 if (!place_meeting(x + xVel, y, objSolid)) {
     x += xVel;
 } else {
-    if (zVel == 0)
-        zVel = min(zVel, -2 * abs(xVel) / maxVel);
     xVel = -xVel;
 }
 if (!place_meeting(x, y + yVel, objSolid)) {
     y += yVel;
 } else {
-    if (zVel == 0)
-        zVel = min(zVel, -2 * abs(yVel) / maxVel);
     yVel = -yVel;
 }
 </string>
