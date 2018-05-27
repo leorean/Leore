@@ -35,11 +35,11 @@ my[1] = y;
 xVel = 0;
 yVel = 0;
 zVel = 0;
-zGrav = .1;
+zGrav = .15;
 z = 0;
 maxVel = 6;
-xBeforeWater = x;
-yBeforeWater = y;
+xPrev = x;
+yPrev = y;
 
 isHold = false;
 inWater = false;
@@ -108,15 +108,17 @@ right = (!left &amp;&amp; right);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (!isHold &amp;&amp; mouse_check_button_pressed(mb_left)) {
-    mx[0] = device_mouse_x_to_gui(0);
-    my[0] = device_mouse_y_to_gui(0);
-    isHold = true;
-    state = ROLL;
+            <string>if (!inWater) {
+    if (!isHold &amp;&amp; mouse_check_button_pressed(mb_left)) {
+        mx[0] = device_mouse_x_to_gui(0);
+        my[0] = device_mouse_y_to_gui(0);
+        isHold = true;
+        state = ROLL;
+        xPrev = x;
+        yPrev = y;
+    }
 }
-
 if (isHold) {
-    show_debug_message(fSpeed);
     mx[1] = device_mouse_x_to_gui(0);
     my[1] = device_mouse_y_to_gui(0);
     angle = point_direction(mx[0], my[0], mx[1], my[1]);
@@ -133,9 +135,6 @@ if (isHold) {
         angle = point_direction(x, y, x + xVel, y + yVel);
     }
 }
-
-inWater = tile_layer_find(LAYER_WATER, x + lengthdir_x(8, angle), y + lengthdir_y(8, angle));
-
 if (state == ROLL) {
     if (abs(xVel) &lt;= .1 &amp;&amp; abs(yVel) &lt;= .1) 
     {
@@ -153,6 +152,9 @@ if (max(abs(xVel), abs(yVel)) &gt; .2) {
     } else {
         dir = 2*sign(yVel);
     }
+} else {
+    xVel = 0;
+    yVel = 0;
 }
 
 if (!isHold) {
@@ -165,6 +167,8 @@ if (!isHold) {
     fSpeed = max(.1, .6 * vel / maxVel);
 }
 
+inWater = z == 0 &amp;&amp; tile_layer_find(LAYER_WATER, x + xVel, y + yVel);
+
 if (inWater) {
     xVel *= .9;
     yVel *= .9;
@@ -173,23 +177,32 @@ if (inWater) {
         // Drown!
         xVel = 0;
         yVel = 0;
-        x = xBeforeWater;
-        y = yBeforeWater;
+        x = xPrev;
+        y = yPrev;
     }
-} else {
-    xBeforeWater = x - xVel;
-    yBeforeWater = y - yVel;    
+}
+
+
+zVel += zGrav;
+z += zVel;
+if (z &gt;= 0) {
+    z = 0;
+    zVel = 0;
 }
 
 // collision
 if (!place_meeting(x + xVel, y, objSolid)) {
     x += xVel;
 } else {
+    if (zVel == 0)
+        zVel = min(zVel, -2 * abs(xVel) / maxVel);
     xVel = -xVel;
 }
 if (!place_meeting(x, y + yVel, objSolid)) {
     y += yVel;
 } else {
+    if (zVel == 0)
+        zVel = min(zVel, -2 * abs(yVel) / maxVel);
     yVel = -yVel;
 }
 </string>
@@ -216,12 +229,12 @@ if (!place_meeting(x, y + yVel, objSolid)) {
             <kind>1</kind>
             <string>switch(state) {
     case IDLE:
-        fCur = (fCur + fSpeed) % 2;
+        fCur = (fCur + fSpeed) % 4;
         frame = floor(fCur);
     break;
     case ROLL:
         fCur = (fCur + fSpeed) % 4;
-        frame = 2 + floor(fCur);
+        frame = 4 + floor(fCur);
     break;
 }
 
@@ -241,7 +254,7 @@ switch(dir) {
 }
 
 draw_sprite_ext(sprShadow, -1, x, y, 1, 1, 0, c_white, .3);
-draw_sprite_part(sprPlayer, -1, frame*32, row * 32, 32, 32, x - 16, y - 16);
+draw_sprite_part(sprPlayer, -1, frame*32, row * 32, 32, 32, x - 16, y - 16 + z);
 
 if (isHold) {
     if (vel &gt; .05) {
