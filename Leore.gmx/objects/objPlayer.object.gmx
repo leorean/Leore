@@ -54,6 +54,10 @@ fSpeed = 0;
 dir = DOWN;
 row = 0;
 
+hp = 3;
+drown = false;
+drownTimer = 0;
+maxDrownTimer = 40;
 </string>
           </argument>
         </arguments>
@@ -110,7 +114,20 @@ right = (!left &amp;&amp; right);
             <kind>1</kind>
             <string>if (keyboard_check_pressed(vk_space)) { zVel = -2; }
 
-if (!inWater) {
+if(drown) {
+    drownTimer = max(drownTimer - 1, 0);
+    if (!drownTimer) {
+    
+        if (inWater) {
+            x = xPrev;
+            y = yPrev;
+        }
+    
+        drown = false;
+    }
+}
+
+if (!inWater &amp;&amp; !drown) {
     if (!isHold &amp;&amp; mouse_check_button_pressed(mb_left)) {
         mx[0] = device_mouse_x_to_gui(0);
         my[0] = device_mouse_y_to_gui(0);
@@ -172,15 +189,20 @@ if (!isHold) {
 inWater = z == 0 &amp;&amp; tile_layer_find(LAYER_WATER, x + xVel, y + yVel);
 
 if (inWater) {
+    
+    isHold = false;
+    
     xVel *= .9;
     yVel *= .9;
-        
+    
     if (sqrt(abs(xVel) + abs(yVel)) &lt; .3) {
         // Drown!
-        xVel = 0;
-        yVel = 0;
-        x = xPrev;
-        y = yPrev;
+        if (!drown) {
+            drown = true;
+            drownTimer = maxDrownTimer;
+            xVel = 0;
+            yVel = 0;
+        }
     }
 }
 
@@ -251,8 +273,18 @@ switch(dir) {
     break;
 }
 
-draw_sprite_ext(sprShadow, -1, x, y, 1, 1, 0, c_white, .3);
-draw_sprite_part(sprPlayer, -1, frame*32, row * 32, 32, 32, x - 16, y - 16 + z);
+if (!inWater)
+    draw_sprite_ext(sprShadow, -1, x, y, 1, 1, 0, c_white, .3);
+if (!drown || !inWater) {
+    draw_sprite_part(sprPlayer, -1, frame*32, row * 32, 32, 32, x - 16, y - 16 + z);
+}
+
+if (inWater) {
+    if (!drown)
+        draw_sprite(sprWaterShadow, 0, x, y);
+    else
+        draw_sprite(sprDrown, floor(4 * (maxDrownTimer - drownTimer) / maxDrownTimer), x, y);
+}
 
 if (isHold) {
     if (vel &gt; .05) {

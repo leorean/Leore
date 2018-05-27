@@ -49,6 +49,8 @@
     <sprite>sprites\sprPlayer</sprite>
     <sprite>sprites\sprVector</sprite>
     <sprite>sprites\sprShadow</sprite>
+    <sprite>sprites\sprWaterShadow</sprite>
+    <sprite>sprites\sprDrown</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>
