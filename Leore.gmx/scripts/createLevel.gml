@@ -33,9 +33,9 @@ for (var i = 0; i<w; i ++)
 
         if (bg > 0) //bg tiles
             addTile(bg, i*TILE, j*TILE, LAYER_BG);
-        if (fg > 0) {//fg tiles (+ solid)
+        if (fg >= global.TW) {//fg tiles (+ solid)
             addTile(fg, i*TILE, j*TILE, LAYER_FG);
-            instance_create(i*TILE, j*TILE, objSolid); // <- handling collision by tile finding?
+            instance_create(i*TILE, j*TILE, objSolid);
         }
         if (water > 0) {//water tiles
             var t = addTile(water, i*TILE, j*TILE, LAYER_WATER);
@@ -44,6 +44,9 @@ for (var i = 0; i<w; i ++)
         
         if (top > 0) //top tiles
             addTile(top, i*TILE, j*TILE, LAYER_TOP);
+            
+        if (fg == 0)
+            var bush = instance_create(i*TILE, j*TILE, objBush);
     }
 }
 
@@ -65,5 +68,7 @@ for (var i = 0; i < ds_list_size(objects); i++) {
             door.ty = real(ds_map_find_value(obj, "ty"));
             door.target = ds_map_find_value(obj, "target");
         break;
+        /*case "bush":
+            var bush = instance_create(obj_x, obj_y, objBush);*/
     }
 }

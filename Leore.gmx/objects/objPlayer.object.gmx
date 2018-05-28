@@ -32,17 +32,19 @@ my[0] = y;
 mx[1] = x;
 my[1] = y;
 
-xVel = 0;
-yVel = 0;
+
 zVel = 0;
 zGrav = .15;
 z = 0;
+
+vel = 0;
 maxVel = 6;
 xPrev = x;
 yPrev = y;
 
 isHold = false;
 inWater = false;
+canDestroy = false;
 
 angle = 270;
 spd = 1;
@@ -113,6 +115,7 @@ right = (!left &amp;&amp; right);
           <argument>
             <kind>1</kind>
             <string>if (keyboard_check_pressed(vk_space)) { zVel = -2; }
+if (keyboard_check_pressed(ord('A'))) { vel = 10; }
 
 if(drown) {
     drownTimer = max(drownTimer - 1, 0);
@@ -127,8 +130,18 @@ if(drown) {
     }
 }
 
-if (!inWater &amp;&amp; !drown) {
+if (z == 0 &amp;&amp; !isHold &amp;&amp; mouse_check_button(mb_left)) {
+    if (vel &gt; .5)
+        vel *= .95;
+    else
+        vel = 0;
+}
+
+canDestroy = (!isHold &amp;&amp; !inWater &amp;&amp; vel &gt; maxVel * .5);
+
+if (!inWater &amp;&amp; !drown &amp;&amp; state == IDLE) {
     if (!isHold &amp;&amp; mouse_check_button_pressed(mb_left)) {
+        mouse_clear(mb_left);
         mx[0] = device_mouse_x_to_gui(0);
         my[0] = device_mouse_y_to_gui(0);
         isHold = true;
@@ -144,64 +157,53 @@ if (isHold) {
     vel = min(point_distance(mx[0], my[0], mx[1], my[1]) / 64, maxVel);
 
     if (mouse_check_button_released(mb_left)) {
-        
+    
         xVel = lengthdir_x(vel, angle);
         yVel = lengthdir_y(vel, angle);             
         isHold = false;
     }
-} else {
-    if (max(abs(xVel), abs(yVel)) &gt; .2) {
-        angle = point_direction(x, y, x + xVel, y + yVel);
-    }
 }
+
 if (state == ROLL) {
-    if (abs(xVel) &lt;= .1 &amp;&amp; abs(yVel) &lt;= .1) 
+    if (vel &lt; .1) 
     {
         if (!isHold &amp;&amp; z == 0) {
             state = IDLE;
         }
     } else {
-        fSpeed = .6 * sqrt(abs(xVel) + abs(yVel)) / maxVel;
+        fSpeed = .6 * vel / maxVel;
     }
 }
 
-if (max(abs(xVel), abs(yVel)) &gt; .2) {
-    if (abs(xVel) &gt; abs(yVel)) {
-        dir = sign(xVel);
+if (vel &gt; .2) {
+    if (abs(lengthdir_x(1, angle)) &gt; abs(lengthdir_y(1, angle))) {
+        dir = sign(lengthdir_x(1, angle));
     } else {
-        dir = 2*sign(yVel);
+        dir = 2*sign(lengthdir_y(1, angle));
     }
-} else {
-    xVel = 0;
-    yVel = 0;
+} else
+{
+    vel = 0;
 }
+
+fSpeed = max(.1, .6 * vel / maxVel);
 
 if (!isHold) {
-    xVel *= .985;
-    yVel *= .985;
-    fSpeed = max(.1, .6 * sqrt(abs(xVel) + abs(yVel)) / maxVel);
-} else {
-    xVel *= .9;
-    yVel *= .9;
-    fSpeed = max(.1, .6 * vel / maxVel);
+    vel *= .985;
 }
 
-inWater = z == 0 &amp;&amp; tile_layer_find(LAYER_WATER, x + xVel, y + yVel);
+inWater = z == 0 &amp;&amp; tile_layer_find(LAYER_WATER, x, y);
 
 if (inWater) {
-    
     isHold = false;
+    vel *= .93;
     
-    xVel *= .93;
-    yVel *= .93;
-    
-    if (sqrt(abs(xVel) + abs(yVel)) &lt; .3) {
+    if (vel &lt; .3) {
         // Drown!
         if (!drown) {
             drown = true;
             drownTimer = maxDrownTimer;
-            xVel = 0;
-            yVel = 0;
+            vel = 0;
         }
     }
 }
@@ -214,16 +216,29 @@ if (z + zVel &gt;= 0) {
 }
 z = min(z, 0);
 
-// collision
-if (!place_meeting(x + xVel, y, objSolid)) {
-    x += xVel;
-} else {
-    xVel = -xVel;
+var bush = instance_place(x, y, objBush);
+
+if (instance_exists(bush) &amp;&amp; !bush.destroyed) {
+    if (canDestroy) {
+        bush.destroyed = true;
+    } else {        
+        angle = point_direction(bush.x + 8, bush.y + 8, x, y);
+        zVel = -1;
+    }
 }
-if (!place_meeting(x, y + yVel, objSolid)) {
-    y += yVel;
-} else {
-    yVel = -yVel;
+
+// collision
+if (!isHold) {
+    if (!place_meeting(x + lengthdir_x(vel, angle), y, objSolid)) {
+        x += lengthdir_x(vel, angle);
+    } else {
+        angle = point_direction(0, 0, -lengthdir_x(vel, angle), lengthdir_y(vel, angle));
+    }
+    if (!place_meeting(x, y + lengthdir_y(vel, angle), objSolid)) {
+        y += lengthdir_y(vel, angle);    
+    } else {
+        angle = point_direction(0, 0, lengthdir_x(vel, angle), -lengthdir_y(vel, angle));
+    }
 }
 </string>
           </argument>
@@ -277,6 +292,15 @@ if (!inWater)
     draw_sprite_ext(sprShadow, -1, x, y, 1, 1, 0, c_white, .3);
 if (!drown || !inWater) {
     draw_sprite_part(sprPlayer, -1, frame*32, row * 32, 32, 32, x - 16, y - 16 + z);
+
+    // fireball effect
+    if (!isHold) {
+        if(canDestroy) {
+            var al = vel / maxVel;
+            draw_sprite_ext(sprPlayerFireBall, -1, x, y + z, 1, 1, 0, c_white, al);
+        }
+    }
+
 }
 
 if (inWater) {

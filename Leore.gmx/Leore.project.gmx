@@ -42,15 +42,21 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
-    <sprite>sprites\mskControl</sprite>
-    <sprite>sprites\mskSolid</sprite>
-    <sprite>sprites\mskPlayer</sprite>
-    <sprite>sprites\mskDoor</sprite>
     <sprite>sprites\sprPlayer</sprite>
-    <sprite>sprites\sprVector</sprite>
-    <sprite>sprites\sprShadow</sprite>
-    <sprite>sprites\sprWaterShadow</sprite>
-    <sprite>sprites\sprDrown</sprite>
+    <sprites name="masks">
+      <sprite>sprites\mskDoor</sprite>
+      <sprite>sprites\mskControl</sprite>
+      <sprite>sprites\mskPlayer</sprite>
+      <sprite>sprites\mskSolid</sprite>
+    </sprites>
+    <sprites name="effects">
+      <sprite>sprites\sprDrown</sprite>
+      <sprite>sprites\sprPlayerFireBall</sprite>
+      <sprite>sprites\sprWaterShadow</sprite>
+      <sprite>sprites\sprShadow</sprite>
+      <sprite>sprites\sprVector</sprite>
+    </sprites>
+    <sprite>sprites\sprBush</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>
@@ -72,6 +78,7 @@
       <object>objects\objPlayer</object>
       <object>objects\objDoor</object>
       <object>objects\objTileAnimator</object>
+      <object>objects\objBush</object>
     </objects>
   </objects>
   <rooms name="rooms">
