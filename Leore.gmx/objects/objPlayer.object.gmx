@@ -157,7 +157,7 @@ if (isHold) {
 if (state == ROLL) {
     if (abs(xVel) &lt;= .1 &amp;&amp; abs(yVel) &lt;= .1) 
     {
-        if (!isHold) {
+        if (!isHold &amp;&amp; z == 0) {
             state = IDLE;
         }
     } else {
@@ -192,8 +192,8 @@ if (inWater) {
     
     isHold = false;
     
-    xVel *= .9;
-    yVel *= .9;
+    xVel *= .93;
+    yVel *= .93;
     
     if (sqrt(abs(xVel) + abs(yVel)) &lt; .3) {
         // Drown!
@@ -209,10 +209,10 @@ if (inWater) {
 
 zVel += zGrav;
 z += zVel;
-if (z &gt;= 0) {
-    z = 0;
-    zVel = 0;
+if (z + zVel &gt;= 0) {
+    zVel = -zVel * .5;
 }
+z = min(z, 0);
 
 // collision
 if (!place_meeting(x + xVel, y, objSolid)) {
@@ -281,7 +281,7 @@ if (!drown || !inWater) {
 
 if (inWater) {
     if (!drown)
-        draw_sprite(sprWaterShadow, 0, x, y);
+        draw_sprite_part(sprWaterShadow, -1, 32*floor((global.timer / 5) % 4), 0, 32, 32, x - 16, y - 16);
     else
         draw_sprite(sprDrown, floor(4 * (maxDrownTimer - drownTimer) / maxDrownTimer), x, y);
 }
