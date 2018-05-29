@@ -25,13 +25,14 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>angle = 0;
-vel = 1.5;
+            <string>angle = random(360);
+vel = .45 + random(.2);
 z = 0;
-zVel = -2;
-zGrav = .1;
+zVel = -1.5 - random(.3);
+zGrav = .15;
+frame = choose(0, 1);
 
-timer = 60;
+timer = 40;
 </string>
           </argument>
         </arguments>
@@ -54,14 +55,7 @@ timer = 60;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>angle = 0;
-vel = 1.5;
-z = 0;
-zVel = -2;
-zGrav = .1;
-
-
-draw_sprite_part(sprDestroyable, -1, frame*TILE, TILE, TILE, TILE, x, y + z);
+            <string>draw_sprite_part(sprDestroyable, -1, frame*TILE, TILE, TILE, TILE, x - 8, y - 8 + z);
 
 x += lengthdir_x(vel, angle);
 y += lengthdir_y(vel, angle);
@@ -70,6 +64,7 @@ zVel += zGrav;
 z += zVel;
 if (z + zVel &gt; 0) {
     zVel *= -.5;
+    vel *= .5;
 }
 
 timer = max(timer - 1, 0);

@@ -61,11 +61,11 @@ if (!destroyed &amp;&amp; hp == 0) {
                     y - 8 + random(16), objLeafParticle);
         break;
         case 1: // stone
-            for (var i = 0; i &lt; 360; i+= 22.5) {
-                var p = instance_create(x + 8 + lengthdir_x(4, i), 
-                    y + 8 + lengthdir_y(4, i), objStoneParticle);
-                p.angle = i;
-                p.frame = (i % 45 == 0);
+            repeat(6) {
+                var a = random(360);
+                var p = instance_create(x + 4 + random(8),
+                    y + 4 + random(8), objStoneParticle);
+
             }
         break;
     }
