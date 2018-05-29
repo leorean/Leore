@@ -137,7 +137,7 @@ if (z == 0 &amp;&amp; !isHold &amp;&amp; mouse_check_button(mb_left)) {
         vel = 0;
 }
 
-canDestroy = (!isHold &amp;&amp; !inWater &amp;&amp; vel &gt; maxVel * .5);
+canDestroy = (!isHold &amp;&amp; !inWater);
 
 if (!inWater &amp;&amp; !drown &amp;&amp; state == IDLE) {
     if (!isHold &amp;&amp; mouse_check_button_pressed(mb_left)) {
@@ -216,16 +216,36 @@ if (z + zVel &gt;= 0) {
 }
 z = min(z, 0);
 
-var bush = instance_place(x, y, objBush);
+instance_deactivate_object(objDestroyable);
+instance_activate_region(bbox_left - 8, bbox_top - 8, 24, 24, true);
+for(var i = 0; i &lt; instance_number(objDestroyable); i++) {
 
-if (instance_exists(bush) &amp;&amp; !bush.destroyed) {
-    if (canDestroy) {
-        bush.destroyed = true;
-    } else {        
-        angle = point_direction(bush.x + 8, bush.y + 8, x, y);
-        zVel = -1;
+    var d = instance_find(objDestroyable, i);
+    var destroyable = instance_place(x + lengthdir_x(vel + 1, angle), y + lengthdir_y(vel + 1, angle), d);
+    var newAngle = angle;
+    
+    if (instance_exists(destroyable)) {
+        if (place_meeting(x + lengthdir_x(vel, angle), y, destroyable)) {
+            newAngle = point_direction(0, 0, -lengthdir_x(vel, angle), lengthdir_y(vel, angle));
+        }
+        else if (place_meeting(x, y + lengthdir_y(vel, angle), destroyable)) {
+            newAngle = point_direction(0, 0, lengthdir_x(vel, angle), -lengthdir_y(vel, angle));
+        } else
+        {
+            destroyable = noone;
+        }
+    }    
+    if (destroyable != noone) {
+        if (destroyable.hp &gt; 0) {
+            if (canDestroy) {
+                destroyable.hp = max(destroyable.hp - 1, 0);
+                show_debug_message(string(destroyable) + ": " + string(destroyable.hp));
+            }
+            angle = newAngle;
+        }
     }
 }
+instance_activate_object(objDestroyable);
 
 // collision
 if (!isHold) {

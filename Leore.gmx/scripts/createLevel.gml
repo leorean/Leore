@@ -29,14 +29,10 @@ for (var i = 0; i<w; i ++)
         fg = ds_grid_get(data[1],i,j);
         water = ds_grid_get(data[2],i,j);
         top = ds_grid_get(data[3],i,j);
-        //obj = ds_grid_get(data[4],i,j);
 
         if (bg > 0) //bg tiles
             addTile(bg, i*TILE, j*TILE, LAYER_BG);
-        if (fg >= global.TW) {//fg tiles (+ solid)
-            addTile(fg, i*TILE, j*TILE, LAYER_FG);
-            instance_create(i*TILE, j*TILE, objSolid);
-        }
+
         if (water > 0) {//water tiles
             var t = addTile(water, i*TILE, j*TILE, LAYER_WATER);
             tile_set_alpha(t, .6);
@@ -44,9 +40,25 @@ for (var i = 0; i<w; i ++)
         
         if (top > 0) //top tiles
             addTile(top, i*TILE, j*TILE, LAYER_TOP);
-            
-        if (fg == 0)
-            var bush = instance_create(i*TILE, j*TILE, objBush);
+
+        switch(fg) {
+            case -1: // nothing
+            break;
+            case 0:
+                var destroyable = instance_create(i*TILE, j*TILE, objDestroyable);
+                destroyable.hp = 1;
+                destroyable.type = 0;
+            break;
+            case 1:
+                var destroyable = instance_create(i*TILE, j*TILE, objDestroyable);
+                destroyable.hp = 2;
+                destroyable.type = 1;
+            break;
+            default:
+                addTile(fg, i*TILE, j*TILE, LAYER_FG);
+                instance_create(i*TILE, j*TILE, objSolid);
+            break;
+        }
     }
 }
 
@@ -68,7 +80,5 @@ for (var i = 0; i < ds_list_size(objects); i++) {
             door.ty = real(ds_map_find_value(obj, "ty"));
             door.target = ds_map_find_value(obj, "target");
         break;
-        /*case "bush":
-            var bush = instance_create(obj_x, obj_y, objBush);*/
     }
 }

@@ -55,6 +55,7 @@
       <sprite>sprites\sprWaterShadow</sprite>
       <sprite>sprites\sprShadow</sprite>
       <sprite>sprites\sprVector</sprite>
+      <sprite>sprites\sprDestroyable</sprite>
     </sprites>
     <sprite>sprites\sprBush</sprite>
   </sprites>
@@ -71,14 +72,20 @@
     <script>scripts\getTileCoordinatesForIndex.gml</script>
   </scripts>
   <objects name="objects">
-    <object>objects\objSolid</object>
+    <objects name="hierarchy">
+      <object>objects\objSolid</object>
+    </objects>
     <objects name="Misc">
       <object>objects\objControl</object>
       <object>objects\objCamera</object>
       <object>objects\objPlayer</object>
       <object>objects\objDoor</object>
       <object>objects\objTileAnimator</object>
-      <object>objects\objBush</object>
+      <object>objects\objDestroyable</object>
+    </objects>
+    <objects name="effects">
+      <object>objects\objLeafParticle</object>
+      <object>objects\objStoneParticle</object>
     </objects>
   </objects>
   <rooms name="rooms">

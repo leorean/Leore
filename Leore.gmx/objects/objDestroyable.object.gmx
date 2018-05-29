@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>99</depth>
   <persistent>0</persistent>
-  <parentName>objDestroyable</parentName>
+  <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -26,7 +26,8 @@
           <argument>
             <kind>1</kind>
             <string>destroyed = false;
-hp = 2;
+hp = 1;
+type = 0;
 </string>
           </argument>
         </arguments>
@@ -49,7 +50,26 @@ hp = 2;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite(sprBush, destroyed, x, y);
+            <string>draw_sprite_part(sprDestroyable, -1, (2 + hp) * TILE, type * TILE, TILE, TILE, x, y);
+
+if (!destroyed &amp;&amp; hp == 0) {
+    destroyed = true;
+    switch(type) {
+        case 0: // bush
+            repeat(6)
+                instance_create(x - 8 + random(16),
+                    y - 8 + random(16), objLeafParticle);
+        break;
+        case 1: // stone
+            for (var i = 0; i &lt; 360; i+= 22.5) {
+                var p = instance_create(x + 8 + lengthdir_x(4, i), 
+                    y + 8 + lengthdir_y(4, i), objStoneParticle);
+                p.angle = i;
+                p.frame = (i % 45 == 0);
+            }
+        break;
+    }
+}
 </string>
           </argument>
         </arguments>
