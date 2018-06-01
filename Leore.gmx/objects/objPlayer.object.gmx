@@ -239,7 +239,6 @@ for(var i = 0; i &lt; instance_number(objDestroyable); i++) {
         if (destroyable.hp &gt; 0) {
             if (canDestroy) {
                 destroyable.hp = max(destroyable.hp - 1, 0);
-                show_debug_message(string(destroyable) + ": " + string(destroyable.hp));
             }
             angle = newAngle;
         }
