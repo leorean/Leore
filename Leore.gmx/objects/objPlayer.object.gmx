@@ -27,39 +27,36 @@
             <kind>1</kind>
             <string>instance_create(x, y, objCamera);
 
-mx[0] = x;
-my[0] = y;
-mx[1] = x;
-my[1] = y;
-
-
 zVel = 0;
 zGrav = .15;
 z = 0;
 
-vel = 0;
+xVel = 0;
+yVel = 0;
 maxVel = 6;
 xPrev = x;
 yPrev = y;
+spd = 1.5;
+spdWater = 1;
+spdRoll = 3;
+acc = .1;
 
-isHold = false;
 inWater = false;
-canDestroy = false;
-
-angle = 270;
-spd = 1;
+isRolling = false;
 
 state = IDLE;
 fCur = 0;
 frame = 0;
 fSpeed = 0;
 dir = DOWN;
-row = 0;
+angle = 270;
 
 hp = 3;
-drown = false;
-drownTimer = 0;
-maxDrownTimer = 40;
+
+row = 0;
+
+canDestroy = false;
+dsCol = ds_list_create();
 </string>
           </argument>
         </arguments>
@@ -82,16 +79,17 @@ maxDrownTimer = 40;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>up = keyboard_check(vk_up);
-down = keyboard_check(vk_down);
-left = keyboard_check(vk_left);
-right = keyboard_check(vk_right);
+            <string>kUp = keyboard_check(vk_up);
+kDown = keyboard_check(vk_down);
+kLeft = keyboard_check(vk_left);
+kRight = keyboard_check(vk_right);
 
-up = (up &amp;&amp; !down);
-down = (!up &amp;&amp; down);
-left = (left &amp;&amp; !right);
-right = (!left &amp;&amp; right);
+kUp = (kUp &amp;&amp; !kDown);
+kDown = (!kUp &amp;&amp; kDown);
+kLeft = (kLeft &amp;&amp; !kRight);
+kRight = (!kLeft &amp;&amp; kRight);
 
+kRoll = keyboard_check(ord('A'));
 </string>
           </argument>
         </arguments>
@@ -114,100 +112,94 @@ right = (!left &amp;&amp; right);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (keyboard_check_pressed(vk_space)) { zVel = -2; }
-if (keyboard_check_pressed(ord('A'))) { vel = 10; }
-
-if(drown) {
-    drownTimer = max(drownTimer - 1, 0);
-    if (!drownTimer) {
-    
-        if (inWater) {
-            x = xPrev;
-            y = yPrev;
-        }
-    
-        drown = false;
-    }
-}
-
-if (z == 0 &amp;&amp; !isHold &amp;&amp; mouse_check_button(mb_left)) {
-    if (vel &gt; .5)
-        vel *= .95;
-    else
-        vel = 0;
-}
-
-canDestroy = (!isHold &amp;&amp; !inWater);
-
-if (!inWater &amp;&amp; !drown &amp;&amp; state == IDLE) {
-    if (!isHold &amp;&amp; mouse_check_button_pressed(mb_left)) {
-        mouse_clear(mb_left);
-        mx[0] = device_mouse_x_to_gui(0);
-        my[0] = device_mouse_y_to_gui(0);
-        isHold = true;
-        state = ROLL;
-        xPrev = x;
-        yPrev = y;
-    }
-}
-if (isHold) {
-    mx[1] = device_mouse_x_to_gui(0);
-    my[1] = device_mouse_y_to_gui(0);
-    angle = point_direction(mx[0], my[0], mx[1], my[1]);
-    vel = min(point_distance(mx[0], my[0], mx[1], my[1]) / 64, maxVel);
-
-    if (mouse_check_button_released(mb_left)) {
-    
-        xVel = lengthdir_x(vel, angle);
-        yVel = lengthdir_y(vel, angle);             
-        isHold = false;
-    }
-}
-
-if (state == ROLL) {
-    if (vel &lt; .1) 
-    {
-        if (!isHold &amp;&amp; z == 0) {
-            state = IDLE;
-        }
-    } else {
-        fSpeed = .6 * vel / maxVel;
-    }
-}
-
-if (vel &gt; .2) {
-    if (abs(lengthdir_x(1, angle)) &gt; abs(lengthdir_y(1, angle))) {
-        dir = sign(lengthdir_x(1, angle));
-    } else {
-        dir = 2*sign(lengthdir_y(1, angle));
-    }
-} else
-{
-    vel = 0;
-}
-
-fSpeed = max(.1, .6 * vel / maxVel);
-
-if (!isHold) {
-    vel *= .985;
-}
-
+            <string>// FLAGS
 inWater = z == 0 &amp;&amp; tile_layer_find(LAYER_WATER, x, y);
 
-if (inWater) {
-    isHold = false;
-    vel *= .93;
+// INPUT HANDLING
+
+if (kLeft) dir = LEFT;
+if (kRight) dir = RIGHT;
+if (kUp) dir = UP;
+if (kDown) dir = DOWN;
+
+if (state != ROLL) {
+
+    if (kLeft) {
+        xVel = -spd;
+    }
+    if (kRight) {
+        xVel = spd;
+    }
+    if (kUp) {
+        yVel = -spd;
+    }
+    if (kDown) {
+        yVel = spd;
+    }
     
-    if (vel &lt; .3) {
-        // Drown!
-        if (!drown) {
-            drown = true;
-            drownTimer = maxDrownTimer;
-            vel = 0;
+    if (!kLeft &amp;&amp; !kRight) xVel = 0;
+    if (!kUp &amp;&amp; !kDown) yVel = 0;
+        
+    if (state == IDLE) {    
+        if (kLeft || kRight || kUp || kDown) state = WALK;
+    }
+    if (state == WALK)
+        if (!kLeft &amp;&amp; !kRight &amp;&amp; !kUp &amp;&amp; !kDown) state = IDLE;
+
+    if (kRoll) state = ROLL;
+        
+} else {
+
+    if (kRoll) {
+        if (kRight) { xVel += acc; }
+        if (kLeft) { xVel -= acc; }
+    }
+    if ((!kLeft &amp;&amp; !kRight) || !kRoll) xVel = sign(xVel)*max(abs(xVel) - acc, 0);
+    
+    if (kRoll) {
+        if (kDown) { yVel += acc; }
+        if (kUp) { yVel -= acc; }
+    }
+    if ((!kUp &amp;&amp; !kDown) || !kRoll) yVel = sign(yVel)*max(abs(yVel) - acc, 0);
+    
+    xVel = sign(xVel) * min(abs(xVel), spdRoll);
+    yVel = sign(yVel) * min(abs(yVel), spdRoll);
+    
+    if (!kRoll &amp;&amp; xVel == 0 &amp;&amp; yVel == 0) 
+        state = IDLE;
+}
+
+
+if (inWater) {
+    xVel = sign(xVel) * min(abs(xVel), spdWater);
+    yVel = sign(yVel) * min(abs(yVel), spdWater);
+}
+
+// DESTROYING OBJECTS
+
+canDestroy = state == ROLL &amp;&amp; sqrt(abs(xVel) + abs(yVel)) &gt; 0;
+
+ds_list_clear(dsCol);
+instance_deactivate_object(objDestroyable);
+instance_activate_region(x - 32, y - 32, 64, 64, true);
+for(var i = 0; i &lt; instance_number(objDestroyable); i++) {
+
+    var destroyable = instance_find(objDestroyable, i);
+    
+    if (place_meeting(x + xVel, y + yVel, destroyable)) {
+        if (!ds_list_find_value(dsCol, destroyable)) {
+            if (canDestroy) {
+                destroyable.hp = max(destroyable.hp - 1, 0);
+            }
+            if (destroyable.hp &gt; 0) {
+                ds_list_add(dsCol, destroyable);
+            }
         }
     }
 }
+instance_activate_object(objDestroyable);
 
+// Z-MOVEMENT
 
 zVel += zGrav;
 z += zVel;
@@ -216,49 +208,37 @@ if (z + zVel &gt;= 0) {
 }
 z = min(z, 0);
 
-instance_deactivate_object(objDestroyable);
-instance_activate_region(bbox_left - 8, bbox_top - 8, 24, 24, true);
-for(var i = 0; i &lt; instance_number(objDestroyable); i++) {
+// COLLISION 
 
-    var d = instance_find(objDestroyable, i);
-    var destroyable = instance_place(x + lengthdir_x(vel + 1, angle), y + lengthdir_y(vel + 1, angle), d);
-    var newAngle = angle;
-    
-    if (instance_exists(destroyable)) {
-        if (place_meeting(x + lengthdir_x(vel, angle), y, destroyable)) {
-            newAngle = point_direction(0, 0, -lengthdir_x(vel, angle), lengthdir_y(vel, angle));
-        }
-        else if (place_meeting(x, y + lengthdir_y(vel, angle), destroyable)) {
-            newAngle = point_direction(0, 0, lengthdir_x(vel, angle), -lengthdir_y(vel, angle));
-        } else
-        {
-            destroyable = noone;
-        }
-    }    
-    if (destroyable != noone) {
-        if (destroyable.hp &gt; 0) {
-            if (canDestroy) {
-                destroyable.hp = max(destroyable.hp - 1, 0);
-            }
-            angle = newAngle;
-        }
+instance_deactivate_object(objDestroyable);
+for (var i = 0; i &lt; ds_list_size(dsCol); i++) {
+    var d = ds_list_find_value(dsCol, i);
+    instance_activate_object(d);
+}
+
+if (!place_meeting(x + xVel, y, objSolid)) {
+    x += xVel;
+} else {
+    if (state == ROLL &amp;&amp; z == 0) {    
+        xVel = -xVel * .5;
+        if (abs(xVel) &gt; .5)
+            zVel = -1;
     }
+    else
+        xVel = 0;
+}
+if (!place_meeting(x, y + yVel, objSolid)) {
+    y += yVel;
+} else {
+    if (state == ROLL &amp;&amp; z == 0) {
+        yVel = -yVel * .5;
+        if (abs(yVel) &gt; .5)
+            zVel = -1;
+    }
+    else
+        yVel = 0;
 }
 instance_activate_object(objDestroyable);
-
-// collision
-if (!isHold) {
-    if (!place_meeting(x + lengthdir_x(vel, angle), y, objSolid)) {
-        x += lengthdir_x(vel, angle);
-    } else {
-        angle = point_direction(0, 0, -lengthdir_x(vel, angle), lengthdir_y(vel, angle));
-    }
-    if (!place_meeting(x, y + lengthdir_y(vel, angle), objSolid)) {
-        y += lengthdir_y(vel, angle);    
-    } else {
-        angle = point_direction(0, 0, lengthdir_x(vel, angle), -lengthdir_y(vel, angle));
-    }
-}
 </string>
           </argument>
         </arguments>
@@ -283,12 +263,16 @@ if (!isHold) {
             <kind>1</kind>
             <string>switch(state) {
     case IDLE:
-        fCur = (fCur + fSpeed) % 4;
+        fCur = (fCur + .1) % 4;
         frame = floor(fCur);
     break;
-    case ROLL:
-        fCur = (fCur + fSpeed) % 4;
+    case WALK:
+        fCur = (fCur + .2) % 4;
         frame = 4 + floor(fCur);
+    break;
+    case ROLL:
+        fCur = (fCur + .3) % 4;
+        frame = 8 + floor(fCur);
     break;
 }
 
@@ -308,39 +292,16 @@ switch(dir) {
 }
 
 if (!inWater)
+{
     draw_sprite_ext(sprShadow, -1, x, y, 1, 1, 0, c_white, .3);
-if (!drown || !inWater) {
-    draw_sprite_part(sprPlayer, -1, frame*32, row * 32, 32, 32, x - 16, y - 16 + z);
-
-    // fireball effect
-    if (!isHold) {
-        if(canDestroy) {
-            var al = vel / maxVel;
-            draw_sprite_ext(sprPlayerFireBall, -1, x, y + z, 1, 1, 0, c_white, al);
-        }
-    }
-
 }
+
+draw_sprite_part(sprPlayer, -1, frame*32, row * 32, 32, 32, x - 16, y - 16 + z);
 
 if (inWater) {
-    if (!drown)
-        draw_sprite_part(sprWaterShadow, -1, 32*floor((global.timer / 5) % 4), 0, 32, 32, x - 16, y - 16);
-    else
-        draw_sprite(sprDrown, floor(4 * (maxDrownTimer - drownTimer) / maxDrownTimer), x, y);
+    draw_sprite_part(sprWaterShadow, -1, 32*floor((global.timer / 5) % 4), 0, 32, 32, x - 16, y - 16);
 }
 
-if (isHold) {
-    if (vel &gt; .05) {
-        var v = vel / maxVel * 64;
-        var seg = 18;
-        var color = make_color_hsv(80 - 80 * vel / maxVel, 255, 255);
-        for(var i = 0; i &lt;= seg; i+= 3) {
-            draw_sprite_ext(sprVector, 0 + (i == seg),
-            x + lengthdir_x(i * v / seg, angle),
-            y + lengthdir_y(i * v / seg, angle), 1, 1, angle, color, 1);
-        }
-    }
-}
 </string>
           </argument>
         </arguments>

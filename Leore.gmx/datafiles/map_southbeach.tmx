@@ -57620,6 +57620,6 @@
   </data>
  </layer>
  <objectgroup name="OBJ">
-  <object name="Player" type="player" x="624" y="1008" width="16" height="16"/>
+  <object name="Player" type="player" x="848" y="1072" width="16" height="16"/>
  </objectgroup>
 </map>

@@ -87,11 +87,12 @@
       <object>objects\objLeafParticle</object>
       <object>objects\objStoneParticle</object>
     </objects>
+    <object>objects\_old_objPlayer</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\GAME</room>
   </rooms>
-  <constants number="13">
+  <constants number="14">
     <constant name="WIDTH">688</constant>
     <constant name="HEIGHT">416</constant>
     <constant name="TILE">16</constant>
@@ -104,7 +105,8 @@
     <constant name="UP">-2</constant>
     <constant name="DOWN">2</constant>
     <constant name="IDLE">0</constant>
-    <constant name="ROLL">1</constant>
+    <constant name="WALK">1</constant>
+    <constant name="ROLL">2</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>
