@@ -125,10 +125,6 @@ if (rollTimout) {
 
 if (state == FALL) {
     dir = DOWN;
-    xVel = 0;
-    yVel = 0;
-    zVel = 0;
-    z = 0;
     fallTimeout = max(fallTimeout - 1, 0);
     if (!fallTimeout) {
         x = xPrev;
@@ -232,21 +228,20 @@ instance_activate_object(objDestroyable);
 if (z == 0) {
     var hole = instance_place(x, y, objHole);
     if (instance_exists(hole)) {
-        if (!inHole) {
+
+        var ang = point_direction(x, y, hole.x + 8, hole.y + 8);
+        var hole_dist = point_distance(x, y, hole.x + 8, hole.y + 8);
             
-            var ang = point_direction(x, y, hole.x + 8, hole.y + 8);
-            var hole_dist = point_distance(x, y, hole.x + 8, hole.y + 8);
-            
-            xVel += lengthdir_x(.3, ang);
-            yVel += lengthdir_y(.3, ang);
-            
-            if (hole_dist &lt; 4) {
+        xVel += lengthdir_x(.3, ang);
+        yVel += lengthdir_y(.3, ang);
+
+        if (!inHole) {            
+            if (hole_dist &lt; 8) {
                 inHole = true;
                 state = FALL;
                 fallTimeout = maxFallTimeout;
             }
         }
-        
     } else
     {
         xPrev = x;
@@ -367,6 +362,7 @@ if (inWater) {
     draw_sprite_part(sprWaterShadow, -1, 32*floor((global.timer / 5) % 4), 0, 32, 32, x - 16, y - 16);
 }
 
+//draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
 </string>
           </argument>
         </arguments>

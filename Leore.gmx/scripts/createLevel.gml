@@ -55,7 +55,10 @@ for (var i = 0; i<w; i ++)
                 destroyable.type = 1;
             break;
              // holes
-            case 282: case 283: case 329: case 330:
+            case 282: case 283: case 284:
+            case 329: case 330: case 331:
+            case 376: case 377: case 378:
+            
                 addTile(fg, i*TILE, j*TILE, LAYER_FG);
                 instance_create(i*TILE, j*TILE, objHole);
             break;
