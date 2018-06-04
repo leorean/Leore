@@ -39,15 +39,20 @@ yPrev = y;
 spd = 1.5;
 spdWater = 1;
 spdRoll = 3;
-acc = .1;
+accRoll = .1;
+accWalk = .4;
 
 inWater = false;
+inHole = false;
 isRolling = false;
+
+rollTimout = 0;
+fallTimeout = 0;
+maxFallTimeout = 60;
 
 state = IDLE;
 fCur = 0;
 frame = 0;
-fSpeed = 0;
 dir = DOWN;
 angle = 270;
 
@@ -79,18 +84,7 @@ dsCol = ds_list_create();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>kUp = keyboard_check(vk_up);
-kDown = keyboard_check(vk_down);
-kLeft = keyboard_check(vk_left);
-kRight = keyboard_check(vk_right);
-
-kUp = (kUp &amp;&amp; !kDown);
-kDown = (!kUp &amp;&amp; kDown);
-kLeft = (kLeft &amp;&amp; !kRight);
-kRight = (!kLeft &amp;&amp; kRight);
-
-kRoll = keyboard_check(ord('A'));
-</string>
+            <string></string>
           </argument>
         </arguments>
       </action>
@@ -117,24 +111,51 @@ inWater = z == 0 &amp;&amp; tile_layer_find(LAYER_WATER, x, y);
 
 // INPUT HANDLING
 
-if (kLeft) dir = LEFT;
-if (kRight) dir = RIGHT;
-if (kUp) dir = UP;
-if (kDown) dir = DOWN;
+if (inHole) setControlsEnabled(false);
+
+kUp = global.keys[0];
+kDown = global.keys[1];
+kLeft = global.keys[2];
+kRight = global.keys[3];
+kRoll = global.keys[4];
+
+if (rollTimout) {
+    rollTimout = max(rollTimout - 1, 0);
+}
+
+if (state == FALL) {
+    dir = DOWN;
+    xVel = 0;
+    yVel = 0;
+    zVel = 0;
+    z = 0;
+    fallTimeout = max(fallTimeout - 1, 0);
+    if (!fallTimeout) {
+        x = xPrev;
+        y = yPrev;
+        inHole = false;
+        state = IDLE;
+    }
+}
 
 if (state != ROLL) {
 
+    if (kLeft) dir = LEFT;
+    if (kRight) dir = RIGHT;
+    if (kUp) dir = UP;
+    if (kDown) dir = DOWN;
+    
     if (kLeft) {
-        xVel = -spd;
+        xVel = max(xVel - accWalk, -spd);
     }
     if (kRight) {
-        xVel = spd;
+        xVel = min(xVel + accWalk, spd);
     }
     if (kUp) {
-        yVel = -spd;
+        yVel = max(yVel - accWalk, -spd);
     }
     if (kDown) {
-        yVel = spd;
+        yVel = min(yVel + accWalk, spd);
     }
     
     if (!kLeft &amp;&amp; !kRight) xVel = 0;
@@ -149,26 +170,33 @@ if (state != ROLL) {
     if (kRoll) state = ROLL;
         
 } else {
-
-    if (kRoll) {
-        if (kRight) { xVel += acc; }
-        if (kLeft) { xVel -= acc; }
-    }
-    if ((!kLeft &amp;&amp; !kRight) || !kRoll) xVel = sign(xVel)*max(abs(xVel) - acc, 0);
+    if (!rollTimout) {
     
-    if (kRoll) {
-        if (kDown) { yVel += acc; }
-        if (kUp) { yVel -= acc; }
+        if (kLeft) dir = LEFT;
+        if (kRight) dir = RIGHT;
+        if (kUp) dir = UP;
+        if (kDown) dir = DOWN;
+    
+        if (kRoll) {
+            if (kRight) { xVel += accRoll; }
+            if (kLeft) { xVel -= accRoll; }
+        }
+        
+        if (kRoll) {
+            if (kDown) { yVel += accRoll; }
+            if (kUp) { yVel -= accRoll; }
+        }
+
+        if (!kRoll &amp;&amp; xVel == 0 &amp;&amp; yVel == 0 &amp;&amp; z == 0) 
+            state = IDLE;
+
     }
-    if ((!kUp &amp;&amp; !kDown) || !kRoll) yVel = sign(yVel)*max(abs(yVel) - acc, 0);
+    if ((!kLeft &amp;&amp; !kRight) || !kRoll || rollTimout) xVel = sign(xVel)*max(abs(xVel) - accRoll, 0);
+    if ((!kUp &amp;&amp; !kDown) || !kRoll || rollTimout) yVel = sign(yVel)*max(abs(yVel) - accRoll, 0);
     
     xVel = sign(xVel) * min(abs(xVel), spdRoll);
     yVel = sign(yVel) * min(abs(yVel), spdRoll);
-    
-    if (!kRoll &amp;&amp; xVel == 0 &amp;&amp; yVel == 0) 
-        state = IDLE;
 }
-
 
 if (inWater) {
     xVel = sign(xVel) * min(abs(xVel), spdWater);
@@ -199,14 +227,43 @@ for(var i = 0; i &lt; instance_number(objDestroyable); i++) {
 }
 instance_activate_object(objDestroyable);
 
+// HOLES
+
+if (z == 0) {
+    var hole = instance_place(x, y, objHole);
+    if (instance_exists(hole)) {
+        if (!inHole) {
+            
+            var ang = point_direction(x, y, hole.x + 8, hole.y + 8);
+            var hole_dist = point_distance(x, y, hole.x + 8, hole.y + 8);
+            
+            xVel += lengthdir_x(.3, ang);
+            yVel += lengthdir_y(.3, ang);
+            
+            if (hole_dist &lt; 4) {
+                inHole = true;
+                state = FALL;
+                fallTimeout = maxFallTimeout;
+            }
+        }
+        
+    } else
+    {
+        xPrev = x;
+        yPrev = y;
+    }
+}
+
 // Z-MOVEMENT
 
 zVel += zGrav;
 z += zVel;
+
 if (z + zVel &gt;= 0) {
     zVel = -zVel * .5;
 }
 z = min(z, 0);
+if (z != 0) { rollTimout = 5; }
 
 // COLLISION 
 
@@ -219,7 +276,7 @@ for (var i = 0; i &lt; ds_list_size(dsCol); i++) {
 if (!place_meeting(x + xVel, y, objSolid)) {
     x += xVel;
 } else {
-    if (state == ROLL &amp;&amp; z == 0) {    
+    if (state == ROLL &amp;&amp; z == 0) {
         xVel = -xVel * .5;
         if (abs(xVel) &gt; .5)
             zVel = -1;
@@ -271,8 +328,11 @@ instance_activate_object(objDestroyable);
         frame = 4 + floor(fCur);
     break;
     case ROLL:
-        fCur = (fCur + .3) % 4;
+        fCur = (fCur + max(.2, .6 * sqrt(abs(xVel) + abs(yVel)) / spdRoll )) % 4;
         frame = 8 + floor(fCur);
+    break;
+    case FALL:
+        frame = 0;
     break;
 }
 
@@ -291,12 +351,17 @@ switch(dir) {
     break;
 }
 
-if (!inWater)
+if (!inWater &amp;&amp; state != FALL)
 {
     draw_sprite_ext(sprShadow, -1, x, y, 1, 1, 0, c_white, .3);
 }
 
-draw_sprite_part(sprPlayer, -1, frame*32, row * 32, 32, 32, x - 16, y - 16 + z);
+if (state != FALL)
+    draw_sprite_part(sprPlayer, -1, frame*32, row * 32, 32, 32, x - 16, y - 16 + z);
+else {
+    var s_fall = (fallTimeout / maxFallTimeout);
+    draw_sprite_ext(sprPlayerFall, -1, x, y, s_fall, s_fall, s_fall * 360, c_white, s_fall);
+}
 
 if (inWater) {
     draw_sprite_part(sprWaterShadow, -1, 32*floor((global.timer / 5) % 4), 0, 32, 32, x - 16, y - 16);

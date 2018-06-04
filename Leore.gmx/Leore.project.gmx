@@ -48,6 +48,7 @@
       <sprite>sprites\mskControl</sprite>
       <sprite>sprites\mskPlayer</sprite>
       <sprite>sprites\mskSolid</sprite>
+      <sprite>sprites\mskHole</sprite>
     </sprites>
     <sprites name="effects">
       <sprite>sprites\sprDrown</sprite>
@@ -56,6 +57,7 @@
       <sprite>sprites\sprShadow</sprite>
       <sprite>sprites\sprVector</sprite>
       <sprite>sprites\sprDestroyable</sprite>
+      <sprite>sprites\sprPlayerFall</sprite>
     </sprites>
     <sprite>sprites\sprBush</sprite>
   </sprites>
@@ -70,29 +72,33 @@
     <script>scripts\getStringFromXMLIdentifier.gml</script>
     <script>scripts\array.gml</script>
     <script>scripts\getTileCoordinatesForIndex.gml</script>
+    <script>scripts\setControlsEnabled.gml</script>
   </scripts>
   <objects name="objects">
     <objects name="hierarchy">
       <object>objects\objSolid</object>
     </objects>
-    <objects name="Misc">
+    <objects name="misc">
       <object>objects\objControl</object>
       <object>objects\objCamera</object>
       <object>objects\objPlayer</object>
-      <object>objects\objDoor</object>
       <object>objects\objTileAnimator</object>
-      <object>objects\objDestroyable</object>
     </objects>
     <objects name="effects">
       <object>objects\objLeafParticle</object>
       <object>objects\objStoneParticle</object>
     </objects>
     <object>objects\_old_objPlayer</object>
+    <objects name="level_objects">
+      <object>objects\objDestroyable</object>
+      <object>objects\objDoor</object>
+      <object>objects\objHole</object>
+    </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\GAME</room>
   </rooms>
-  <constants number="14">
+  <constants number="15">
     <constant name="WIDTH">688</constant>
     <constant name="HEIGHT">416</constant>
     <constant name="TILE">16</constant>
@@ -107,6 +113,7 @@
     <constant name="IDLE">0</constant>
     <constant name="WALK">1</constant>
     <constant name="ROLL">2</constant>
+    <constant name="FALL">3</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>
