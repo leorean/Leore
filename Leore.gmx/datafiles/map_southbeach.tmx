@@ -22600,8 +22600,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="521"/>
+   <tile gid="522"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -51168,6 +51168,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="427"/>
+   <tile gid="428"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -51286,10 +51288,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="474"/>
+   <tile gid="475"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>

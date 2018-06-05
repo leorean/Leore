@@ -230,13 +230,18 @@ if (z == 0) {
     if (instance_exists(hole)) {
 
         var ang = point_direction(x, y, hole.x + 8, hole.y + 8);
-        var hole_dist = point_distance(x, y, hole.x + 8, hole.y + 8);
-            
-        xVel += lengthdir_x(.3, ang);
-        yVel += lengthdir_y(.3, ang);
+        var hole_dist = point_distance(x, y + 4, hole.x + 8, hole.y + 8);
 
-        if (!inHole) {            
-            if (hole_dist &lt; 8) {
+        if (hole_dist &gt; 7)
+        {
+            xVel += lengthdir_x(.1, ang);
+            yVel += lengthdir_y(.1, ang);
+        } else {
+            xVel = lengthdir_x(.4, ang);
+            yVel = lengthdir_y(.4, ang);
+        }
+        if (!inHole) {
+            if (hole_dist &lt; 5) {
                 inHole = true;
                 state = FALL;
                 fallTimeout = maxFallTimeout;

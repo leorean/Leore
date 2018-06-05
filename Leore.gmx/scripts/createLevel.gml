@@ -58,6 +58,10 @@ for (var i = 0; i<w; i ++)
             case 282: case 283: case 284:
             case 329: case 330: case 331:
             case 376: case 377: case 378:
+            case 423: case 424: case 425:
+            case 470: case 471: case 472:
+            case 517: case 518: case 519:
+            case 564: case 565: case 566:
             
                 addTile(fg, i*TILE, j*TILE, LAYER_FG);
                 instance_create(i*TILE, j*TILE, objHole);
