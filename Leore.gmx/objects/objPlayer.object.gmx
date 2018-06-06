@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>-10</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>objLiving</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -106,7 +106,10 @@ dsCol = ds_list_create();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// FLAGS
+            <string>cx = (bbox_right + bbox_left) / 2;
+cy = (bbox_bottom + bbox_top) / 2;
+
+// FLAGS
 inWater = z == 0 &amp;&amp; tile_layer_find(LAYER_WATER, x, y);
 
 // INPUT HANDLING
@@ -119,18 +122,17 @@ kLeft = global.keys[2] &amp;&amp; !global.keys[3];
 kRight = global.keys[3] &amp;&amp; !global.keys[2];
 kRoll = global.keys[4];
 
-/*if (rollTimout) {
-    rollTimout = max(rollTimout - 1, 0);
-}*/
 
 if (state == FALL) {
+
+    if (!inHole) state = IDLE;
+
     dir = DOWN;
     fallTimeout = max(fallTimeout - 1, 0);
     if (!fallTimeout) {
         x = xPrev;
         y = yPrev;
         inHole = false;
-        state = IDLE;
     }
 }
 
@@ -229,8 +231,8 @@ if (z == 0) {
     var hole = instance_place(x, y, objHole);
     if (instance_exists(hole)) {
 
-        var ang = point_direction(x, y, hole.x + 8, hole.y + 8);
-        var hole_dist = point_distance(x, y + 4, hole.x + 8, hole.y + 8);
+        var ang = point_direction(cx, cy, hole.x + 8, hole.y + 8);
+        var hole_dist = point_distance(cx, cy, hole.x + 8, hole.y + 8);
 
         if (hole_dist &gt; 7)
         {
@@ -301,27 +303,6 @@ if (!place_meeting(x, y + yVel, objSolid)) {
 }
 instance_activate_object(objDestroyable);
 
-// TILE DEPTH
-/*
-for (var i = -1; i &lt; 2; i++) {
-    for (var j = -1; j &lt; 2; j++) {
-        var t = tile_layer_find(LAYER_TOP, x - i*TILE, y - j*TILE);
-
-        if (t) {
-            if (tile_get_y(t) &lt; t
-            
-        }
-    }
-}
-*/
-
-
-
-
-
-
-
-
 
 
 
@@ -382,21 +363,22 @@ switch(dir) {
 
 if (!inWater &amp;&amp; state != FALL)
 {
-    draw_sprite_ext(sprShadow, -1, x, y, 1, 1, 0, c_white, .3);
+    draw_sprite_ext(sprShadow, -1, cx, cy, 1, 1, 0, c_white, .3);
 }
 
 if (state != FALL)
-    draw_sprite_part(sprPlayer, -1, frame*32, row * 32, 32, 32, x - 16, y - 16 + z);
+    draw_sprite_part(sprPlayer, -1, frame*32, row * 32, 32, 32, cx - 16, cy - 16 + z);
 else {
     var s_fall = (fallTimeout / maxFallTimeout);
-    draw_sprite_ext(sprPlayerFall, -1, x, y, s_fall, s_fall, s_fall * 360, c_white, s_fall);
+    draw_sprite_ext(sprPlayerFall, -1, cx, cy, s_fall, s_fall, s_fall * 360, c_white, s_fall);
 }
 
 if (inWater) {
-    draw_sprite_part(sprWaterShadow, -1, 32*floor((global.timer / 5) % 4), 0, 32, 32, x - 16, y - 16);
+    draw_sprite_part(sprWaterShadow, -1, 32*floor((global.timer / 5) % 4), 0, 32, 32, cx - 16, cy - 16);
 }
 
 //draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
+//draw_circle(x, y, 2, 1);
 </string>
           </argument>
         </arguments>

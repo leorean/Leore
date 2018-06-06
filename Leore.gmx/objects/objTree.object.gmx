@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>objLiving</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -25,37 +25,10 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// ANIMATION
-
-// animation_tiles = (tile, left, count, frame)
-
-var all_tiles = tile_get_ids();
-var l = 0;
-var animated_indices = array(
-array(658, 4), // test
-array(567, 3), // flower
- array(705, 6),  array(752, 6),  array(799, 6),  array(846, 6), // water
- array(893, 6),  array(940, 6),  array(987, 6), array(1034, 6), // water
-array(1081, 6), array(1128, 6), array(1175, 6), array(1222, 6)  // water
-);
-
-for (var i = 0; i &lt; array_length_1d(all_tiles); i++) {
-    var t = all_tiles[i];
-    
-    for (var j = 0; j &lt; array_length_1d(animated_indices); j++) {
-        var a = getTileCoordinatesForIndex(get(animated_indices[j], 0));
-        
-        if (tile_get_left(t) == a[0] &amp;&amp; tile_get_top(t) == a[1]) {
-            animation_tiles[l] = array(t, tile_get_left(t), get(animated_indices[j], 1), 0);
-            l++;
-        }
-    }
-}
-
-// store "left" for all tiles to refer to
-/*for (var i = 0; i &lt; array_length_1d(animation_tiles); i++) {
-    animation_tiles_left[i] = tile_get_left(get(animation_tiles[i], 0));
-}*/
+            <string>w = 0;
+h = 0;
+tile = 0;
+checked = false;
 </string>
           </argument>
         </arguments>
@@ -78,15 +51,50 @@ for (var i = 0; i &lt; array_length_1d(all_tiles); i++) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// animation_tiles = (tile, left, count, frame)
-for (var i = 0; i &lt; array_length_1d(animation_tiles); i++) {
-    var t = animation_tiles[i];
-    if (global.timer % (5 * t[2]) == 0) {
-        animation_tiles[i] = array(t[0], t[1], t[2], (t[3] + 1) % t[2]);            
-        tile_set_region(t[0], t[1] + TILE * t[3], tile_get_top(t[0]), TILE, TILE);
+            <string>if (!checked) {
+    for (var i = 0; i &lt; w; i++) {
+        for (var j = 0; j &lt; h; j++) {
+            var real_tile = tile_layer_find(LAYER_TOP, x + i*TILE, y - j*TILE);
+            if (real_tile)
+                tile_delete(real_tile);
+        }
+    }
+    y += 8;
+    checked = true;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (!checked) exit;
+
+for (var i = 0; i &lt; w; i++) {
+    for (var j = 0; j &lt; h; j++) {
+        var t = tile + i - j * global.TW;
+        coords = getTileCoordinatesForIndex(t);        
+        draw_background_part(sprTiles, 
+            coords[0], coords[1],
+            TILE, TILE, x + i*TILE, y - j*TILE - 8);
     }
 }
-
 </string>
           </argument>
         </arguments>

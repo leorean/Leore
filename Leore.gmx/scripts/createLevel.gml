@@ -20,6 +20,8 @@ if (room_width!=w*TILE || room_height!=h*TILE)
     exit;
 }
 
+dsIgnore = ds_list_create();
+
 // tiles
 for (var i = 0; i<w; i ++)
 {
@@ -38,13 +40,15 @@ for (var i = 0; i<w; i ++)
             tile_set_alpha(t, .6);
         }
         
-        if (top > 0) //top tiles
         switch(top) {
-            case 426: case 427:
-            case 473: case 474:
-            case 520: case 521:
-                addTile(top, i*TILE, j*TILE, LAYER_TRUNK);
-                //instance_create(i*TILE, j*TILE, objSolid);
+            case -1: //nothing
+            break;
+            // trees
+            case 520:
+                var tree = instance_create(i*TILE, j*TILE, objTree);
+                tree.w = 2;
+                tree.h = 3;
+                tree.tile = 520;
             break;
             default:
                 addTile(top, i*TILE, j*TILE, LAYER_TOP);
@@ -64,7 +68,10 @@ for (var i = 0; i<w; i ++)
                 destroyable.hp = 2;
                 destroyable.type = 1;
             break;
-             // holes
+            case 2: // solid (invisible)
+                instance_create(i*TILE, j*TILE, objSolid);
+            break;
+            // holes
             case 282: case 283: case 284:
             case 329: case 330: case 331:
             case 376: case 377: case 378:
@@ -104,3 +111,5 @@ for (var i = 0; i < ds_list_size(objects); i++) {
         break;
     }
 }
+
+ds_list_destroy(dsIgnore);

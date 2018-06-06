@@ -66,10 +66,17 @@ global.keys[2] =keyboard_check(vk_left);
 global.keys[3] =keyboard_check(vk_right);
 global.keys[4] = keyboard_check(ord('A'));
 
-var b = TILE;
-instance_deactivate_object(objSolid); //TODO: all alive objects
+var b = 6 * TILE;
+instance_deactivate_object(objSolid);
+instance_activate_region(view_xview[0] - 2*b, view_yview[0] - 2*b, view_wview[0] + 4*b, view_hview[0] + 4*b, true);
+instance_deactivate_object(objLiving);
 instance_activate_region(view_xview[0] - b, view_yview[0] - b, view_wview[0] + 2*b, view_hview[0] + 2*b, true);
 
+instance_activate_object(objPlayer);
+
+with(objLiving) {
+    depth = -y;// (y div TILE);
+}
 </string>
           </argument>
         </arguments>

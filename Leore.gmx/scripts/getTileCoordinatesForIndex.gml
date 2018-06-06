@@ -1,6 +1,6 @@
 /// getTileCoordinatesForIndex(tileIndex);
 
 return array(
-(argument0 * TILE) % global.TW,
-(argument0 * TILE) div global.TW
+(argument0 % global.TW) * TILE,
+(argument0 div global.TW) * TILE
 );
