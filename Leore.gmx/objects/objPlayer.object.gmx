@@ -3,7 +3,7 @@
   <spriteName>mskPlayer</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>-10</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -40,13 +40,13 @@ spd = 1.5;
 spdWater = 1;
 spdRoll = 3;
 accRoll = .1;
-accWalk = .4;
+accWalk = .2;
 
 inWater = false;
 inHole = false;
 isRolling = false;
 
-rollTimout = 0;
+//rollTimout = 0;
 fallTimeout = 0;
 maxFallTimeout = 60;
 
@@ -113,15 +113,15 @@ inWater = z == 0 &amp;&amp; tile_layer_find(LAYER_WATER, x, y);
 
 if (inHole) setControlsEnabled(false);
 
-kUp = global.keys[0];
-kDown = global.keys[1];
-kLeft = global.keys[2];
-kRight = global.keys[3];
+kUp = global.keys[0] &amp;&amp; !global.keys[1];
+kDown = global.keys[1] &amp;&amp; !global.keys[0];
+kLeft = global.keys[2] &amp;&amp; !global.keys[3];
+kRight = global.keys[3] &amp;&amp; !global.keys[2];
 kRoll = global.keys[4];
 
-if (rollTimout) {
+/*if (rollTimout) {
     rollTimout = max(rollTimout - 1, 0);
-}
+}*/
 
 if (state == FALL) {
     dir = DOWN;
@@ -166,7 +166,7 @@ if (state != ROLL) {
     if (kRoll) state = ROLL;
         
 } else {
-    if (!rollTimout) {
+    if (true) {
     
         if (kLeft) dir = LEFT;
         if (kRight) dir = RIGHT;
@@ -187,9 +187,9 @@ if (state != ROLL) {
             state = IDLE;
 
     }
-    if ((!kLeft &amp;&amp; !kRight) || !kRoll || rollTimout) xVel = sign(xVel)*max(abs(xVel) - accRoll, 0);
-    if ((!kUp &amp;&amp; !kDown) || !kRoll || rollTimout) yVel = sign(yVel)*max(abs(yVel) - accRoll, 0);
-    
+    if ((!kLeft &amp;&amp; !kRight) || !kRoll) xVel = sign(xVel)*max(abs(xVel) - accRoll, 0);
+    if ((!kUp &amp;&amp; !kDown) || !kRoll) yVel = sign(yVel)*max(abs(yVel) - accRoll, 0);
+        
     xVel = sign(xVel) * min(abs(xVel), spdRoll);
     yVel = sign(yVel) * min(abs(yVel), spdRoll);
 }
@@ -201,7 +201,7 @@ if (inWater) {
 
 // DESTROYING OBJECTS
 
-canDestroy = state == ROLL &amp;&amp; sqrt(abs(xVel) + abs(yVel)) &gt; 0;
+canDestroy = state == ROLL &amp;&amp; (max(abs(xVel), abs(yVel)) &gt; .5) &amp;&amp; z == 0;
 
 ds_list_clear(dsCol);
 instance_deactivate_object(objDestroyable);
@@ -260,7 +260,7 @@ zVel += zGrav;
 z += zVel;
 
 if (z + zVel &gt;= 0) {
-    zVel = -zVel * .5;
+    zVel = 0;//-zVel * .5;
 }
 z = min(z, 0);
 if (z != 0) { rollTimout = 5; }
@@ -278,8 +278,10 @@ if (!place_meeting(x + xVel, y, objSolid)) {
 } else {
     if (state == ROLL &amp;&amp; z == 0) {
         xVel = -xVel * .5;
-        if (abs(xVel) &gt; .5)
-            zVel = -1;
+        if (abs(xVel) &gt; .5) {
+            xVel *= .8;
+            zVel = -1.2;
+        }
     }
     else
         xVel = 0;
@@ -289,13 +291,40 @@ if (!place_meeting(x, y + yVel, objSolid)) {
 } else {
     if (state == ROLL &amp;&amp; z == 0) {
         yVel = -yVel * .5;
-        if (abs(yVel) &gt; .5)
-            zVel = -1;
+        if (abs(yVel) &gt; .5) {
+            yVel *= .8;
+            zVel = -1.2;
+        }
     }
     else
         yVel = 0;
 }
 instance_activate_object(objDestroyable);
+
+// TILE DEPTH
+/*
+for (var i = -1; i &lt; 2; i++) {
+    for (var j = -1; j &lt; 2; j++) {
+        var t = tile_layer_find(LAYER_TOP, x - i*TILE, y - j*TILE);
+
+        if (t) {
+            if (tile_get_y(t) &lt; t
+            
+        }
+    }
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
 </string>
           </argument>
         </arguments>

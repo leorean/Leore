@@ -39,7 +39,17 @@ for (var i = 0; i<w; i ++)
         }
         
         if (top > 0) //top tiles
-            addTile(top, i*TILE, j*TILE, LAYER_TOP);
+        switch(top) {
+            case 426: case 427:
+            case 473: case 474:
+            case 520: case 521:
+                addTile(top, i*TILE, j*TILE, LAYER_TRUNK);
+                //instance_create(i*TILE, j*TILE, objSolid);
+            break;
+            default:
+                addTile(top, i*TILE, j*TILE, LAYER_TOP);
+            break;
+        }
 
         switch(fg) {
             case -1: // nothing

@@ -82,7 +82,7 @@
       <object>objects\objControl</object>
       <object>objects\objCamera</object>
       <object>objects\objPlayer</object>
-      <object>objects\objTileAnimator</object>
+      <object>objects\objTileManager</object>
     </objects>
     <objects name="effects">
       <object>objects\objLeafParticle</object>
@@ -98,7 +98,7 @@
   <rooms name="rooms">
     <room>rooms\GAME</room>
   </rooms>
-  <constants number="15">
+  <constants number="16">
     <constant name="WIDTH">688</constant>
     <constant name="HEIGHT">416</constant>
     <constant name="TILE">16</constant>
@@ -106,6 +106,7 @@
     <constant name="LAYER_WATER">98</constant>
     <constant name="LAYER_FG">99</constant>
     <constant name="LAYER_TOP">-10</constant>
+    <constant name="LAYER_TRUNK">0</constant>
     <constant name="LEFT">-1</constant>
     <constant name="RIGHT">1</constant>
     <constant name="UP">-2</constant>

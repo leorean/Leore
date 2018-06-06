@@ -25,7 +25,9 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>animation_tile_index = 0;
+            <string>// ANIMATION
+
+animation_tile_index = 0;
 animation_direction = RIGHT;
 
 var all_tiles = tile_get_ids();
@@ -52,6 +54,10 @@ for (var i = 0; i &lt; array_length_1d(all_tiles); i++) {
 for (var i = 0; i &lt; array_length_1d(animation_tiles); i++) {
     animation_tiles_left[i] = tile_get_left(animation_tiles[i]);
 }
+
+// TREES &amp; TRUNKS
+
+global.trunks = tile_get_ids_at_depth(LAYER_TRUNK);
 
 </string>
           </argument>
@@ -88,6 +94,23 @@ for (var i = 0; i &lt; array_length_1d(animation_tiles); i++) {
         tile_set_region(t, animation_tiles_left[i] + TILE*animation_tile_index, tile_get_top(t), TILE, TILE);
     }
 }
+
+
+for (var i = 0; i &lt; array_length_1d(global.trunks); i++) {
+    tile_set_depth(global.trunks[i], objPlayer.depth - 1);
+    if (objPlayer.y &gt; tile_get_y(global.trunks[i]) + 8) {
+        tile_set_depth(global.trunks[i], objPlayer.depth + 1);
+    }
+}
+
+/*var i
+tiles = tile_get_ids_at_depth(900000);
+
+for ( i =0 ; i&lt; array_length_1d(tiles); i+=1)
+{
+ if (tile_exists(tiles[i]))
+ { tile_set_depth( tiles[i], -tile_get_y(tiles[i])-tile_get_height(tiles[i])+32)}
+}*/
 </string>
           </argument>
         </arguments>

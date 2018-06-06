@@ -56,6 +56,7 @@ map_southbeach = importLevel("map_southbeach.tmx");
             <kind>1</kind>
             <string>if (keyboard_check_pressed(ord('Q'))) game_restart();
 if (keyboard_check_pressed(ord('R'))) room_restart();
+if (keyboard_check_pressed(vk_f1)) window_set_fullscreen(!window_get_fullscreen());
 
 global.timer = (global.timer + 1) % 900000000000;
 
@@ -66,7 +67,7 @@ global.keys[3] =keyboard_check(vk_right);
 global.keys[4] = keyboard_check(ord('A'));
 
 var b = TILE;
-instance_deactivate_object(objSolid);
+instance_deactivate_object(objSolid); //TODO: all alive objects
 instance_activate_region(view_xview[0] - b, view_yview[0] - b, view_wview[0] + 2*b, view_hview[0] + 2*b, true);
 
 </string>
@@ -94,7 +95,7 @@ instance_activate_region(view_xview[0] - b, view_yview[0] - b, view_wview[0] + 2
             <string>createLevel(map_southbeach);
 // get animation tiles
 
-instance_create(0, 0, objTileAnimator);
+instance_create(0, 0, objTileManager);
 
 global.timer = 0;
 
