@@ -60,14 +60,14 @@ h = HEIGHT / 2;
 xVel = (objPlayer.x - x) / 16;
 yVel = (objPlayer.y - y) / 16;
 
-if (abs(xVel) &lt; .5) xVel = 0;
-if (abs(yVel) &lt; .5) yVel = 0;
+/*if (abs(xVel) &lt; 2) xVel = 0;
+if (abs(yVel) &lt; 2) yVel = 0;*/
 
 _x += xVel;
 _y += yVel;
 
-x = round(_x);
-y = round(_y);
+x = _x;
+y = _y;
 </string>
           </argument>
         </arguments>

@@ -41,9 +41,9 @@ array(567, 3), // flower
  array(893, 6),  array(940, 6),  array(987, 6), array(1034, 6),
 array(1081, 6), array(1128, 6), array(1175, 6), array(1222, 6),
 // deep water:
-array(1269, 6), array(1316, 6), array(1363, 6), array(1410, 6),
-array(1457, 6), array(1504, 6), array(1551, 6), array(1598, 6),
-array(1645, 6), array(1692, 6), array(1739, 6), array(1786, 6)
+array(1269, 4), array(1316, 4), array(1363, 4), array(1410, 4),
+array(1457, 4), array(1504, 4), array(1551, 4), array(1598, 4),
+array(1645, 4), array(1692, 4), array(1739, 4), array(1786, 4)
 );
 
 for (var i = 0; i &lt; array_length_1d(all_tiles); i++) {
@@ -83,7 +83,7 @@ for (var i = 0; i &lt; array_length_1d(all_tiles); i++) {
             <string>// animation_tiles = (tile, left, count, frame)
 for (var i = 0; i &lt; array_length_1d(animation_tiles); i++) {
     var t = animation_tiles[i];
-    if (global.timer % (5 * t[2]) == 0) {
+    if (global.timer % (3 * t[2]) == 0) {
         animation_tiles[i] = array(t[0], t[1], t[2], (t[3] + 1) % t[2]);            
         tile_set_region(t[0], t[1] + TILE * t[3], tile_get_top(t[0]), TILE, TILE);
     }

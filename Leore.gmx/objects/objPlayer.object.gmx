@@ -117,7 +117,7 @@ inWater = z == 0 &amp;&amp; tile_layer_find(LAYER_WATER, x, y);
 inDeepWater = false;
 if (inWater) {
     var wt = tile_layer_find(LAYER_WATER, x, y);
-    if (tile_get_left(wt) == 1*TILE &amp;&amp; tile_get_top(wt) == 13*TILE) {
+    if (tile_get_left(wt) == 7*TILE &amp;&amp; tile_get_top(wt) == 13*TILE) {
         inDeepWater = true;
     }
 }
@@ -408,7 +408,7 @@ if (state == DROWN) {
 }
 
 //draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
-//draw_circle(x, y, 2, 1);
+//draw_circle(cx, cy, 2, 1);
 </string>
           </argument>
         </arguments>

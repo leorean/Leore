@@ -42,7 +42,7 @@ for (var i = 0; i<w; i ++)
                 //instance_create(i*TILE, j*TILE, objSolid);
             default:
                 var t = addTile(water, i*TILE, j*TILE, LAYER_WATER);
-                //tile_set_alpha(t, .6);
+                //tile_set_alpha(t, .7);
             break;
         }
         
