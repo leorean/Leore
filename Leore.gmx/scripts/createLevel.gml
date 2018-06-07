@@ -35,9 +35,15 @@ for (var i = 0; i<w; i ++)
         if (bg > 0) //bg tiles
             addTile(bg, i*TILE, j*TILE, LAYER_BG);
 
-        if (water > 0) {//water tiles
-            var t = addTile(water, i*TILE, j*TILE, LAYER_WATER);
-            tile_set_alpha(t, .6);
+        switch (water) {//water tiles
+            case -1: // nothing
+            break;
+            case 618:
+                //instance_create(i*TILE, j*TILE, objSolid);
+            default:
+                var t = addTile(water, i*TILE, j*TILE, LAYER_WATER);
+                //tile_set_alpha(t, .6);
+            break;
         }
         
         switch(top) {

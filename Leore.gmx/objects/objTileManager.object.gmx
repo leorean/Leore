@@ -31,12 +31,19 @@
 
 var all_tiles = tile_get_ids();
 var l = 0;
+
+// animation_indices = (tile, count)
 var animated_indices = array(
 array(658, 4), // test
 array(567, 3), // flower
- array(705, 6),  array(752, 6),  array(799, 6),  array(846, 6), // water
- array(893, 6),  array(940, 6),  array(987, 6), array(1034, 6), // water
-array(1081, 6), array(1128, 6), array(1175, 6), array(1222, 6)  // water
+// water:
+ array(705, 6),  array(752, 6),  array(799, 6),  array(846, 6),
+ array(893, 6),  array(940, 6),  array(987, 6), array(1034, 6),
+array(1081, 6), array(1128, 6), array(1175, 6), array(1222, 6),
+// deep water:
+array(1269, 6), array(1316, 6), array(1363, 6), array(1410, 6),
+array(1457, 6), array(1504, 6), array(1551, 6), array(1598, 6),
+array(1645, 6), array(1692, 6), array(1739, 6), array(1786, 6)
 );
 
 for (var i = 0; i &lt; array_length_1d(all_tiles); i++) {
@@ -51,11 +58,6 @@ for (var i = 0; i &lt; array_length_1d(all_tiles); i++) {
         }
     }
 }
-
-// store "left" for all tiles to refer to
-/*for (var i = 0; i &lt; array_length_1d(animation_tiles); i++) {
-    animation_tiles_left[i] = tile_get_left(get(animation_tiles[i], 0));
-}*/
 </string>
           </argument>
         </arguments>

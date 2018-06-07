@@ -1,0 +1,10 @@
+* get staff
+	* staff follows player, 'D' = attack/place staff
+	* later, 'S' = do spell from staff
+* 'S' = do spell
+
+* have magic bar, first with 10 magic, and .1 magic regen -> extend with "leveling up"
+
+* "level up" = collecting magic (crystals or from enemies)
+
+* 'Q', 'E' -> rotate spell left/right
