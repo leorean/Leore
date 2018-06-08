@@ -28,8 +28,8 @@ for (var i = 0; i<w; i ++)
     for (var j = 0; j<h; j++)
     {
         bg = ds_grid_get(data[0],i,j);
-        fg = ds_grid_get(data[1],i,j);
-        water = ds_grid_get(data[2],i,j);
+        water = ds_grid_get(data[1],i,j);
+        fg = ds_grid_get(data[2],i,j);
         top = ds_grid_get(data[3],i,j);
 
         if (bg > 0) //bg tiles

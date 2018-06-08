@@ -96,6 +96,7 @@
       <script>scripts\createLevel.gml</script>
       <script>scripts\getStringFromXMLIdentifier.gml</script>
     </scripts>
+    <script>scripts\in.gml</script>
   </scripts>
   <objects name="objects">
     <objects name="hierarchy">
@@ -123,10 +124,11 @@
   <rooms name="rooms">
     <room>rooms\GAME</room>
   </rooms>
-  <constants number="16">
+  <constants number="17">
     <constant name="WIDTH">688</constant>
     <constant name="HEIGHT">416</constant>
     <constant name="TILE">16</constant>
+    <constant name="T_DEEPWATER">612</constant>
     <constant name="LAYER_BG">1000</constant>
     <constant name="LAYER_WATER">999</constant>
     <constant name="LAYER_FG">998</constant>

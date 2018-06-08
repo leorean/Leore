@@ -81,11 +81,17 @@ for (var i = 0; i &lt; array_length_1d(all_tiles); i++) {
           <argument>
             <kind>1</kind>
             <string>// animation_tiles = (tile, left, count, frame)
+
+var b = 4*TILE;
+
 for (var i = 0; i &lt; array_length_1d(animation_tiles); i++) {
     var t = animation_tiles[i];
     if (global.timer % (3 * t[2]) == 0) {
-        animation_tiles[i] = array(t[0], t[1], t[2], (t[3] + 1) % t[2]);            
-        tile_set_region(t[0], t[1] + TILE * t[3], tile_get_top(t[0]), TILE, TILE);
+        animation_tiles[i] = array(t[0], t[1], t[2], (t[3] + 1) % t[2]);
+        if (in(tile_get_x(t[0]), view_xview - b, view_xview + view_wview + b)
+            &amp;&amp; in(tile_get_y(t[0]), view_yview - b, view_yview + view_hview + b)) {
+            tile_set_region(t[0], t[1] + TILE * t[3], tile_get_top(t[0]), TILE, TILE);
+        }
     }
 }
 
