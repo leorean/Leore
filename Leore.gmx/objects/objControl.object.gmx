@@ -67,6 +67,8 @@ global.keys[1] = keyboard_check(vk_down);
 global.keys[2] =keyboard_check(vk_left);
 global.keys[3] =keyboard_check(vk_right);
 global.keys[4] = keyboard_check(ord('A'));
+global.keys[5] = keyboard_check_pressed(ord('S'));
+global.keys[6] = keyboard_check_pressed(ord('D'));
 
 var b = 6 * TILE;
 instance_deactivate_object(objSolid);
@@ -77,7 +79,7 @@ instance_activate_region(view_xview[0] - b, view_yview[0] - b, view_wview[0] + 2
 instance_activate_object(objPlayer);
 
 with(objLiving) {
-    depth = -y;// (y div TILE);
+    depth = -y;
 }
 </string>
           </argument>

@@ -77,6 +77,7 @@
       <sprite>sprites\sprPlayerFall</sprite>
     </sprites>
     <sprite>sprites\sprBush</sprite>
+    <sprite>sprites\mskStaff</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>
@@ -108,6 +109,7 @@
       <object>objects\objCamera</object>
       <object>objects\objPlayer</object>
       <object>objects\objTileManager</object>
+      <object>objects\objStaff</object>
     </objects>
     <objects name="effects">
       <object>objects\objLeafParticle</object>
@@ -124,7 +126,7 @@
   <rooms name="rooms">
     <room>rooms\GAME</room>
   </rooms>
-  <constants number="17">
+  <constants number="21">
     <constant name="WIDTH">688</constant>
     <constant name="HEIGHT">416</constant>
     <constant name="TILE">16</constant>
@@ -142,6 +144,10 @@
     <constant name="ROLL">2</constant>
     <constant name="FALL">3</constant>
     <constant name="DROWN">4</constant>
+    <constant name="ATTACK">5</constant>
+    <constant name="S_STAY">0</constant>
+    <constant name="S_FOLLOW">1</constant>
+    <constant name="S_ATTACK">2</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

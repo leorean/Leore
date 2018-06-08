@@ -48,7 +48,6 @@ isRolling = false;
 canSwim = false;
 inDeepWater = false;
 
-//rollTimout = 0;
 fallTimeout = 0;
 maxFallTimeout = 60;
 
@@ -57,36 +56,14 @@ fCur = 0;
 frame = 0;
 dir = DOWN;
 angle = 270;
+row = 0;
 
 hp = 3;
-
-row = 0;
+staff = instance_create(x, y, objStaff);
 
 canDestroy = false;
 dsCol = ds_list_create();
 </string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="3" enumb="1">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string></string>
           </argument>
         </arguments>
       </action>
@@ -123,6 +100,20 @@ if (inWater) {
     }
 }
 
+if (state == FALL) {
+    if (fallTimeout) {
+        dir = DOWN;
+        fallTimeout = max(fallTimeout - 1, 0);
+    }
+    else {
+        x = xPrev;
+        y = yPrev;
+        state = IDLE;
+    }
+} else {
+    inHole = false;
+}
+
 if (inDeepWater &amp;&amp; !canSwim &amp;&amp; state != DROWN) {
     state = DROWN;
     fCur = 0;
@@ -137,19 +128,9 @@ kUp = global.keys[0] &amp;&amp; !global.keys[1];
 kDown = global.keys[1] &amp;&amp; !global.keys[0];
 kLeft = global.keys[2] &amp;&amp; !global.keys[3];
 kRight = global.keys[3] &amp;&amp; !global.keys[2];
-kRoll = global.keys[4];
-
-if (state == FALL) {
-
-    dir = DOWN;
-    fallTimeout = max(fallTimeout - 1, 0);
-    if (!fallTimeout) {
-        inHole = false;
-        x = xPrev;
-        y = yPrev;
-        state = IDLE;
-    }
-}
+kRoll = global.keys[4]; // A
+kStaff = global.keys[5]; // S 
+kSpell = global.keys[6]; // D
 
 if (state != ROLL) {
 
@@ -246,12 +227,12 @@ if (z == 0) {
     hole = noone;
     var minDist = 999;
     instance_deactivate_object(objHole);
-    instance_activate_region(x - 2*TILE, y - 2*TILE, 2*TILE, 2*TILE, true);
+    instance_activate_region(cx - 2*TILE, cy - 2*TILE, 4*TILE, 4*TILE, true);
     
     for (var i = 0; i &lt; instance_number(objHole); i++) {
         var h = instance_find(objHole, i);
-        if (place_meeting(x, y, h)) {
-            var dist = point_distance(cx, cy, h.x + 8, h.y + 8);
+        if (place_meeting(x, y + 3, h)) {
+            var dist = point_distance(x, y, h.x + 8, h.y + 8);
             if (dist &lt; minDist) {
                 minDist = dist;
                 hole = h;
@@ -260,16 +241,16 @@ if (z == 0) {
     }    
     instance_activate_object(objHole);
     if (instance_exists(hole)) {
+    
+            var ang = point_direction(cx, cy, hole.x + 8, hole.y + 8);
+            var hole_dist = point_distance(cx, cy, hole.x + 8, hole.y + 8);
+    
+            xVel += lengthdir_x(.3, ang);
+            yVel += lengthdir_y(.3, ang);
 
-        var ang = point_direction(cx, cy, hole.x + 8, hole.y + 8);
-        var hole_dist = point_distance(cx, cy, hole.x + 8, hole.y + 8);
+        if (state != FALL) {
 
-        if (collision_circle(x, y, 10, objHole, 0, 1)) {            
-            xVel += lengthdir_x(.1, ang);
-            yVel += lengthdir_y(.1, ang);
-        }
-        if (!inHole) {
-            if (collision_point(x, y, objHole, 0, 1)) {            
+            if (collision_point(cx, cy, objHole, 0, 1)) {
                 inHole = true;
                 state = FALL;
                 fallTimeout = maxFallTimeout;
@@ -282,6 +263,24 @@ if (z == 0) {
             yPrev = y;
         }
     }
+}
+
+// STAFF &amp; SPELLS
+
+if (state == IDLE || state == WALK) {
+    if (kStaff) {
+        fCur = 0;
+        state = ATTACK;
+        staff.state = S_ATTACK;
+        var dist = 2*TILE;
+        staff.tx = x + dist * sign(dir) * (abs(dir) == 1);
+        staff.ty = y + dist * sign(dir) * (abs(dir) == 2);
+    }
+}
+
+if (state == ATTACK) {
+    xVel = 0;
+    yVel = 0;
 }
 
 // Z-MOVEMENT
@@ -373,6 +372,14 @@ instance_activate_object(objDestroyable);
     //case DROWN:
         frame = 0;
     break;
+    case ATTACK:
+        fCur = min(fCur + .2, 3.99);
+        frame = 12 + floor(fCur);
+        
+        if (fCur == 3.99) {
+            state = IDLE;
+        }
+    break;
 }
 
 switch(dir) {
@@ -390,12 +397,12 @@ switch(dir) {
     break;
 }
 
-if (!inWater &amp;&amp; !inDeepWater &amp;&amp; state != FALL)
+if (!inWater &amp;&amp; !inDeepWater &amp;&amp; !inHole)
 {
     draw_sprite_ext(sprShadow, -1, cx, cy, 1, 1, 0, c_white, .3);
 }
 
-if (state != FALL &amp;&amp; state != DROWN)
+if (!inHole &amp;&amp; state != DROWN)
     draw_sprite_part(sprPlayer, -1, frame*32, row * 32, 32, 32, cx - 16, cy - 16 + z);
 else {
     var s_fall = (fallTimeout / maxFallTimeout);
@@ -418,7 +425,7 @@ if (state == DROWN) {
 }
 
 //draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
-draw_circle(cx, cy, 2, 1);
+//draw_circle(cx, cy, 6, 1);
 </string>
           </argument>
         </arguments>
