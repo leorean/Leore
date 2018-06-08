@@ -139,17 +139,15 @@ kLeft = global.keys[2] &amp;&amp; !global.keys[3];
 kRight = global.keys[3] &amp;&amp; !global.keys[2];
 kRoll = global.keys[4];
 
-
 if (state == FALL) {
-
-    if (!inHole) state = IDLE;
 
     dir = DOWN;
     fallTimeout = max(fallTimeout - 1, 0);
     if (!fallTimeout) {
+        inHole = false;
         x = xPrev;
         y = yPrev;
-        inHole = false;
+        state = IDLE;
     }
 }
 
@@ -245,22 +243,33 @@ instance_activate_object(objDestroyable);
 // HOLES
 
 if (z == 0) {
-    var hole = instance_place(x, y, objHole);
+    hole = noone;
+    var minDist = 999;
+    instance_deactivate_object(objHole);
+    instance_activate_region(x - 2*TILE, y - 2*TILE, 2*TILE, 2*TILE, true);
+    
+    for (var i = 0; i &lt; instance_number(objHole); i++) {
+        var h = instance_find(objHole, i);
+        if (place_meeting(x, y, h)) {
+            var dist = point_distance(cx, cy, h.x + 8, h.y + 8);
+            if (dist &lt; minDist) {
+                minDist = dist;
+                hole = h;
+            }
+        }
+    }    
+    instance_activate_object(objHole);
     if (instance_exists(hole)) {
 
         var ang = point_direction(cx, cy, hole.x + 8, hole.y + 8);
         var hole_dist = point_distance(cx, cy, hole.x + 8, hole.y + 8);
 
-        if (hole_dist &gt; 7)
-        {
+        if (collision_circle(x, y, 10, objHole, 0, 1)) {            
             xVel += lengthdir_x(.1, ang);
             yVel += lengthdir_y(.1, ang);
-        } else {
-            xVel = lengthdir_x(.4, ang);
-            yVel = lengthdir_y(.4, ang);
         }
         if (!inHole) {
-            if (hole_dist &lt; 5) {
+            if (collision_point(x, y, objHole, 0, 1)) {            
                 inHole = true;
                 state = FALL;
                 fallTimeout = maxFallTimeout;
@@ -409,7 +418,7 @@ if (state == DROWN) {
 }
 
 //draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
-//draw_circle(cx, cy, 2, 1);
+draw_circle(cx, cy, 2, 1);
 </string>
           </argument>
         </arguments>
