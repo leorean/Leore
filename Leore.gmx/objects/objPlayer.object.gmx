@@ -117,7 +117,8 @@ inWater = z == 0 &amp;&amp; tile_layer_find(LAYER_WATER, x, y);
 inDeepWater = false;
 if (inWater) {
     var wt = tile_layer_find(LAYER_WATER, x, y);
-    if (tile_get_left(wt) == 7*TILE &amp;&amp; tile_get_top(wt) == 13*TILE) {
+    if (getTileIndexForCoordinates(tile_get_left(wt), tile_get_top(wt)) == 612) {
+    //if (tile_get_left(wt) == 1*TILE &amp;&amp; tile_get_top(wt) == 13*TILE) {
         inDeepWater = true;
     }
 }
