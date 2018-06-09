@@ -35,6 +35,7 @@ yVel = 0;
 z = -2;
 zt = 0;
 angle = 0;
+type = 0;
 
 dsObjects = ds_list_create();
 </string>
@@ -109,7 +110,7 @@ dsObjects = ds_list_create();
         if (abs(xVel) &lt; .2 &amp;&amp; abs(yVel) &lt; .2) {
             angle *= .8;
         } else {
-            angle = point_direction(x, y, objPlayer.cx, objPlayer.cy);
+            angle = point_direction(x, y, objPlayer.cx, objPlayer.cy) + 90;
         }
         //ds_list_clear(dsObjects);
     break;
@@ -130,7 +131,7 @@ dsObjects = ds_list_create();
         angle = (angle + sign(xVel)*20) % 360;
 
         // DESTROYING OBJECTS
-
+        /*
         //var canDestroy = (max(abs(xVel), abs(yVel)) &gt; .5);
         instance_deactivate_object(objDestroyable);
         instance_activate_region(x - 32, y - 32, 64, 64, true);
@@ -148,7 +149,7 @@ dsObjects = ds_list_create();
             }
         }
         instance_activate_object(objDestroyable);
-        
+        */
         if (abs(xVel) &lt; .2 &amp;&amp; abs(yVel) &lt; .2) {
             state = S_STAY;
             ds_list_clear(dsObjects);
@@ -191,9 +192,7 @@ y += yVel;
           <argument>
             <kind>1</kind>
             <string>draw_sprite_ext(sprStaffShadow, -1, x, y, 1, 1, 0, c_white, .3);
-draw_sprite_ext(mskStaff, -1, x, y - 6 + z, 1, 1, angle, c_white, 1);
-
-draw_text(x + 3* TILE, y - TILE, ds_list_size(dsObjects));
+draw_sprite_ext(sprStaff, type, x, y - 6 + z, 1, 1, angle, c_white, 1);
 </string>
           </argument>
         </arguments>

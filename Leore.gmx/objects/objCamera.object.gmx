@@ -56,12 +56,16 @@ h = HEIGHT / 2;
             <kind>1</kind>
             <string>if (!instance_exists(objPlayer))
     exit;
-    
-xVel = (objPlayer.x - x) / 16;
-yVel = (objPlayer.y - y) / 16;
 
-/*if (abs(xVel) &lt; 2) xVel = 0;
-if (abs(yVel) &lt; 2) yVel = 0;*/
+tx = objPlayer.cx;
+ty = objPlayer.cy;
+    
+/*if (instance_exists(objStaff)) {
+    tx = (objPlayer.cx + objStaff.x) / 2;
+    ty = (objPlayer.cy + objStaff.y) / 2;
+}*/
+xVel = (tx - x) / 16;
+yVel = (ty - y) / 16;
 
 _x += xVel;
 _y += yVel;

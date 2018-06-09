@@ -79,6 +79,7 @@
     </sprites>
     <sprite>sprites\sprBush</sprite>
     <sprite>sprites\mskStaff</sprite>
+    <sprite>sprites\sprStaff</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>
