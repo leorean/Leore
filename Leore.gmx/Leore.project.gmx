@@ -72,6 +72,7 @@
       <sprite>sprites\sprPlayerFireBall</sprite>
       <sprite>sprites\sprWaterShadow</sprite>
       <sprite>sprites\sprShadow</sprite>
+      <sprite>sprites\sprStaffShadow</sprite>
       <sprite>sprites\sprVector</sprite>
       <sprite>sprites\sprDestroyable</sprite>
       <sprite>sprites\sprPlayerFall</sprite>

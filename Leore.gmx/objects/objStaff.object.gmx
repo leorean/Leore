@@ -28,6 +28,38 @@
             <string>state = S_FOLLOW;
 tx = 0;
 ty = 0;
+
+xVel = 0;
+yVel = 0;
+
+z = -2;
+zt = 0;
+angle = 0;
+
+dsObjects = ds_list_create();
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>ds_list_destroy(dsObjects);
 </string>
           </argument>
         </arguments>
@@ -52,22 +84,116 @@ ty = 0;
             <kind>1</kind>
             <string>switch(state) {
     case S_FOLLOW:
-        xVel = (objPlayer.x - x) / 32;
-        yVel = (objPlayer.y - y) / 32;
+        var fdist = TILE;
+        switch(objPlayer.dir) {
+            case UP:
+                tx = objPlayer.cx;
+                ty = objPlayer.cy + fdist;
+            break;
+            case DOWN:
+                tx = objPlayer.cx;
+                ty = objPlayer.cy - fdist;
+            break;
+            case LEFT:
+                ty = objPlayer.cy;
+                tx = objPlayer.cx + fdist;
+            break;
+            case RIGHT:
+                ty = objPlayer.cy;
+                tx = objPlayer.cx - fdist;
+            break;
+        }
+        xVel = (tx - x) / 16;
+        yVel = (ty - y) / 16;
+        ztspeed = .2;
+        if (abs(xVel) &lt; .2 &amp;&amp; abs(yVel) &lt; .2) {
+            angle *= .8;
+        } else {
+            angle = point_direction(x, y, objPlayer.cx, objPlayer.cy);
+        }
+        //ds_list_clear(dsObjects);
     break;
     case S_STAY:
+        xVel = 0;
+        yVel = 0;
+        ztspeed = .1;
+        angle *= .8;
+        //ds_list_clear(dsObjects);
     break;
     case S_ATTACK:
-        xVel += (tx - x) / 32;
-        yVel += (ty - y) / 32;
+        ztspeed = 0;
+        var ang = point_direction(x, y, tx, ty);
+        var dist = point_distance(x, y, tx, ty);
+        xVel = lengthdir_x(min(1, dist / 16) * 6, ang);
+        yVel = lengthdir_y(min(1, dist / 16) * 6, ang);
+        
+        angle = (angle + sign(xVel)*20) % 360;
+
+        // DESTROYING OBJECTS
+
+        //var canDestroy = (max(abs(xVel), abs(yVel)) &gt; .5);
+        instance_deactivate_object(objDestroyable);
+        instance_activate_region(x - 32, y - 32, 64, 64, true);
+        for(var i = 0; i &lt; instance_number(objDestroyable); i++) {
+        
+            var destroyable = instance_find(objDestroyable, i);
+            
+            if (place_meeting(x + xVel, y + yVel, destroyable)) {
+                if (!ds_list_find_index(dsObjects, destroyable)) {
+                    destroyable.hp = max(destroyable.hp - 1, 0);
+                    if (destroyable.hp &gt; 0) {
+                        ds_list_add(dsObjects, destroyable);                
+                    }
+                }
+            }
+        }
+        instance_activate_object(objDestroyable);
+        
+        if (abs(xVel) &lt; .2 &amp;&amp; abs(yVel) &lt; .2) {
+            state = S_STAY;
+            ds_list_clear(dsObjects);
+        }
     break;
 }
 
-xVel = sign(xVel) * min(abs(xVel), 3);
-yVel = sign(yVel) * min(abs(yVel), 3);
+z = sin(zt);
+zt = (zt + ztspeed) % (2*pi);
 
+if (point_distance(x, y, objPlayer.x, objPlayer.y) &gt; 6*TILE) {
+    state = S_FOLLOW;
+}
+
+/*xVel = sign(xVel) * min(abs(xVel), 6);
+yVel = sign(yVel) * min(abs(yVel), 6);*/
+z = min(max(-2, z), 2);
 x += xVel;
 y += yVel;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_sprite_ext(sprStaffShadow, -1, x, y, 1, 1, 0, c_white, .3);
+draw_sprite_ext(mskStaff, -1, x, y - 6 + z, 1, 1, angle, c_white, 1);
+
+draw_text(x + 3* TILE, y - TILE, ds_list_size(dsObjects));
 </string>
           </argument>
         </arguments>

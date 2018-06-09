@@ -33,6 +33,7 @@ zGrav = .15;
 frame = choose(0, 1);
 
 timer = 40;
+depth = LAYER_TOP - 1;
 </string>
           </argument>
         </arguments>

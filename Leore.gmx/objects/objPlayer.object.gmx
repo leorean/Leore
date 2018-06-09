@@ -45,7 +45,6 @@ accWalk = .2;
 inWater = false;
 inHole = false;
 isRolling = false;
-canSwim = false;
 inDeepWater = false;
 
 fallTimeout = 0;
@@ -59,10 +58,33 @@ angle = 270;
 row = 0;
 
 hp = 3;
-staff = instance_create(x, y, objStaff);
+staff = noone;
 
 canDestroy = false;
 dsCol = ds_list_create();
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>ds_list_destroy(dsCol);
 </string>
           </argument>
         </arguments>
@@ -87,6 +109,11 @@ dsCol = ds_list_create();
             <kind>1</kind>
             <string>cx = (bbox_right + bbox_left) / 2;
 cy = (bbox_bottom + bbox_top) / 2;
+
+if (staff == noone &amp;&amp; global.hasStaff) {
+    staff = instance_create(x, y + TILE, objStaff);
+    staff.state = S_STAY;
+}
 
 // FLAGS
 inWater = z == 0 &amp;&amp; tile_layer_find(LAYER_WATER, x, y);
@@ -114,14 +141,14 @@ if (state == FALL) {
     inHole = false;
 }
 
-if (inDeepWater &amp;&amp; !canSwim &amp;&amp; state != DROWN) {
+if (inDeepWater &amp;&amp; !global.canSwim &amp;&amp; state != DROWN) {
     state = DROWN;
     fCur = 0;
 }
 
 // INPUT HANDLING
 
-if (inDeepWater &amp;&amp; !canSwim) setControlsEnabled(false);
+if (inDeepWater &amp;&amp; !global.canSwim) setControlsEnabled(false);
 if (inHole) setControlsEnabled(false);
 
 kUp = global.keys[0] &amp;&amp; !global.keys[1];
@@ -161,7 +188,9 @@ if (state != ROLL) {
     if (state == WALK)
         if (!kLeft &amp;&amp; !kRight &amp;&amp; !kUp &amp;&amp; !kDown) state = IDLE;
 
-    if (kRoll) state = ROLL;
+    if (global.canRoll) {
+        if (kRoll) state = ROLL;
+    }
         
 } else {
     if (true) {
@@ -209,7 +238,7 @@ for(var i = 0; i &lt; instance_number(objDestroyable); i++) {
     var destroyable = instance_find(objDestroyable, i);
     
     if (place_meeting(x + xVel, y + yVel, destroyable)) {
-        if (!ds_list_find_value(dsCol, destroyable)) {
+        if (!ds_list_find_index(dsCol, destroyable)) {
             if (canDestroy) {
                 destroyable.hp = max(destroyable.hp - 1, 0);
             }
@@ -272,9 +301,9 @@ if (state == IDLE || state == WALK) {
         fCur = 0;
         state = ATTACK;
         staff.state = S_ATTACK;
-        var dist = 2*TILE;
-        staff.tx = x + dist * sign(dir) * (abs(dir) == 1);
-        staff.ty = y + dist * sign(dir) * (abs(dir) == 2);
+        var dist = 3.5*TILE;
+        staff.tx = cx + dist * sign(dir) * (abs(dir) == 1);
+        staff.ty = cy + dist * sign(dir) * (abs(dir) == 2);
     }
 }
 

@@ -32,6 +32,11 @@ tile_direction = RIGHT;
 
 map_test = importLevel("map_test.tmx");
 map_southbeach = importLevel("map_southbeach.tmx");
+
+global.canSwim = false;
+global.hasStaff = true;
+global.canRoll = true;
+global.canCast = true;
 </string>
           </argument>
         </arguments>
@@ -77,6 +82,7 @@ instance_deactivate_object(objLiving);
 instance_activate_region(view_xview[0] - b, view_yview[0] - b, view_wview[0] + 2*b, view_hview[0] + 2*b, true);
 
 instance_activate_object(objPlayer);
+instance_activate_object(objStaff);
 
 with(objLiving) {
     depth = -y;

@@ -31,6 +31,8 @@ fCur = random(2);
 yVel = -1.4 - random(.4);
 yGrav = .1;
 xVel = -.5 + random(1);
+
+depth = LAYER_TOP - 1;
 </string>
           </argument>
         </arguments>
