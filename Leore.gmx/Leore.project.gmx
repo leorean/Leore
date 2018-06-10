@@ -87,7 +87,6 @@
   <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\array.gml</script>
-    <script>scripts\setControlsEnabled.gml</script>
     <script>scripts\get.gml</script>
     <scripts name="tile_util">
       <script>scripts\getTileIndexForCoordinates.gml</script>
@@ -100,6 +99,10 @@
       <script>scripts\getStringFromXMLIdentifier.gml</script>
     </scripts>
     <script>scripts\in.gml</script>
+    <scripts name="controls">
+      <script>scripts\setControlsEnabled.gml</script>
+      <script>scripts\keyPressed.gml</script>
+    </scripts>
   </scripts>
   <objects name="objects">
     <objects name="hierarchy">
@@ -128,7 +131,7 @@
   <rooms name="rooms">
     <room>rooms\GAME</room>
   </rooms>
-  <constants number="21">
+  <constants number="22">
     <constant name="WIDTH">688</constant>
     <constant name="HEIGHT">416</constant>
     <constant name="TILE">16</constant>
@@ -146,7 +149,8 @@
     <constant name="ROLL">2</constant>
     <constant name="FALL">3</constant>
     <constant name="DROWN">4</constant>
-    <constant name="ATTACK">5</constant>
+    <constant name="STAFF">5</constant>
+    <constant name="SPELL">6</constant>
     <constant name="S_STAY">0</constant>
     <constant name="S_FOLLOW">1</constant>
     <constant name="S_ATTACK">2</constant>
