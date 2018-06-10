@@ -85,7 +85,7 @@ dsObjects = ds_list_create();
             <kind>1</kind>
             <string>switch(state) {
     case S_FOLLOW:
-        var fdist = TILE;
+        var fdist = 1.5 * TILE;
         switch(objPlayer.dir) {
             case UP:
                 tx = objPlayer.cx;

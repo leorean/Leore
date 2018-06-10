@@ -153,6 +153,11 @@ if (inDeepWater &amp;&amp; !global.canSwim &amp;&amp; state != DROWN) {
     fCur = 0;
 }
 
+if (state == DROWN) {
+    xVel *= .9;
+    yVel *= .9;
+}
+
 // INPUT HANDLING
 
 if (inDeepWater &amp;&amp; !global.canSwim) setControlsEnabled(false);
