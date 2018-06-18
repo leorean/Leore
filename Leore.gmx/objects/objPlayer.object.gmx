@@ -60,9 +60,9 @@ dir = DOWN;
 angle = 270;
 row = 0;
 
+sword = instance_create(x, y, objSword);
+
 hp = 3;
-staff = noone;
-spell = 0;
 
 hole = noone;
 
@@ -335,34 +335,21 @@ if (state == IDLE || state == WALK) {
     }
 }
 
-if (state == SPELL) {
+if (state == ATTACK) {
     xVel = 0;
     yVel = 0;
-    if (kSpell) {
-        fCur = min(fCur, 3);
+    sword.x = cx;
+    sword.y = cy;
+    switch(dir) {
+        case UP:
+        break;
+        case DOWN:
+        break;
+        case LEFT:
+        break;
+        case RIGHT:
+        break;        
     }
-    if (floor(fCur) == 3) {
-        if (!cast) {
-            cast = true;
-            switch(spell) {
-                case 0:
-                    var temp_x = staff.x;
-                    var temp_y = staff.y;
-                    staff.x = x;
-                    staff.y = y;
-                    x = temp_x;
-                    y = temp_y;
-                break;
-            }
-        }
-    }
-} else {
-    cast = false;
-}
-
-if (state == STAFF) {
-    xVel = 0;
-    yVel = 0;
 }
 
 // Z-MOVEMENT
@@ -454,21 +441,9 @@ instance_activate_object(objDestroyable);
     //case DROWN:
         frame = 0;
     break;
-    case SPELL:
-        fCur = min(fCur + .3, 3.99);
-        frame = 12 + floor(fCur);
-        
-        if (fCur == 3.99) {
-            state = IDLE;
-        }
-    break;
-    case STAFF:
-        fCur = min(fCur + .25, 3.99);
-        frame = 12 + floor(fCur);
-        
-        if (fCur == 3.99 &amp;&amp; !keyPressed("staff")) {
-            state = IDLE;
-        }
+    case ATTACK:
+        fCur = 2 * (sword.angle / sword.maxAngle);
+        frame = 12 + floor(fCur);        
     break;
 }
 
