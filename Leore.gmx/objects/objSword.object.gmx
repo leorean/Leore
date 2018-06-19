@@ -42,6 +42,10 @@ dist = 0;
 maxDist = TILE;
 
 dsObjects = ds_list_create();
+
+type = 0;
+len = 0;
+dmg = 0;
 </string>
           </argument>
         </arguments>
@@ -97,8 +101,8 @@ dsObjects = ds_list_create();
                 minAngle = 0;
                 maxAngle = 90;
                 angleDir = 1;
-                off_y = -4;
-                off_x = -6;
+                off_y = -2;
+                off_x = -8;
             break;
             case DOWN:
                 minAngle = 180;
@@ -131,7 +135,7 @@ dsObjects = ds_list_create();
     
         x = objPlayer.cx + off_x + lengthdir_x(dist, angle);
         y = objPlayer.cy + off_y + lengthdir_y(dist, angle);
-        
+                
         if (sign(angleDir) * angle &gt;= sign(angleDir) * maxAngle) {
             dist = max(dist - 4, 0);
             if (dist == 0) {
@@ -142,18 +146,39 @@ dsObjects = ds_list_create();
             dist = min(dist + 2, maxDist);
         }
 
-        // DESTROYING OBJECTS
+        // DESTROYING
+        
+        switch(type) {
+            case 0:
+                len = 16;
+                dmg = 1;
+            break;
+            case 1:
+                len = 24;
+                dmg = 1.5;
+            break;
+            case 2:
+                len = 32;
+                dmg = 2.5;
+            break;
+        }
+        
         instance_deactivate_object(objDestroyable);
         instance_activate_region(x - 32, y - 32, 64, 64, true);
         for(var i = 0; i &lt; instance_number(objDestroyable); i++) {
         
-            var destroyable = instance_find(objDestroyable, i);
+            var destroyable = instance_find(objDestroyable, i);            
             
-            if (place_meeting(x + xVel, y + yVel, destroyable)) {
-                if (!ds_list_find_index(dsObjects, destroyable)) {
-                    destroyable.hp = max(destroyable.hp - 1, 0);
+            var x1 = x;
+            var y1 = y;
+            var x2 = x + lengthdir_x(len, angle);
+            var y2 = y + lengthdir_y(len, angle);
+            
+            if (collision_line(x1, y1, x2, y2, destroyable, false, true)) {
+                if (ds_list_find_index(dsObjects, destroyable.id) == -1) {
+                    destroyable.hp = max(destroyable.hp - dmg, 0);
                     if (destroyable.hp &gt; 0) {
-                        ds_list_add(dsObjects, destroyable);                
+                        ds_list_add(dsObjects, destroyable.id);                
                     }
                 }
             }
@@ -162,93 +187,6 @@ dsObjects = ds_list_create();
         
     break;
 }
-
-/*switch(state) {
-    case :
-        var fdist = 1.5 * TILE;
-        switch(objPlayer.dir) {
-            case UP:
-                tx = objPlayer.cx;
-                ty = objPlayer.cy + fdist;
-            break;
-            case DOWN:
-                tx = objPlayer.cx;
-                ty = objPlayer.cy - fdist;
-            break;
-            case LEFT:
-                ty = objPlayer.cy;
-                tx = objPlayer.cx + fdist;
-            break;
-            case RIGHT:
-                ty = objPlayer.cy;
-                tx = objPlayer.cx - fdist;
-            break;
-        }
-        xVel = (tx - x) / 16;
-        yVel = (ty - y) / 16;
-        ztspeed = .2;
-        if (abs(xVel) &lt; .2 &amp;&amp; abs(yVel) &lt; .2) {
-            angle *= .8;
-        } else {
-            angle = point_direction(x, y, objPlayer.cx, objPlayer.cy) + 90;
-        }
-        ds_list_clear(dsObjects);
-    break;
-    case S_STAY:
-        xVel = 0;
-        yVel = 0;
-        ztspeed = .1;
-        angle *= .8;
-        ds_list_clear(dsObjects);
-    break;
-    case S_ATTACK:
-        ztspeed = 0;
-        var ang = point_direction(x, y, tx, ty);
-        var dist = point_distance(x, y, tx, ty);
-        xVel = lengthdir_x(min(1, dist / 16) * 6, ang);
-        yVel = lengthdir_y(min(1, dist / 16) * 6, ang);
-        
-        angle = (angle + sign(objPlayer.dir)*30) % 360;
-
-        // DESTROYING OBJECTS
-        instance_deactivate_object(objDestroyable);
-        instance_activate_region(x - 32, y - 32, 64, 64, true);
-        for(var i = 0; i &lt; instance_number(objDestroyable); i++) {
-        
-            var destroyable = instance_find(objDestroyable, i);
-            
-            if (place_meeting(x + xVel, y + yVel, destroyable)) {
-                if (!ds_list_find_index(dsObjects, destroyable)) {
-                    destroyable.hp = max(destroyable.hp - 1, 0);
-                    if (destroyable.hp &gt; 0) {
-                        ds_list_add(dsObjects, destroyable);                
-                    }
-                }
-            }
-        }
-        instance_activate_object(objDestroyable);
-        
-        if (abs(xVel) &lt; .2 &amp;&amp; abs(yVel) &lt; .2) {
-            xVel = 0;
-            yVel = 0;
-            if (!keyPressed("staff")) {
-                state = S_STAY;
-                ds_list_clear(dsObjects);
-            }
-        }
-    break;
-}
-
-z = sin(zt);
-zt = (zt + ztspeed) % (2*pi);
-
-if (point_distance(x, y, objPlayer.x, objPlayer.y) &gt; 8*TILE) {
-    state = S_FOLLOW;
-}
-
-z = min(max(-2, z), 2);
-x += xVel;
-y += yVel;*/
 </string>
           </argument>
         </arguments>
@@ -271,9 +209,16 @@ y += yVel;*/
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//draw_sprite_ext(sprStaffShadow, -1, x, y, 1, 1, 0, c_white, .3);
-//draw_sprite_ext(sprStaff, type, x, y - 6 + z, 1, 1, angle, c_white, 1);
-draw_sprite_ext(mskSword, -1, x, y, 1, 1, angle, c_white, 1);
+            <string>draw_sprite_ext(sprSword, type, x, y, 1, 1, angle, c_white, 1);
+
+if (global.debug) {
+    var x1 = x;
+    var y1 = y;
+    var x2 = x + lengthdir_x(len, angle);
+    var y2 = y + lengthdir_y(len, angle);
+    
+    draw_line_colour(x1, y1, x2, y2, c_red, c_red);
+}
 </string>
           </argument>
         </arguments>

@@ -404,7 +404,7 @@ instance_activate_object(objDestroyable);
         frame = 0;
     break;
     case ATTACK:
-        fCur = 1;//min(fCur + .3, 1.99);
+        fCur = 0;
         frame = 12 + floor(fCur);        
     break;
 }
@@ -451,8 +451,10 @@ if (state == DROWN) {
     }
 }
 
-//draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
-//draw_circle(cx, cy, 6, 1);
+if (global.debug) {
+    draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
+    draw_circle(cx, cy, 6, 1);
+}
 </string>
           </argument>
         </arguments>

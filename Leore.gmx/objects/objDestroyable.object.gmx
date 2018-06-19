@@ -50,7 +50,7 @@ type = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite_part(sprDestroyable, -1, (2 + hp) * TILE, type * TILE, TILE, TILE, x, y);
+            <string>draw_sprite_part(sprDestroyable, -1, (2 + floor(hp)) * TILE, type * TILE, TILE, TILE, x, y);
 
 if (!destroyed &amp;&amp; hp == 0) {
     destroyed = true;

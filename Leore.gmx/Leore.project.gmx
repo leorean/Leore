@@ -79,6 +79,7 @@
     </sprites>
     <sprite>sprites\sprBush</sprite>
     <sprite>sprites\mskSword</sprite>
+    <sprite>sprites\sprSword</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>
@@ -102,10 +103,12 @@
       <script>scripts\setControlsEnabled.gml</script>
       <script>scripts\keyPressed.gml</script>
     </scripts>
+    <script>scripts\log.gml</script>
   </scripts>
   <objects name="objects">
     <objects name="hierarchy">
       <object>objects\objSolid</object>
+      <object>objects\objParticle</object>
       <object>objects\objLiving</object>
     </objects>
     <objects name="misc">
