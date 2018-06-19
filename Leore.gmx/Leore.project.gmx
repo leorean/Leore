@@ -78,6 +78,7 @@
       <sprite>sprites\sprPlayerFall</sprite>
     </sprites>
     <sprite>sprites\sprBush</sprite>
+    <sprite>sprites\mskSword</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>

@@ -61,7 +61,6 @@ angle = 270;
 row = 0;
 
 sword = instance_create(x, y, objSword);
-
 hp = 3;
 
 hole = noone;
@@ -116,11 +115,6 @@ dsCol = ds_list_create();
             <string>cx = (bbox_right + bbox_left) / 2;
 cy = (bbox_bottom + bbox_top) / 2;
 
-if (staff == noone &amp;&amp; global.hasStaff) {
-    staff = instance_create(x, y + TILE, objStaff);
-    staff.state = S_STAY;
-}
-
 // FLAGS
 inWater = z == 0 &amp;&amp; tile_layer_find(LAYER_WATER, x, y);
 
@@ -169,8 +163,7 @@ kDown = keyPressed("down");
 kLeft = keyPressed("left");
 kRight = keyPressed("right");
 kRoll = keyPressed("roll");
-kStaff = keyPressed("staff");
-kSpell = keyPressed("spell");
+kAttackPressed = keyPressed("attackPressed");
 
 if (state == IDLE || state == WALK) {
 
@@ -308,47 +301,17 @@ if (z == 0) {
     }
 }
 
-// STAFF &amp; SPELLS
-
-if (state == IDLE || state == WALK) {
-
-    // STAFF
-    if (kStaff) {
-        fCur = 0;
-        state = STAFF;
-        if (staff.state != S_ATTACK) {
-            staff.state = S_ATTACK;
-            var dist = 3.5*TILE;
-            staff.tx = cx + dist * sign(dir) * (abs(dir) == 1);
-            staff.ty = cy + dist * sign(dir) * (abs(dir) == 2);
-        }
-    }
-    
-    if (kSpell) {
-        fCur = 0;
-        state = SPELL;
-        
-        switch(spell) {
-            case 0:
-            break;
-        }
-    }
-}
+// SWORD
 
 if (state == ATTACK) {
     xVel = 0;
     yVel = 0;
-    sword.x = cx;
-    sword.y = cy;
-    switch(dir) {
-        case UP:
-        break;
-        case DOWN:
-        break;
-        case LEFT:
-        break;
-        case RIGHT:
-        break;        
+}
+if (state == IDLE || state == WALK) {
+    if (kAttackPressed &amp;&amp; z == 0) {
+        fCur = 0;
+        state = ATTACK;
+        sword.state = ATTACK;
     }
 }
 
@@ -438,11 +401,10 @@ instance_activate_object(objDestroyable);
         frame = 8 + floor(fCur);
     break;
     case FALL:
-    //case DROWN:
         frame = 0;
     break;
     case ATTACK:
-        fCur = 2 * (sword.angle / sword.maxAngle);
+        fCur = 1;//min(fCur + .3, 1.99);
         frame = 12 + floor(fCur);        
     break;
 }
