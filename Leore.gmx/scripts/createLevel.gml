@@ -65,12 +65,12 @@ for (var i = 0; i<w; i ++)
             case -1: // nothing
             break;
             case 0:
-                var destroyable = instance_create(i*TILE, j*TILE, objDestroyable);
+                var destroyable = instance_create(i*TILE + TILE/2, j*TILE + TILE/2, objDestroyable);
                 destroyable.hp = 1;
                 destroyable.type = 0;
             break;
             case 1:
-                var destroyable = instance_create(i*TILE, j*TILE, objDestroyable);
+                var destroyable = instance_create(i*TILE + TILE/2, j*TILE + TILE/2, objDestroyable);
                 destroyable.hp = 2;
                 destroyable.type = 1;
             break;

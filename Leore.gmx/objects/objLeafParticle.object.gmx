@@ -59,7 +59,7 @@ depth = LAYER_TOP - 1;
     fCur = (fCur + .15) % 2;    
 
 frame = floor(fCur);
-draw_sprite_part(sprDestroyable, -1, frame*TILE, 0, TILE, TILE, x, y);
+draw_sprite_part(sprDestroyable, -1, frame*TILE, 0, TILE, TILE, x - TILE/2, y - TILE/2);
 
 
 x += xVel;

@@ -61,6 +61,7 @@
   <sprites name="sprites">
     <sprite>sprites\sprPlayer</sprite>
     <sprites name="masks">
+      <sprite>sprites\mskDestroyable</sprite>
       <sprite>sprites\mskDoor</sprite>
       <sprite>sprites\mskControl</sprite>
       <sprite>sprites\mskPlayer</sprite>
@@ -68,12 +69,10 @@
       <sprite>sprites\mskHole</sprite>
     </sprites>
     <sprites name="effects">
+      <sprite>sprites\sprEffects</sprite>
       <sprite>sprites\sprDrown</sprite>
-      <sprite>sprites\sprPlayerFireBall</sprite>
       <sprite>sprites\sprWaterShadow</sprite>
       <sprite>sprites\sprShadow</sprite>
-      <sprite>sprites\sprStaffShadow</sprite>
-      <sprite>sprites\sprVector</sprite>
       <sprite>sprites\sprDestroyable</sprite>
       <sprite>sprites\sprPlayerFall</sprite>
     </sprites>
@@ -121,6 +120,7 @@
     <objects name="effects">
       <object>objects\objLeafParticle</object>
       <object>objects\objStoneParticle</object>
+      <object>objects\objEffect</object>
     </objects>
     <object>objects\_old_objPlayer</object>
     <objects name="level_objects">

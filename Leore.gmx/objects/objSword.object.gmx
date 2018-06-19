@@ -176,8 +176,21 @@ dmg = 0;
             
             if (collision_line(x1, y1, x2, y2, destroyable, false, true)) {
                 if (ds_list_find_index(dsObjects, destroyable.id) == -1) {
-                    destroyable.hp = max(destroyable.hp - dmg, 0);
+                
                     if (destroyable.hp &gt; 0) {
+                    
+                        /*var da = point_direction(x, y, destroyable.x, destroyable.y);
+                        var dl = point_distance(objPlayer.x, objPlayer.y, destroyable.x, destroyable.y) / 2;
+                        var dx = x + lengthdir_x(dl, da);
+                        var dy = y + lengthdir_y(dl, da);*/
+                    
+                        var eff = instance_create(destroyable.x, destroyable.y, objEffect);
+                        eff.type = 0;
+                    }
+                
+                    destroyable.hp = max(destroyable.hp - dmg, 0);
+                    
+                    if (destroyable.hp &gt; 0) {                    
                         ds_list_add(dsObjects, destroyable.id);                
                     }
                 }

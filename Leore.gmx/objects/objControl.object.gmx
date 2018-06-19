@@ -40,7 +40,7 @@ global.canCast = true;
 
 global.input = ds_map_create();
 
-global.debug = true; //SET TO TRUE FOR DEBUG DRAWINGS ETC.
+global.debug = 0; //SET TO 1 FOR DEBUG DRAWINGS ETC.
 </string>
           </argument>
         </arguments>
