@@ -56,21 +56,25 @@ depth = LAYER_TOP - 1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite_part(sprDestroyable, -1, frame*TILE, TILE, TILE, TILE, x - TILE/2, y - TILE/2 + z);
-
-x += lengthdir_x(vel, angle);
-y += lengthdir_y(vel, angle);
-
-zVel += zGrav;
-z += zVel;
-if (z + zVel &gt; 0) {
-    zVel *= -.5;
-    vel *= .5;
+            <string>if (global.state == G_PLAY) {
+    
+    x += lengthdir_x(vel, angle);
+    y += lengthdir_y(vel, angle);
+    
+    zVel += zGrav;
+    z += zVel;
+    if (z + zVel &gt; 0) {
+        zVel *= -.5;
+        vel *= .5;
+    }
+    
+    timer = max(timer - 1, 0);
+    if (!timer)
+        instance_destroy();
 }
 
-timer = max(timer - 1, 0);
-if (!timer)
-    instance_destroy();
+draw_sprite_part(sprDestroyable, -1, frame*TILE, TILE, TILE, TILE, x - TILE/2, y - TILE/2 + z);
+
 </string>
           </argument>
         </arguments>

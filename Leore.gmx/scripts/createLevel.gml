@@ -115,6 +115,9 @@ for (var i = 0; i < ds_list_size(objects); i++) {
             door.ty = real(ds_map_find_value(obj, "ty"));
             door.target = ds_map_find_value(obj, "target");
         break;
+        case "sign":
+            var sgn = instance_create(obj_x, obj_y, objSign);
+            sgn.text = ds_map_find_value(obj, "text");
     }
 }
 

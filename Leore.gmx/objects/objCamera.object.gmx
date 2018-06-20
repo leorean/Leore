@@ -54,8 +54,9 @@ h = HEIGHT / 2;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (!instance_exists(objPlayer))
-    exit;
+            <string>if (global.state != G_PLAY) exit;
+
+if (!instance_exists(objPlayer)) exit;
 
 tx = objPlayer.cx;
 ty = objPlayer.cy;

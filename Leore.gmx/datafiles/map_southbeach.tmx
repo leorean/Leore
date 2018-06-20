@@ -57621,5 +57621,10 @@
  </layer>
  <objectgroup name="OBJ">
   <object name="Player" type="player" x="432" y="1104" width="16" height="16"/>
+  <object name="Sign" type="sign" x="448" y="1040" width="16" height="16">
+   <properties>
+    <property name="text" value="Welcome stranger."/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

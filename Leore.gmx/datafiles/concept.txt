@@ -1,4 +1,7 @@
-* powers:
+* GENERAL STUFF
+	- for every logic, check if (global.state == G_PLAY)
+
+* POWERS:
 	- roll
 	- sword
 	-

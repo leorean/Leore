@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>objParticle</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -52,11 +52,15 @@ type = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>fCur = min(fCur + fSpeed, fMax);
-frame = floor(fCur);
+            <string>if (global.state == G_PLAY) {
+    fCur = min(fCur + fSpeed, fMax);
+    frame = floor(fCur);
+    
+    if (fCur == fMax) instance_destroy();
+}
+
 draw_sprite_part(sprEffects, -1, frame*32, type*32, 32, 32, x - 16, y - 16);
 
-if (fCur == fMax) instance_destroy();
 </string>
           </argument>
         </arguments>

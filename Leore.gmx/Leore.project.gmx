@@ -79,6 +79,10 @@
     <sprite>sprites\sprBush</sprite>
     <sprite>sprites\mskSword</sprite>
     <sprite>sprites\sprSword</sprite>
+    <sprites name="fonts">
+      <sprite>sprites\sprFontSmall</sprite>
+    </sprites>
+    <sprite>sprites\mskSign</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>
@@ -103,6 +107,7 @@
       <script>scripts\keyPressed.gml</script>
     </scripts>
     <script>scripts\log.gml</script>
+    <script>scripts\showMessage.gml</script>
   </scripts>
   <objects name="objects">
     <objects name="hierarchy">
@@ -116,24 +121,28 @@
       <object>objects\objPlayer</object>
       <object>objects\objTileManager</object>
       <object>objects\objSword</object>
+      <object>objects\objMessage</object>
     </objects>
     <objects name="effects">
       <object>objects\objLeafParticle</object>
       <object>objects\objStoneParticle</object>
       <object>objects\objEffect</object>
     </objects>
-    <object>objects\_old_objPlayer</object>
     <objects name="level_objects">
       <object>objects\objDestroyable</object>
       <object>objects\objDoor</object>
       <object>objects\objHole</object>
       <object>objects\objTree</object>
+      <object>objects\objSign</object>
     </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\GAME</room>
   </rooms>
-  <constants number="18">
+  <constants number="21">
+    <constant name="G_PAUSE">0</constant>
+    <constant name="G_PLAY">1</constant>
+    <constant name="G_TEXT">2</constant>
     <constant name="WIDTH">688</constant>
     <constant name="HEIGHT">416</constant>
     <constant name="TILE">16</constant>

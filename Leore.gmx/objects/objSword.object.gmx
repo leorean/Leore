@@ -91,7 +91,9 @@ dmg = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>switch(state) {
+            <string>if (global.state != G_PLAY) exit;
+
+switch(state) {
     case IDLE:
         x = -100;
         y = -100;

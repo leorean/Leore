@@ -50,25 +50,28 @@ type = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite_part(sprDestroyable, -1, (2 + floor(hp)) * TILE, type * TILE, TILE, TILE, x - TILE/2, y - TILE/2);
-
-if (!destroyed &amp;&amp; hp == 0) {
-    destroyed = true;
-    switch(type) {
-        case 0: // bush
-            repeat(6)
-                instance_create(x - 8 + random(16),
-                    y - 8 + random(16), objLeafParticle);
-        break;
-        case 1: // stone
-            repeat(4) {
-                var a = random(360);
-                var p = instance_create(x - 4 + random(8),
-                    y - 4 + random(8), objStoneParticle);
-            }
-        break;
+            <string>if (global.state == G_PLAY) {
+    if (!destroyed &amp;&amp; hp == 0) {
+        destroyed = true;
+        switch(type) {
+            case 0: // bush
+                repeat(6)
+                    instance_create(x - 8 + random(16),
+                        y - 8 + random(16), objLeafParticle);
+            break;
+            case 1: // stone
+                repeat(4) {
+                    var a = random(360);
+                    var p = instance_create(x - 4 + random(8),
+                        y - 4 + random(8), objStoneParticle);
+                }
+            break;
+        }
     }
 }
+
+draw_sprite_part(sprDestroyable, -1, (2 + floor(hp)) * TILE, type * TILE, TILE, TILE, x - TILE/2, y - TILE/2);
+
 </string>
           </argument>
         </arguments>

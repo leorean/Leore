@@ -112,8 +112,10 @@ dsCol = ds_list_create();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>cx = (bbox_right + bbox_left) / 2;
-cy = (bbox_bottom + bbox_top) / 2;
+            <string>if (global.state != G_PLAY) exit;
+
+cx = (bbox_right + bbox_left) / 2;
+cy = (bbox_bottom + bbox_top) / 2 - 2;
 
 // FLAGS
 inWater = z == 0 &amp;&amp; tile_layer_find(LAYER_WATER, x, y);
@@ -164,6 +166,13 @@ kLeft = keyPressed("left");
 kRight = keyPressed("right");
 kRoll = keyPressed("roll");
 kAttackPressed = keyPressed("attackPressed");
+
+// TOUCH SIGNS
+
+var sgn = instance_place(x, y, objSign);
+if (sgn != noone &amp;&amp; dir == UP) {
+    showMessage(sgn.text);
+}
 
 if (state == IDLE || state == WALK) {
 
@@ -387,26 +396,38 @@ instance_activate_object(objDestroyable);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>switch(state) {
-    case IDLE:
-        fCur = (fCur + .1) % 4;
-        frame = floor(fCur);
-    break;
-    case WALK:
-        fCur = (fCur + .2) % 4;
-        frame = 4 + floor(fCur);
-    break;
-    case ROLL:
-        fCur = (fCur + max(.2, .6 * sqrt(abs(xVel) + abs(yVel)) / spdRoll )) % 4;
-        frame = 8 + floor(fCur);
-    break;
-    case FALL:
-        frame = 0;
-    break;
-    case ATTACK:
-        fCur = 0;
-        frame = 12 + floor(fCur);        
-    break;
+            <string>// DRAWING &lt;-&gt; STATE LOGIC
+if (global.state == G_PLAY) {
+    switch(state) {
+        case IDLE:
+            fCur = (fCur + .1) % 4;
+            frame = floor(fCur);
+        break;
+        case WALK:
+            fCur = (fCur + .2) % 4;
+            frame = 4 + floor(fCur);
+        break;
+        case ROLL:
+            fCur = (fCur + max(.2, .6 * sqrt(abs(xVel) + abs(yVel)) / spdRoll )) % 4;
+            frame = 8 + floor(fCur);
+        break;
+        case FALL:
+            frame = 0;
+        break;
+        case ATTACK:
+            fCur = 0;
+            frame = 12 + floor(fCur);        
+        break;
+        case DROWN:
+            fCur = min(fCur + .1, 4);
+            frame = floor(fCur);
+            if (fCur == 4) {
+                x = xPrev;
+                y = yPrev;
+                state = IDLE;
+            }
+        break;
+    }
 }
 
 switch(dir) {
@@ -423,6 +444,8 @@ switch(dir) {
         row = 2;
     break;
 }
+
+// DRAWING 
 
 if (!inWater &amp;&amp; !inDeepWater &amp;&amp; !inHole)
 {
@@ -441,14 +464,7 @@ if (inWater &amp;&amp; !inDeepWater) {
 }
 
 if (state == DROWN) {
-    fCur = min(fCur + .1, 4);
-    frame = floor(fCur);
     draw_sprite(sprDrown, frame, cx, cy);
-    if (fCur == 4) {
-        x = xPrev;
-        y = yPrev;
-        state = IDLE;
-    }
 }
 
 if (global.debug) {
