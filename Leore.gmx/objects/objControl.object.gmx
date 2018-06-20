@@ -43,7 +43,7 @@ global.canCast = true;
 
 global.input = ds_map_create();
 
-global.debug = 1; //SET TO 1 FOR DEBUG DRAWINGS ETC.
+global.debug = 0; //SET TO 1 FOR DEBUG DRAWINGS ETC.
 
 display_set_gui_size(.5 * WIDTH, .5 * HEIGHT);
 </string>
