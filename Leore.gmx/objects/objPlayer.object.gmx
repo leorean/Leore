@@ -164,14 +164,17 @@ kUp = keyPressed("up");
 kDown = keyPressed("down");
 kLeft = keyPressed("left");
 kRight = keyPressed("right");
-kRoll = keyPressed("roll");
-kAttackPressed = keyPressed("attackPressed");
+kAction1 = keyPressed("action1");
+kAction2 = keyPressed("action2");
+kAction1Pressed = keyPressed("action1pressed");
+kAction2Pressed = keyPressed("action2pressed");
 
 // TOUCH SIGNS
 
 var sgn = instance_place(x, y, objSign);
 if (sgn != noone &amp;&amp; dir == UP) {
-    showMessage(sgn.text);
+    if (kAction1Pressed)
+        showMessage(sgn.text);
 }
 
 if (state == IDLE || state == WALK) {
@@ -204,7 +207,7 @@ if (state == IDLE || state == WALK) {
         if (!kLeft &amp;&amp; !kRight &amp;&amp; !kUp &amp;&amp; !kDown) state = IDLE;
 
     if (global.canRoll) {
-        if (kRoll) state = ROLL;
+        if (kAction1) state = ROLL;
     }
         
 } 
@@ -215,21 +218,21 @@ if (state == ROLL) {
     if (kUp) dir = UP;
     if (kDown) dir = DOWN;
 
-    if (kRoll) {
+    if (kAction1) {
         if (kRight) { xVel += accRoll; }
         if (kLeft) { xVel -= accRoll; }
     }
     
-    if (kRoll) {
+    if (kAction1) {
         if (kDown) { yVel += accRoll; }
         if (kUp) { yVel -= accRoll; }
     }
 
-    if (!kRoll &amp;&amp; xVel == 0 &amp;&amp; yVel == 0 &amp;&amp; z == 0) 
+    if (!kAction1 &amp;&amp; xVel == 0 &amp;&amp; yVel == 0 &amp;&amp; z == 0) 
         state = IDLE;
 
-    if ((!kLeft &amp;&amp; !kRight) || !kRoll) xVel = sign(xVel)*max(abs(xVel) - accRoll, 0);
-    if ((!kUp &amp;&amp; !kDown) || !kRoll) yVel = sign(yVel)*max(abs(yVel) - accRoll, 0);
+    if ((!kLeft &amp;&amp; !kRight) || !kAction1) xVel = sign(xVel)*max(abs(xVel) - accRoll, 0);
+    if ((!kUp &amp;&amp; !kDown) || !kAction1) yVel = sign(yVel)*max(abs(yVel) - accRoll, 0);
         
     xVel = sign(xVel) * min(abs(xVel), spdRoll);
     yVel = sign(yVel) * min(abs(yVel), spdRoll);
@@ -317,7 +320,7 @@ if (state == ATTACK) {
     yVel = 0;
 }
 if (state == IDLE || state == WALK) {
-    if (kAttackPressed &amp;&amp; z == 0) {
+    if (kAction2Pressed &amp;&amp; z == 0) {
         fCur = 0;
         state = ATTACK;
         sword.state = ATTACK;

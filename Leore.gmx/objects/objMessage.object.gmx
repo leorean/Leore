@@ -27,6 +27,13 @@
             <kind>1</kind>
             <string>global.state = G_TEXT;
 
+i = 0;
+j = 0;
+timeout = 0;
+maxTimeout = 5;
+
+font = global.fnt;
+
 </string>
           </argument>
         </arguments>
@@ -49,13 +56,34 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_font(global.fntSmall);
+            <string>draw_set_font(font);
 draw_set_color(c_white);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 
-draw_text(0, 2*view_hview/3, text);
+if (i == string_length(text) &amp;&amp; keyPressed("action1pressed")) {
+    global.state = G_PLAY;
+    instance_destroy();
+}
 
+timeout = max(timeout - 1, 0);
+if (!timeout || keyPressed("action2")) {
+    i = min(i + 1, string_length(text));
+    timeout = maxTimeout;
+}
+
+var t = string_copy(text, j, i);
+var sep = sprite_get_height(font);
+var w = display_get_gui_width();
+draw_text_ext(0, 2*view_hview/3, t, sep, w);
+
+var words = string_split(t, " ");
+var lastWord = words[array_length_1d(words) - 1];
+var lastWordLength = string_length(lastWord);
+
+if (string_height_ext(t, sep, w) &gt; 4*TILE) {
+    j += string_length(t) - lastWordLength + 1;
+}
 </string>
           </argument>
         </arguments>

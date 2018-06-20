@@ -28,6 +28,7 @@
             <string>global.TW = background_get_width(sprTiles) / TILE;
 
 global.fntSmall = font_add_sprite(sprFontSmall, ord(' '), true, 0);
+global.fnt = font_add_sprite(sprFont, ord(' '), true, 1);
 
 tile_index = 0;
 tile_direction = RIGHT;
@@ -42,9 +43,9 @@ global.canCast = true;
 
 global.input = ds_map_create();
 
-global.debug = 0; //SET TO 1 FOR DEBUG DRAWINGS ETC.
+global.debug = 1; //SET TO 1 FOR DEBUG DRAWINGS ETC.
 
-display_set_gui_size(WIDTH, HEIGHT);
+display_set_gui_size(.5 * WIDTH, .5 * HEIGHT);
 </string>
           </argument>
         </arguments>
@@ -85,8 +86,11 @@ ds_map_add(global.input, "up", keyboard_check(vk_up));
 ds_map_add(global.input, "down", keyboard_check(vk_down));
 ds_map_add(global.input, "left", keyboard_check(vk_left));
 ds_map_add(global.input, "right", keyboard_check(vk_right));
-ds_map_add(global.input, "roll", keyboard_check(ord('A')));
-ds_map_add(global.input, "attackPressed", keyboard_check_pressed(ord('S')));
+ds_map_add(global.input, "action1", keyboard_check(ord('A')));
+ds_map_add(global.input, "action2", keyboard_check(ord('S')));
+ds_map_add(global.input, "action1pressed", keyboard_check_pressed(ord('A')));
+ds_map_add(global.input, "action2pressed", keyboard_check_pressed(ord('S')));
+//ds_map_add(global.input, "anykeypressed", keyboard_check_pressed(vk_anykey));
 
 //////////////////
 
