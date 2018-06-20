@@ -117,7 +117,7 @@ for (var i = 0; i < ds_list_size(objects); i++) {
         break;
         case "sign":
             var sgn = instance_create(obj_x, obj_y, objSign);
-            sgn.text = ds_map_find_value(obj, "text");
+            sgn.text = string_split(ds_map_find_value(obj, "text"), "#");
     }
 }
 

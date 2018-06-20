@@ -87,6 +87,7 @@
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>
+    <background>background\bgMessage</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">

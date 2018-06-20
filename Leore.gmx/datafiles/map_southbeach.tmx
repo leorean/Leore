@@ -57623,7 +57623,7 @@
   <object name="Player" type="player" x="432" y="1104" width="16" height="16"/>
   <object name="Sign" type="sign" x="448" y="1040" width="16" height="16">
    <properties>
-    <property name="text" value="Welcome stranger. This is a very very long text that should stretch out the bounds of messages in this game. Is everything drawn correctly? Hmmm.................."/>
+    <property name="text" value="Welcome stranger. This is a very very long text that should stretch out the bounds of messages in this game. Testing another line here.... hold on.#Is everything drawn correctly? Hmmm.................."/>
    </properties>
   </object>
  </objectgroup>

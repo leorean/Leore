@@ -28,12 +28,17 @@
             <string>global.state = G_TEXT;
 
 i = 0;
-j = 0;
 timeout = 0;
 maxTimeout = 5;
+textFull = false;
+t = "";
+sep = 0;
+w = 0;
+page = 0;
 
 font = global.fnt;
-
+xo = 16;
+yo = 128;
 </string>
           </argument>
         </arguments>
@@ -61,29 +66,41 @@ draw_set_color(c_white);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 
-if (i == string_length(text) &amp;&amp; keyPressed("action1pressed")) {
+//log(page, array_length_1d(text));
+
+var nextPressed = keyPressed("action1pressed") || keyPressed("action2pressed");
+
+if (page == array_length_1d(text)) {
     global.state = G_PLAY;
     instance_destroy();
 }
 
-timeout = max(timeout - 1, 0);
-if (!timeout || keyPressed("action2")) {
-    i = min(i + 1, string_length(text));
-    timeout = maxTimeout;
+if (page &lt; array_length_1d(text)) {
+    
+    textFull = t == text[page];
+    
+    timeout = max(timeout - 1, 0);
+    if (!timeout || keyPressed("action2")) {
+        i = min(i + !textFull, string_length(text[page]));
+        timeout = maxTimeout;
+    }
+    
+    t = string_copy(text[page], 0, i);
+    sep = sprite_get_height(font);
+    w = display_get_gui_width() - 2*TILE;
+    
+    if (textFull) {
+        if (nextPressed) {
+            t = "";
+            page ++;
+            i = 0;
+        }
+    }
 }
 
-var t = string_copy(text, j, i);
-var sep = sprite_get_height(font);
-var w = display_get_gui_width();
-draw_text_ext(0, 2*view_hview/3, t, sep, w);
+draw_background(bgMessage, xo - 16, yo - 16);
+draw_text_ext(xo, yo, t, sep, w);
 
-var words = string_split(t, " ");
-var lastWord = words[array_length_1d(words) - 1];
-var lastWordLength = string_length(lastWord);
-
-if (string_height_ext(t, sep, w) &gt; 4*TILE) {
-    j += string_length(t) - lastWordLength + 1;
-}
 </string>
           </argument>
         </arguments>
