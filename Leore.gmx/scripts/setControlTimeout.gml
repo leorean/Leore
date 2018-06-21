@@ -1,0 +1,1 @@
+global.controlTimeout = argument0;

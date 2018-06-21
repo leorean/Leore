@@ -34,13 +34,13 @@ var l = 0;
 
 // animation_indices = (tile, count)
 var animated_indices = array(
-array(658, 4), // test
+array(658, 5), // water wave
 array(567, 3), // flower
 // water:
  array(705, 6),  array(752, 6),  array(799, 6),  array(846, 6),
  array(893, 6),  array(940, 6),  array(987, 6), array(1034, 6),
 array(1081, 6), array(1128, 6), array(1175, 6), array(1222, 6),
-// deep water:
+// water to deep water:
 array(1269, 4), array(1316, 4), array(1363, 4), array(1410, 4),
 array(1457, 4), array(1504, 4), array(1551, 4), array(1598, 4),
 array(1645, 4), array(1692, 4), array(1739, 4), array(1786, 4)

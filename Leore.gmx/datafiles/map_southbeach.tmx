@@ -21649,7 +21649,7 @@
    <tile gid="0"/>
    <tile gid="613"/>
    <tile gid="613"/>
-   <tile gid="613"/>
+   <tile gid="659"/>
    <tile gid="613"/>
    <tile gid="613"/>
    <tile gid="613"/>
@@ -23439,6 +23439,7 @@
    <tile gid="1411"/>
    <tile gid="1411"/>
    <tile gid="1787"/>
+   <tile gid="659"/>
    <tile gid="613"/>
    <tile gid="613"/>
    <tile gid="613"/>
@@ -23458,7 +23459,6 @@
    <tile gid="613"/>
    <tile gid="613"/>
    <tile gid="613"/>
-   <tile gid="613"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -23649,8 +23649,6 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="613"/>
-   <tile gid="613"/>
    <tile gid="613"/>
    <tile gid="613"/>
    <tile gid="613"/>
@@ -23677,6 +23675,7 @@
    <tile gid="613"/>
    <tile gid="613"/>
    <tile gid="613"/>
+   <tile gid="659"/>
    <tile gid="613"/>
    <tile gid="613"/>
    <tile gid="613"/>
@@ -23685,6 +23684,7 @@
    <tile gid="613"/>
    <tile gid="613"/>
    <tile gid="613"/>
+   <tile gid="659"/>
    <tile gid="613"/>
    <tile gid="613"/>
    <tile gid="613"/>
@@ -23791,6 +23791,7 @@
    <tile gid="613"/>
    <tile gid="613"/>
    <tile gid="613"/>
+   <tile gid="659"/>
    <tile gid="613"/>
    <tile gid="613"/>
    <tile gid="613"/>
@@ -23817,7 +23818,6 @@
    <tile gid="613"/>
    <tile gid="613"/>
    <tile gid="613"/>
-   <tile gid="613"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -23919,6 +23919,7 @@
    <tile gid="613"/>
    <tile gid="613"/>
    <tile gid="613"/>
+   <tile gid="659"/>
    <tile gid="613"/>
    <tile gid="613"/>
    <tile gid="613"/>
@@ -23937,7 +23938,6 @@
    <tile gid="613"/>
    <tile gid="613"/>
    <tile gid="613"/>
-   <tile gid="613"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -24009,7 +24009,6 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="613"/>
    <tile gid="613"/>
    <tile gid="613"/>
    <tile gid="613"/>
@@ -24029,6 +24028,7 @@
    <tile gid="613"/>
    <tile gid="613"/>
    <tile gid="613"/>
+   <tile gid="659"/>
    <tile gid="613"/>
    <tile gid="613"/>
    <tile gid="613"/>
@@ -36639,7 +36639,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="334"/>
    <tile gid="193"/>
    <tile gid="381"/>
    <tile gid="381"/>
@@ -57620,10 +57620,10 @@
   </data>
  </layer>
  <objectgroup name="OBJ">
-  <object name="Player" type="player" x="432" y="1104" width="16" height="16"/>
-  <object name="Sign" type="sign" x="448" y="1040" width="16" height="16">
+  <object name="Player" type="player" x="432" y="1136" width="16" height="16"/>
+  <object name="Sign" type="sign" x="416" y="1040" width="16" height="16">
    <properties>
-    <property name="text" value="Welcome stranger. This is a very very long text that should stretch out the bounds of messages in this game. Testing another line here.... hold on.#Is everything drawn correctly? Hmmm.................."/>
+    <property name="text" value="-South Beach-"/>
    </properties>
   </object>
  </objectgroup>

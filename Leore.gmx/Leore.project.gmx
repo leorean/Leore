@@ -59,14 +59,17 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
+    <sprite>sprites\sprHud</sprite>
     <sprite>sprites\sprPlayer</sprite>
     <sprites name="masks">
       <sprite>sprites\mskDestroyable</sprite>
       <sprite>sprites\mskDoor</sprite>
+      <sprite>sprites\mskSword</sprite>
       <sprite>sprites\mskControl</sprite>
       <sprite>sprites\mskPlayer</sprite>
       <sprite>sprites\mskSolid</sprite>
       <sprite>sprites\mskHole</sprite>
+      <sprite>sprites\mskSign</sprite>
     </sprites>
     <sprites name="effects">
       <sprite>sprites\sprEffects</sprite>
@@ -77,13 +80,11 @@
       <sprite>sprites\sprPlayerFall</sprite>
     </sprites>
     <sprite>sprites\sprBush</sprite>
-    <sprite>sprites\mskSword</sprite>
     <sprite>sprites\sprSword</sprite>
     <sprites name="fonts">
       <sprite>sprites\sprFontSmall</sprite>
       <sprite>sprites\sprFont</sprite>
     </sprites>
-    <sprite>sprites\mskSign</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>
@@ -91,8 +92,6 @@
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
-    <script>scripts\array.gml</script>
-    <script>scripts\get.gml</script>
     <scripts name="tile_util">
       <script>scripts\getTileIndexForCoordinates.gml</script>
       <script>scripts\getTileCoordinatesForIndex.gml</script>
@@ -111,6 +110,11 @@
     <script>scripts\log.gml</script>
     <script>scripts\showMessage.gml</script>
     <script>scripts\string_split.gml</script>
+    <scripts name="array_util">
+      <script>scripts\array.gml</script>
+      <script>scripts\get.gml</script>
+      <script>scripts\array_contains.gml</script>
+    </scripts>
   </scripts>
   <objects name="objects">
     <objects name="hierarchy">
