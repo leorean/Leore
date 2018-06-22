@@ -150,7 +150,7 @@
   <rooms name="rooms">
     <room>rooms\GAME</room>
   </rooms>
-  <constants number="22">
+  <constants number="24">
     <constant name="DEBUG">0</constant>
     <constant name="G_PAUSE">0</constant>
     <constant name="G_PLAY">1</constant>
@@ -173,6 +173,8 @@
     <constant name="FALL">3</constant>
     <constant name="DROWN">4</constant>
     <constant name="ATTACK">5</constant>
+    <constant name="HURT">6</constant>
+    <constant name="SWIM">7</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

@@ -202,18 +202,17 @@ switch(state) {
                 
                     if (!t_e.hurt) {
                         if (t_e.hp &gt; 0) {
+                        
                             var eff = instance_create(t_e.x, t_e.y, objEffect);
                             eff.type = 0;
-                        }
-                        
-                        t_e.hp = max(t_e.hp - dmg, 0);
-                        
-                        t_e.hurt = 20;
-                        var kbAngle = point_direction(objPlayer.cx, objPlayer.cy, t_e.x, t_e.y);
-                        t_e.xVel = lengthdir_x(3, kbAngle);
-                        t_e.yVel = lengthdir_y(3, kbAngle);
+                            
+                            t_e.hp = max(t_e.hp - dmg, 0);
+                            
+                            t_e.hurt = 20;
+                            var kbAngle = point_direction(objPlayer.cx, objPlayer.cy, t_e.x, t_e.y);
+                            t_e.xVel = lengthdir_x(3, kbAngle);
+                            t_e.yVel = lengthdir_y(3, kbAngle);
 
-                        if (t_e.hp &gt; 0) {                    
                             ds_list_add(dsObjects, t_e.id);                
                         }
                     }

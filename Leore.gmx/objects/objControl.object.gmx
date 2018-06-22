@@ -36,11 +36,6 @@ tile_direction = RIGHT;
 map_test = importLevel("map_test.tmx");
 map_southbeach = importLevel("map_southbeach.tmx");
 
-global.canSwim = false;
-global.hasStaff = true;
-global.canRoll = true;
-global.canCast = true;
-
 global.input = ds_map_create();
 
 global.debug = DEBUG; //SET TO 1 FOR DEBUG DRAWINGS ETC.
@@ -80,6 +75,7 @@ if (keyboard_check_pressed(ord('P'))) {
     else if (global.state == G_PLAY)
         global.state = G_PAUSE;    
 }
+if (keyboard_check_pressed(ord('T'))) objPlayer.canSwim = !objPlayer.canSwim;
 
 ds_map_clear(global.input);
 ds_map_add(global.input, "up", keyboard_check(vk_up));
