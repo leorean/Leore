@@ -57620,10 +57620,25 @@
   </data>
  </layer>
  <objectgroup name="OBJ">
-  <object name="Player" type="player" x="432" y="1136" width="16" height="16"/>
+  <object name="Player" type="player" x="384" y="992" width="16" height="16"/>
   <object name="Sign" type="sign" x="416" y="1040" width="16" height="16">
    <properties>
     <property name="text" value="-South Beach-"/>
+   </properties>
+  </object>
+  <object name="Enemy" type="enemy" x="464" y="960" width="16" height="16">
+   <properties>
+    <property name="type" value="0"/>
+   </properties>
+  </object>
+  <object name="Enemy" type="enemy" x="320" y="976" width="16" height="16">
+   <properties>
+    <property name="type" value="0"/>
+   </properties>
+  </object>
+  <object name="Enemy" type="enemy" x="272" y="992" width="16" height="16">
+   <properties>
+    <property name="type" value="0"/>
    </properties>
   </object>
  </objectgroup>

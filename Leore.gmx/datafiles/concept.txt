@@ -1,4 +1,4 @@
-* GENERAL STUFF
+* GENERAL / CODING STUFF
 	- for every logic, check if (global.state == G_PLAY)
 	- text can be split in to multiple "pages" via "#".
 * POWERS:

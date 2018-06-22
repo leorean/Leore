@@ -166,39 +166,62 @@ switch(state) {
         }
         
         instance_deactivate_object(objDestroyable);
+        instance_deactivate_object(objEnemy);        
         instance_activate_region(x - 32, y - 32, 64, 64, true);
-        for(var i = 0; i &lt; instance_number(objDestroyable); i++) {
         
-            var destroyable = instance_find(objDestroyable, i);            
-            
+        for(var i = 0; i &lt; instance_number(objDestroyable) + instance_number(objEnemy); i++) {
+        
+            var t_d = instance_find(objDestroyable, i);
+            var t_e = instance_find(objEnemy, i);
+
             var x1 = x;
             var y1 = y;
             var x2 = x + lengthdir_x(len, angle);
             var y2 = y + lengthdir_y(len, angle);
             
-            if (collision_line(x1, y1, x2, y2, destroyable, false, true)) {
-                if (ds_list_find_index(dsObjects, destroyable.id) == -1) {
+            // DESTROYABLES
+            if (collision_line(x1, y1, x2, y2, t_d, false, true)) {
+                if (ds_list_find_index(dsObjects, t_d.id) == -1) {
                 
-                    if (destroyable.hp &gt; 0) {
                     
-                        /*var da = point_direction(x, y, destroyable.x, destroyable.y);
-                        var dl = point_distance(objPlayer.x, objPlayer.y, destroyable.x, destroyable.y) / 2;
-                        var dx = x + lengthdir_x(dl, da);
-                        var dy = y + lengthdir_y(dl, da);*/
-                    
-                        var eff = instance_create(destroyable.x, destroyable.y, objEffect);
+                    if (t_d.hp &gt; 0) {
+                        var eff = instance_create(t_d.x, t_d.y, objEffect);
                         eff.type = 0;
                     }
-                
-                    destroyable.hp = max(destroyable.hp - dmg, 0);
                     
-                    if (destroyable.hp &gt; 0) {                    
-                        ds_list_add(dsObjects, destroyable.id);                
+                    t_d.hp = max(t_d.hp - dmg, 0);
+                    
+                    if (t_d.hp &gt; 0) {                    
+                        ds_list_add(dsObjects, t_d.id);                
                     }
                 }
             }
+            // ENEMIES
+            if (collision_line(x1, y1, x2, y2, t_e, false, true)) {
+                if (ds_list_find_index(dsObjects, t_e.id) == -1) {
+                
+                    if (!t_e.hurt) {
+                        if (t_e.hp &gt; 0) {
+                            var eff = instance_create(t_e.x, t_e.y, objEffect);
+                            eff.type = 0;
+                        }
+                        
+                        t_e.hp = max(t_e.hp - dmg, 0);
+                        
+                        t_e.hurt = 20;
+                        var kbAngle = point_direction(objPlayer.cx, objPlayer.cy, t_e.x, t_e.y);
+                        t_e.xVel = lengthdir_x(3, kbAngle);
+                        t_e.yVel = lengthdir_y(3, kbAngle);
+
+                        if (t_e.hp &gt; 0) {                    
+                            ds_list_add(dsObjects, t_e.id);                
+                        }
+                    }
+                }
+            }          
         }
         instance_activate_object(objDestroyable);
+        instance_activate_object(objEnemy);        
         
     break;
 }

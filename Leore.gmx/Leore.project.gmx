@@ -85,6 +85,7 @@
       <sprite>sprites\sprFontSmall</sprite>
       <sprite>sprites\sprFont</sprite>
     </sprites>
+    <sprite>sprites\mskEnemy</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>
@@ -121,6 +122,7 @@
       <object>objects\objSolid</object>
       <object>objects\objParticle</object>
       <object>objects\objLiving</object>
+      <object>objects\objAny</object>
     </objects>
     <objects name="misc">
       <object>objects\objControl</object>
@@ -134,6 +136,7 @@
       <object>objects\objLeafParticle</object>
       <object>objects\objStoneParticle</object>
       <object>objects\objEffect</object>
+      <object>objects\objDestroyableRemain</object>
     </objects>
     <objects name="level_objects">
       <object>objects\objDestroyable</object>
@@ -141,12 +144,14 @@
       <object>objects\objHole</object>
       <object>objects\objTree</object>
       <object>objects\objSign</object>
+      <object>objects\objEnemy</object>
     </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\GAME</room>
   </rooms>
-  <constants number="21">
+  <constants number="22">
+    <constant name="DEBUG">0</constant>
     <constant name="G_PAUSE">0</constant>
     <constant name="G_PLAY">1</constant>
     <constant name="G_TEXT">2</constant>

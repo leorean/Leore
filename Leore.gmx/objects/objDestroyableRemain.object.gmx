@@ -3,9 +3,9 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>99</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>objAny</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -25,26 +25,13 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>global.state = G_TEXT;
-
-i = 0;
-timeout = 0;
-maxTimeout = 2;
-textFull = false;
-t = "";
-page = 0;
-
-xo = 16;
-yo = 128;
-
-z = 0;
-zt = 0;
+            <string>type = 0;
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="64">
+    <event eventtype="8" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -61,60 +48,8 @@ zt = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_font(global.fnt);
-draw_set_color(c_white);
-draw_set_halign(fa_left);
-draw_set_valign(fa_top);
+            <string>draw_sprite_part(sprDestroyable, -1, 2*TILE, type * TILE, TILE, TILE, x - TILE/2, y - TILE/2);
 
-//log(page, array_length_1d(text));
-
-var nextPressed = keyPressed("action1pressed") || keyPressed("action2pressed");
-
-if (page == array_length_1d(text)) {
-    io_clear();
-    global.state = G_PLAY;
-    instance_destroy();
-}
-
-if (page &lt; array_length_1d(text)) {
-    
-    textFull = t == text[page];
-    
-    timeout = max(timeout - 1, 0);
-    if (!timeout) {
-        i = min(i + !textFull, string_length(text[page]));
-        timeout = maxTimeout;
-    }
-    if (keyPressed("action2")) {
-        i = min(i + 3*!textFull, string_length(text[page]));
-        timeout = maxTimeout;
-    }
-    
-    t = string_copy(text[page], 0, i);
-    
-    if (textFull) {
-        if (nextPressed) {
-            t = "";
-            page ++;
-            i = 0;
-            textFull = 0;
-        }
-    }
-}
-
-if (string_length(t) &gt; 0)
-    draw_background(bgMessage, xo - 16, yo - 16);
-draw_text_ext(xo, yo, t, 16, display_get_gui_width() - 32);
-
-zt = (zt + .1) % (2*pi);
-z = sin(zt);
-
-if (textFull &amp;&amp; !nextPressed) {
-    var f = 0;
-    if (page &gt;= array_length_1d(text) - 1)
-        f = 1;
-    draw_sprite_part(sprHud, -1, f*32, 0, 32, 32, xo + background_get_width(bgMessage) / 2 - 32, yo + background_get_height(bgMessage) - 43 - z);
-}
 </string>
           </argument>
         </arguments>

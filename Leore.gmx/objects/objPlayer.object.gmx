@@ -253,13 +253,15 @@ instance_activate_region(x - 32, y - 32, 64, 64, true);
 for(var i = 0; i &lt; instance_number(objDestroyable); i++) {
 
     var destroyable = instance_find(objDestroyable, i);
+    if (destroyable.object_index == objEnemy)
+        destroyable = noone;
     
     if (place_meeting(x + xVel, y + yVel, destroyable)) {
         if (!ds_list_find_index(dsCol, destroyable)) {
             if (canDestroy) {
                 destroyable.hp = max(destroyable.hp - 1, 0);
             }
-            if (destroyable.hp &gt; 0) {
+            if (destroyable.hp == 0) {
                 ds_list_add(dsCol, destroyable);
             }
         }
@@ -340,11 +342,17 @@ if (z != 0) { rollTimout = 5; }
 
 // COLLISION 
 
-instance_deactivate_object(objDestroyable);
+// check for destroyables that "still exist" (e.g. avoid bumping in bushes with 0 hp)
+instance_activate_object(objDestroyable);
 for (var i = 0; i &lt; ds_list_size(dsCol); i++) {
     var d = ds_list_find_value(dsCol, i);
-    instance_activate_object(d);
+    instance_deactivate_object(d);
 }
+
+var xCol = instance_place(x + xVel, y, objDestroyable);
+var yCol = instance_place(x, y + yVel, objDestroyable);
+if (xCol &amp;&amp; xCol.object_index == objEnemy) xCol = noone;
+if (yCol &amp;&amp; yCol.object_index == objEnemy) yCol = noone;
 
 if (!place_meeting(x + xVel, y, objSolid)) {
     x += xVel;

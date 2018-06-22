@@ -43,7 +43,7 @@ global.canCast = true;
 
 global.input = ds_map_create();
 
-global.debug = 0; //SET TO 1 FOR DEBUG DRAWINGS ETC.
+global.debug = DEBUG; //SET TO 1 FOR DEBUG DRAWINGS ETC.
 
 display_set_gui_size(.5 * WIDTH, .5 * HEIGHT);
 </string>
@@ -103,7 +103,7 @@ if (global.state == G_PLAY) {
 var b = 6 * TILE;
 instance_deactivate_object(objSolid);
 instance_activate_region(view_xview[0] - 2*b, view_yview[0] - 2*b, view_wview[0] + 4*b, view_hview[0] + 4*b, true);
-instance_deactivate_object(objLiving);
+instance_deactivate_object(objAny);
 instance_activate_region(view_xview[0] - b, view_yview[0] - b, view_wview[0] + 2*b, view_hview[0] + 2*b, true);
 instance_activate_object(objPlayer);
 instance_activate_object(objSword);
