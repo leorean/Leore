@@ -532,6 +532,10 @@ if (!inWater &amp;&amp; !inDeepWater &amp;&amp; !inHole)
     draw_sprite_ext(sprShadow, -1, cx, cy, 1, 1, 0, c_white, .3);
 }
 
+/*if (state == SWIM) {
+    draw_sprite_part(sprWaterShadow, -1, 32*floor((global.timer / 5) % 4), 0, 32, 32, cx - 16, cy - 16);
+}*/
+
 if (!inHole &amp;&amp; state != DROWN) {
     if (invincible % 2 == 0 &amp;&amp; hurt % 2 == 0)
         draw_sprite_part(sprPlayer, -1, frame*32, row * 32, 32, 32, cx - 16, cy - 16 + z);
