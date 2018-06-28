@@ -18066,6 +18066,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="613"/>
+   <tile gid="613"/>
+   <tile gid="613"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -18183,12 +18186,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="613"/>
+   <tile gid="613"/>
+   <tile gid="613"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -18906,9 +18906,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="613"/>
+   <tile gid="613"/>
+   <tile gid="613"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -19026,9 +19026,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="613"/>
+   <tile gid="613"/>
+   <tile gid="613"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -19146,9 +19146,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="613"/>
+   <tile gid="613"/>
+   <tile gid="613"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -32590,9 +32590,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="287"/>
-   <tile gid="287"/>
-   <tile gid="287"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="287"/>
    <tile gid="287"/>
    <tile gid="287"/>
@@ -32710,9 +32710,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="287"/>
-   <tile gid="287"/>
-   <tile gid="287"/>
+   <tile gid="571"/>
+   <tile gid="571"/>
+   <tile gid="571"/>
    <tile gid="287"/>
    <tile gid="287"/>
    <tile gid="287"/>
@@ -32830,9 +32830,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="287"/>
-   <tile gid="287"/>
-   <tile gid="287"/>
+   <tile gid="618"/>
+   <tile gid="618"/>
+   <tile gid="618"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -32950,9 +32950,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="287"/>
-   <tile gid="287"/>
-   <tile gid="287"/>
+   <tile gid="618"/>
+   <tile gid="618"/>
+   <tile gid="618"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -33070,9 +33070,9 @@
    <tile gid="334"/>
    <tile gid="334"/>
    <tile gid="334"/>
-   <tile gid="287"/>
-   <tile gid="287"/>
-   <tile gid="287"/>
+   <tile gid="618"/>
+   <tile gid="618"/>
+   <tile gid="618"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -33190,9 +33190,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="287"/>
-   <tile gid="287"/>
-   <tile gid="287"/>
+   <tile gid="665"/>
+   <tile gid="665"/>
+   <tile gid="665"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -33310,9 +33310,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="287"/>
-   <tile gid="287"/>
-   <tile gid="287"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -33430,9 +33430,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="287"/>
-   <tile gid="287"/>
-   <tile gid="287"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -33550,9 +33550,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="287"/>
-   <tile gid="287"/>
-   <tile gid="287"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -57620,7 +57620,7 @@
   </data>
  </layer>
  <objectgroup name="OBJ">
-  <object name="Player" type="player" x="432" y="1136" width="16" height="16"/>
+  <object name="Player" type="player" x="864" y="528" width="16" height="16"/>
   <object name="Sign" type="sign" x="416" y="1040" width="16" height="16">
    <properties>
     <property name="text" value="-South Beach-"/>

@@ -245,7 +245,7 @@ if (state == ROLL) {
 
     if ((!kLeft &amp;&amp; !kRight) || !kAction1) xVel = sign(xVel)*max(abs(xVel) - .1, 0);
     if (   (!kUp &amp;&amp; !kDown) || !kAction1) yVel = sign(yVel)*max(abs(yVel) - .1, 0);
-        
+
     xVel = sign(xVel) * min(abs(xVel), 3);
     yVel = sign(yVel) * min(abs(yVel), 3);
 }
