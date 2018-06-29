@@ -56,6 +56,18 @@ for (var i = 0; i<w; i ++)
                 tree.h = 3;
                 tree.tile = 520;
             break;
+            case 805:
+                var tree = instance_create(i*TILE, j*TILE, objTree);
+                tree.w = 2;
+                tree.h = 3;
+                tree.tile = 805;
+            break;
+            case 807:
+                var tree = instance_create(i*TILE, j*TILE, objTree);
+                tree.w = 1;
+                tree.h = 2;
+                tree.tile = 807;
+            break;
             default:
                 addTile(top, i*TILE, j*TILE, LAYER_TOP);
             break;
