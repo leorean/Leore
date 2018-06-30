@@ -129,7 +129,7 @@ for (var i = 0; i < ds_list_size(objects); i++) {
         break;
         case "sign":
             var sgn = instance_create(obj_x, obj_y, objSign);
-            sgn.text = string_split(ds_map_find_value(obj, "text"), "#");
+            sgn.text = string_split(ds_map_find_value(obj, "text"), "|");
         break;
         case "enemy":
             var e = instance_create(obj_x + 8, obj_y + 8, objEnemy);

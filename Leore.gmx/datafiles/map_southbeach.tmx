@@ -18020,10 +18020,10 @@
   </data>
  </layer>
  <objectgroup name="OBJ">
-  <object name="Player" type="player" x="800" y="368" width="16" height="16"/>
+  <object name="Player" type="player" x="432" y="720" width="16" height="16"/>
   <object name="Sign" type="sign" x="416" y="640" width="16" height="16">
    <properties>
-    <property name="text" value="-South Beach-"/>
+    <property name="text" value="-South Beach-#North: Shin's Hut#East: Ember Village"/>
    </properties>
   </object>
   <object name="Enemy" type="enemy" x="464" y="560" width="16" height="16">

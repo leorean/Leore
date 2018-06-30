@@ -78,8 +78,9 @@ if (page == array_length_1d(text)) {
 
 if (page &lt; array_length_1d(text)) {
     
+    text[page] = (string_replace(text[page], "#", chr($000D) + chr($000A)));
     textFull = t == text[page];
-    
+        
     timeout = max(timeout - 1, 0);
     if (!timeout) {
         i = min(i + !textFull, string_length(text[page]));
@@ -102,7 +103,7 @@ if (page &lt; array_length_1d(text)) {
     }
 }
 
-if (string_length(t) &gt; 0)
+//if (string_length(t) &gt; 0)
     draw_background(bgMessage, xo - 16, yo - 16);
 draw_text_ext(xo, yo, t, 16, display_get_gui_width() - 32);
 
