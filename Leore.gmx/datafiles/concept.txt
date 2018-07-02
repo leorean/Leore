@@ -5,3 +5,6 @@
 	- roll
 	- sword
 	-
+* STORYLINE:
+	- Player starts in the southmost point of Leore, in south beach, where he will find the shrine of shin
+	- In the shrine of shin, he will find an old relic

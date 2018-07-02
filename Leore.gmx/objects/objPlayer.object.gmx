@@ -44,7 +44,8 @@ spd = 1.5;
 inWater = false;
 inHole = false;
 isRolling = false;
-inDeepWater = false;
+inShallowWater = false;
+inWater = false;
 
 fallTimeout = 0;
 maxFallTimeout = 60;
@@ -119,14 +120,14 @@ cx = (bbox_right + bbox_left) / 2;
 cy = (bbox_bottom + bbox_top) / 2 - 2;
 
 // FLAGS
-inWater = z == 0 &amp;&amp; tile_layer_find(LAYER_WATER, x, y);
-
-inDeepWater = false;
-if (inWater) {
+inShallowWater = z == 0 &amp;&amp; tile_layer_find(LAYER_WATER, x, y);
+inWater = false;
+if (inShallowWater) {
     var wt = tile_layer_find(LAYER_WATER, x, y);
     var wt_index = getTileIndexForCoordinates(tile_get_left(wt), tile_get_top(wt));
     if (array_contains(array(658, 659, 660, 661, 662, 612), wt_index)) {
-        inDeepWater = true;
+        inWater = true;
+        inShallowWater = false;
     }
 }
 
@@ -146,7 +147,7 @@ if (state == FALL) {
     inHole = false;
 }
 
-if (inDeepWater) {
+if (inWater) {
     if (!canSwim &amp;&amp; state != DROWN) {
         state = DROWN;
         fCur = 0;
@@ -163,7 +164,7 @@ if (state == DROWN) {
 
 // INPUT HANDLING
 
-if (inDeepWater &amp;&amp; !canSwim) setControlsEnabled(false);
+if (inWater &amp;&amp; !canSwim) setControlsEnabled(false);
 if (inHole) setControlsEnabled(false);
 if (hurt) setControlsEnabled(false);
 
@@ -250,7 +251,7 @@ if (state == ROLL) {
     yVel = sign(yVel) * min(abs(yVel), 3);
 }
 
-if (inWater &amp;&amp; !inDeepWater) {
+if (inShallowWater &amp;&amp; !inWater) {
     xVel = sign(xVel) * min(abs(xVel), 1);
     yVel = sign(yVel) * min(abs(yVel), 1);
 }
@@ -258,7 +259,7 @@ if (inWater &amp;&amp; !inDeepWater) {
 // SWIMMING
 
 if (state == SWIM) {
-    if (!inDeepWater) {
+    if (!inWater) {
         state = IDLE;
     }
     
@@ -370,7 +371,7 @@ if (z == 0) {
         }
     } else
     {
-        if (!inWater) {
+        if (!inShallowWater &amp;&amp; !inWater) {
             xPrev = x;
             yPrev = y;
         }
@@ -495,7 +496,7 @@ if (global.state == G_PLAY) {
             fCur = min(fCur + .1, 4);
             frame = floor(fCur);
             if (fCur == 4) {
-                if (inDeepWater) {
+                if (inWater) {
                     x = xPrev;
                     y = yPrev;
                 } else {
@@ -527,7 +528,7 @@ switch(dir) {
 
 // DRAWING 
 
-if (!inWater &amp;&amp; !inDeepWater &amp;&amp; !inHole)
+if (!inShallowWater &amp;&amp; !inWater &amp;&amp; !inHole)
 {
     draw_sprite_ext(sprShadow, -1, cx, cy, 1, 1, 0, c_white, .3);
 }
@@ -545,7 +546,7 @@ else {
     draw_sprite_ext(sprPlayerFall, -1, cx, cy, s_fall, s_fall, s_fall * 360, c_white, s_fall);
 }
 
-if (inWater &amp;&amp; !inDeepWater) {
+if (inShallowWater &amp;&amp; !inWater) {
     draw_sprite_part(sprWaterShadow, -1, 32*floor((global.timer / 5) % 4), 0, 32, 32, cx - 16, cy - 16);
 }
 
