@@ -95,6 +95,10 @@ for (var i = 0; i<w; i ++)
             case 2: // solid (invisible)
                 instance_create(i*TILE, j*TILE, objSolid);
             break;
+            case 104: // cliffs
+                instance_create(i*TILE, j*TILE, objCliff);
+                addTile(fg, i*TILE, j*TILE, LAYER_FG);
+            break;
             // holes
             case 282: case 283: case 284:
             case 329: case 330: case 331:
@@ -140,7 +144,8 @@ for (var i = 0; i < ds_list_size(objects); i++) {
         case "enemy":
             var e = instance_create(obj_x + 8, obj_y + 8, objEnemy);
             e.type = real(ds_map_find_value(obj, "type"));
-        break;    }
+        break;
+    }
 }
 
 ds_list_destroy(dsIgnore);

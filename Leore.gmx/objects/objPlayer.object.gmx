@@ -46,6 +46,7 @@ inHole = false;
 isRolling = false;
 inShallowWater = false;
 inWater = false;
+inCliff = false;
 
 fallTimeout = 0;
 maxFallTimeout = 60;
@@ -176,6 +177,38 @@ kAction1 = keyPressed("action1");
 kAction2 = keyPressed("action2");
 kAction1Pressed = keyPressed("action1pressed");
 kAction2Pressed = keyPressed("action2pressed");
+
+// CLIFFS
+
+if (!inCliff)
+    cliff = instance_place(x, y + 2, objCliff);
+
+if (cliff != noone) {
+    if (dir == DOWN &amp;&amp; kDown) {
+        cliffTimer = min(cliffTimer + 1, 60);
+    } else {
+        cliffTimer = 0;
+    }
+    
+    if (cliffTimer == 60) {
+        inCliff = true;
+        z = -1;
+        zVel = -2.5;
+        cliffTimer = 0;
+    }
+} else {
+    cliffTimer = 0;
+}
+
+if (inCliff) {
+    y += 1.5;
+    if (!place_meeting(x, y, objSolid)) {
+        inCliff = false;
+    }
+    if (z == 0) {
+        inCliff = false;
+    }
+}
 
 // TOUCH SIGNS
 
