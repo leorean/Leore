@@ -50,29 +50,28 @@ for (var i = 0; i<w; i ++)
             case -1: //nothing
             break;
             // trees
+            // 2 x 3
             case 520:
-                var tree = instance_create(i*TILE, j*TILE, objTree);
-                tree.w = 2;
-                tree.h = 3;
-                tree.tile = 520;
-            break;
             case 805:
+            case 624:
                 var tree = instance_create(i*TILE, j*TILE, objTree);
                 tree.w = 2;
                 tree.h = 3;
-                tree.tile = 805;
+                tree.tile = top;
             break;
+            // 1 x 2
             case 807:
                 var tree = instance_create(i*TILE, j*TILE, objTree);
                 tree.w = 1;
                 tree.h = 2;
-                tree.tile = 807;
+                tree.tile = top;
             break;
+            // 3 x 4
             case 668:
                 var tree = instance_create(i*TILE, j*TILE, objTree);
                 tree.w = 3;
                 tree.h = 4;
-                tree.tile = 668;
+                tree.tile = top;
             break;
             default:
                 addTile(top, i*TILE, j*TILE, LAYER_TOP);
