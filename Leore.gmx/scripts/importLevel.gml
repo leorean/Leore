@@ -38,7 +38,7 @@ while (!file_text_eof(file)) {
             ds_grid_resize(ds[d], w, h);        
     }
     
-    if (string_pos('<tile gid=', f) != 0) {
+    if (string_pos('<tile gid=', f) != 0 || string_pos('<tile/>', f) != 0) {
         ds_grid_add(ds[l], i, j, real(string_digits(f)) - 1);
         i++;
         if (i >= w) {
