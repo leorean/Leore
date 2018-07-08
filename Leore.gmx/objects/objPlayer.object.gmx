@@ -178,6 +178,9 @@ kAction2 = keyPressed("action2");
 kAction1Pressed = keyPressed("action1pressed");
 kAction2Pressed = keyPressed("action2pressed");
 
+if (kLeft &amp;&amp; kRight) { kLeft = 0; kRight = 0; }
+if (kUp &amp;&amp; kDown) { kUp = 0; kDown = 0; }
+
 // CLIFFS
 
 if (!inCliff)
