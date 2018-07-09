@@ -453,6 +453,13 @@ var yCol = instance_place(x, y + yVel, objDestroyable);
 if (xCol &amp;&amp; xCol.object_index == objEnemy) xCol = noone;
 if (yCol &amp;&amp; yCol.object_index == objEnemy) yCol = noone;
 
+// stairs
+var stairs = instance_place(x + xVel, y + yVel, objStairs);
+if (stairs &amp;&amp; z == 0) {
+    yVel = sign(yVel) * min(abs(yVel), .8);
+    instance_deactivate_object(objStairs);
+}
+
 if (!place_meeting(x + xVel, y, objSolid)) {
     x += xVel;
 } else {
@@ -480,8 +487,7 @@ if (!place_meeting(x, y + yVel, objSolid)) {
         yVel = 0;
 }
 instance_activate_object(objDestroyable);
-
-
+instance_activate_object(objStairs);
 
 
 </string>

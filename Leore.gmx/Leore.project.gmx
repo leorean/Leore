@@ -147,6 +147,7 @@
       <object>objects\objSign</object>
       <object>objects\objEnemy</object>
       <object>objects\objCliff</object>
+      <object>objects\objStairs</object>
     </objects>
   </objects>
   <rooms name="rooms">

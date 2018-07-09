@@ -32,9 +32,6 @@ for (var i = 0; i<w; i ++)
         fg = ds_grid_get(data[2],i,j);
         top = ds_grid_get(data[3],i,j);
 
-        if (bg > 0) //bg tiles
-            addTile(bg, i*TILE, j*TILE, LAYER_BG);
-
         switch (water) {//water tiles
             case -1: // nothing
             break;
@@ -45,7 +42,18 @@ for (var i = 0; i<w; i ++)
                 //tile_set_alpha(t, .7);
             break;
         }
-        
+        switch(bg) {
+            case -1: case 0: // nothing
+            break;
+            // stairs
+            case 59: case 106: case 153: case 200:
+            case 293: case 294: case 340: case 341:
+                instance_create(i*TILE, j*TILE, objStairs);
+            default:
+                addTile(bg, i*TILE, j*TILE, LAYER_BG);
+            break;
+
+        }
         switch(top) {
             case -1: //nothing
             break;
