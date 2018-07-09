@@ -221,6 +221,14 @@ if (sgn != noone &amp;&amp; dir == UP) {
         showMessage(sgn.text);
 }
 
+// DOORS
+if (state == WALK || state == ROLL) {
+    var door = instance_place(x + sign(xVel) * 2, y + sign(yVel) * 2, objDoor);
+    if (door) {
+        global.state = G_CHANGELEVEL;
+    }
+}
+
 // WALKING
 
 if (state == IDLE || state == WALK) {

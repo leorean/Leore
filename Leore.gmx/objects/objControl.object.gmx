@@ -33,8 +33,10 @@ global.fnt = font_add_sprite(sprFont, ord(' '), true, 1);
 tile_index = 0;
 tile_direction = RIGHT;
 
-map_test = importLevel("map_test.tmx");
+// TODO: LEVEL LOADER
+/*map_test = importLevel("map_test.tmx");
 map_southbeach = importLevel("map_southbeach.tmx");
+map_southbeach_cave = importLevel("map_southbeach_cave.tmx")*/
 
 global.input = ds_map_create();
 
@@ -77,6 +79,8 @@ if (keyboard_check_pressed(ord('P'))) {
 }
 if (keyboard_check_pressed(ord('T'))) objPlayer.canSwim = !objPlayer.canSwim;
 
+// REAL INPUT
+
 ds_map_clear(global.input);
 ds_map_add(global.input, "up", keyboard_check(vk_up));
 ds_map_add(global.input, "down", keyboard_check(vk_down));
@@ -86,7 +90,6 @@ ds_map_add(global.input, "action1", keyboard_check(ord('A')));
 ds_map_add(global.input, "action2", keyboard_check(ord('S')));
 ds_map_add(global.input, "action1pressed", keyboard_check_pressed(ord('A')));
 ds_map_add(global.input, "action2pressed", keyboard_check_pressed(ord('S')));
-//ds_map_add(global.input, "anykeypressed", keyboard_check_pressed(vk_anykey));
 
 //////////////////
 
@@ -126,7 +129,8 @@ instance_activate_object(objSword);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>createLevel(map_southbeach);
+            <string>var map = importLevel("map_southbeach.tmx");
+createLevel(map);
 // get animation tiles
 
 instance_create(0, 0, objTileManager);

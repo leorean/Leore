@@ -31,6 +31,7 @@
 
 var all_tiles = tile_get_ids();
 var l = 0;
+animation_tiles = undefined;
 
 // animation_indices = (tile, count)
 var animated_indices = array(
@@ -87,6 +88,8 @@ for (var i = 0; i &lt; array_length_1d(all_tiles); i++) {
 // animation_tiles: tile, left, count, frame
 
 var b = 4*TILE;
+
+if (is_undefined(animation_tiles)) exit;
 
 for (var i = 0; i &lt; array_length_1d(animation_tiles); i++) {
     var t = animation_tiles[i];
