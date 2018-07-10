@@ -4,12 +4,33 @@
 	- doors have "dir" & "targetdir"
 		- dir means the direction the player has to face to walk in
 		- targetdir is the direction the player is rotated in the new level
-* POWERS:
-	- roll
+
+* POWERS / ITEMS:
 	- sword
-	-
+		- magic sword types? each sword has a unique power?
+	- swim
+	- RUNES
+		- roll
+		- levitate
+		- dig
+		- magic orb
+		- lightning
+		
 * TODO / WHAT'S MISSING
-	- save statues	
+	- save statues
+	- additional player states: 
+		- acquire item
+		- wake up (for beginning story etc.)
+		- die (+ restart from last save point menu)
+	- HUD
+		- HP
+		- Magic
+	- Magic resource system 
+		- slowly recovering?
+		- actions / spells cost magic
+	- enemies
+
 * STORYLINE:
-	- Player starts in the southmost point of Leore, in south beach, where he will find the shrine of shin
-	- In the shrine of shin, he will find an old relic
+	- player awakes at the shore - his memory is lost
+	- player starts walking north from the southmost point of leore, south beach, where he will find the shrine of shin
+	- in the shrine of shin, he will find an old relic

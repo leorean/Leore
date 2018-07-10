@@ -135,9 +135,7 @@ instance_activate_object(objSword);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_create(0, 0, objTileManager);
-
-global.timer = 0;
+            <string>global.timer = 0;
 global.state = G_PLAY;
 
 surface_resize(application_surface, 2*WIDTH, 2*HEIGHT);
@@ -155,10 +153,13 @@ view_hborder[0] = 999;
 view_visible[0] = true;
 view_enabled[0] = true;
 
+// load level
 var map = importLevel(global.mapName + ".tmx");
 createLevel(map);
 
 instance_create(global.mapX, global.mapY, objPlayer);
+instance_create(0, 0, objTileManager);
+
 </string>
           </argument>
         </arguments>
