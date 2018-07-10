@@ -223,9 +223,10 @@ if (sgn != noone &amp;&amp; dir == UP) {
 
 // DOORS
 if (state == WALK || state == ROLL) {
-    var door = instance_place(x + sign(xVel) * 2, y + sign(yVel) * 2, objDoor);
-    if (door) {
+    var door = instance_place(x + sign(xVel) * 1, y + sign(yVel) * 1, objDoor);
+    if (door) {    
         global.state = G_CHANGELEVEL;
+        var trans = instance_create(door.x + 8, door.y + 8, objLevelTransition);
     }
 }
 
