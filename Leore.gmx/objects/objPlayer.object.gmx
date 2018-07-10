@@ -54,7 +54,7 @@ maxFallTimeout = 60;
 state = IDLE;
 fCur = 0;
 frame = 0;
-dir = DOWN;
+dir = global.dir;
 angle = 270;
 row = 0;
 
@@ -223,10 +223,30 @@ if (sgn != noone &amp;&amp; dir == UP) {
 
 // DOORS
 if (state == WALK || state == ROLL) {
-    var door = instance_place(x + sign(xVel) * 1, y + sign(yVel) * 1, objDoor);
-    if (door) {    
-        global.state = G_CHANGELEVEL;
-        var trans = instance_create(door.x + 8, door.y + 8, objLevelTransition);
+    var door = instance_place(x, y, objDoor);
+    if (door) {
+        if (dir == door.dir) {
+            with(objLevelTransition) instance_destroy();
+            var trans = instance_create(door.x + 8, door.y + 8, objLevelTransition);
+            trans.tx = door.tx;
+            trans.ty = door.ty;
+            trans.target = door.target;
+            //IF trans.dir = door.dir;
+            switch(door.dir) {
+                case "up":
+                    global.dir = UP;
+                break;
+                case "down":
+                    global.dir = DOWN;
+                break;
+                case "left":
+                    global.dir = LEFT;
+                break;
+                case "right":
+                    global.dir = RIGHT;
+                break;
+            }
+        }
     }
 }
 

@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>0</persistent>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -25,7 +25,10 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>r = max(view_wview, view_hview) * 1.5;
+            <string>r = max(view_wview, view_hview) + 128;
+rMax = r;
+fade = -10;
+global.state = G_CHANGELEVEL;
 </string>
           </argument>
         </arguments>
@@ -51,14 +54,35 @@
             <string>var _x = (x - view_xview);
 var _y = (y - view_yview);
 
-draw_set_blend_mode(bm_normal);
+r = max(r + fade, -64);
 
+if (r == -64) {
+    fade = -fade;
+    global.mapName = target;
+    var _tx = tx * TILE + 8;
+    var _ty = ty * TILE + 8;
+    global.mapX = _tx;
+    global.mapY = _ty;
+    x = _tx;
+    y = _ty;
+    room_restart();
+}
+
+r = min(r, rMax);
+if (r == rMax) {
+    instance_destroy();
+}
+
+draw_set_blend_mode(bm_normal);
 var surf = surface_create(view_wview, view_hview);
 surface_set_target(surf);
-draw_set_color(c_white);
+cc = 255 - ((max(r, 0) / rMax) * 255);
+log (cc);
+c = make_color_hsv(0, 0, cc);
+draw_set_color(c);
 draw_rectangle(0, 0, view_wview, view_hview, false);
 draw_set_color(c_black);
-draw_circle(_x, _y, 20, false);
+draw_circle(_x, _y, max(r, 0), false);
 
 surface_reset_target();
 

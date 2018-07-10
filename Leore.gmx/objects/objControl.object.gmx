@@ -43,6 +43,12 @@ global.input = ds_map_create();
 global.debug = DEBUG; //SET TO 1 FOR DEBUG DRAWINGS ETC.
 
 display_set_gui_size(.5 * WIDTH, .5 * HEIGHT);
+
+// TODO: load? change? etc.
+global.mapName = "map_southbeach_cave";
+global.mapX = -1;
+global.mapY = -1;
+global.dir = DOWN;
 </string>
           </argument>
         </arguments>
@@ -129,11 +135,7 @@ instance_activate_object(objSword);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var map = importLevel("map_southbeach.tmx");
-createLevel(map);
-// get animation tiles
-
-instance_create(0, 0, objTileManager);
+            <string>instance_create(0, 0, objTileManager);
 
 global.timer = 0;
 global.state = G_PLAY;
@@ -153,6 +155,10 @@ view_hborder[0] = 999;
 view_visible[0] = true;
 view_enabled[0] = true;
 
+var map = importLevel(global.mapName + ".tmx");
+createLevel(map);
+
+instance_create(global.mapX, global.mapY, objPlayer);
 </string>
           </argument>
         </arguments>

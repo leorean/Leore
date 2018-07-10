@@ -1,10 +1,15 @@
 * GENERAL / CODING STUFF
 	- for every logic, check if (global.state == G_PLAY)
 	- text can be split in to multiple "pages" via "|" and newlines can be made via "#".
+	- doors have "dir" & "targetdir"
+		- dir means the direction the player has to face to walk in
+		- targetdir is the direction the player is rotated in the new level
 * POWERS:
 	- roll
 	- sword
 	-
+* TODO / WHAT'S MISSING
+	- save statues	
 * STORYLINE:
 	- Player starts in the southmost point of Leore, in south beach, where he will find the shrine of shin
 	- In the shrine of shin, he will find an old relic

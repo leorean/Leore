@@ -136,13 +136,26 @@ for (var i = 0; i < ds_list_size(objects); i++) {
     
     switch(obj_type) {
         case "player":
-            instance_create(obj_x + 8, obj_y + 8, objPlayer);
+            // so this is done only once!
+            // this means, the first level the game loads, must have a player!
+            if(!global.mapX && !global.mapY) {
+                global.mapX = obj_x + 8;
+                global.mapY = obj_y + 8;
+            }
         break;
         case "door":
             var door = instance_create(obj_x, obj_y, objDoor);
             door.tx = real(ds_map_find_value(obj, "tx"));
             door.ty = real(ds_map_find_value(obj, "ty"));
             door.target = ds_map_find_value(obj, "target");
+            var ddir = ds_map_find_value(obj, "dir");
+            switch(ddir) {
+                case "up": door.dir = UP; break;
+                case "down": door.dir = DOWN; break;
+                case "left": door.dir = LEFT; break;
+                case "right": door.dir = RIGHT; break;
+            }
+            door.targetdir = ds_map_find_value(obj, "targetdir");            
         break;
         case "sign":
             var sgn = instance_create(obj_x, obj_y, objSign);

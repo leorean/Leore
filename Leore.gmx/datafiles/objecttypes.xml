@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="door" color="#ffea00">
+  <property name="dir" type="string"/>
+  <property name="target" type="string"/>
+  <property name="targetdir" type="string"/>
+  <property name="tx" type="string"/>
+  <property name="ty" type="string"/>
+ </objecttype>
+ <objecttype name="enemy" color="#ff0004">
+  <property name="type" type="string"/>
+ </objecttype>
+ <objecttype name="player" color="#ffffff"/>
+ <objecttype name="sign" color="#e1984e">
+  <property name="text" type="string"/>
+ </objecttype>
+</objecttypes>
