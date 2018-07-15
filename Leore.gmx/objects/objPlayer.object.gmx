@@ -258,8 +258,7 @@ if (state == WALK || state == ROLL) {
             trans.tx = door.tx;
             trans.ty = door.ty;
             trans.target = door.target;
-            //IF trans.dir = door.dir;
-            switch(door.dir) {
+            switch(door.targetdir) {
                 case "up":
                     global.dir = UP;
                 break;

@@ -18036,8 +18036,8 @@
     <property name="dir" value="up"/>
     <property name="target" value="map_southbeach_cave"/>
     <property name="targetdir" value="up"/>
-    <property name="tx" value="9"/>
-    <property name="ty" value="9"/>
+    <property name="tx" value="16"/>
+    <property name="ty" value="46"/>
    </properties>
   </object>
   <object id="17" name="Enemy" type="enemy" x="368" y="544" width="16" height="16">
