@@ -27,8 +27,8 @@
             <kind>1</kind>
             <string>instance_create(x, y, objCamera);
 
-cx = x;
-cy = y;
+cx = (bbox_right + bbox_left) / 2;
+cy = (bbox_bottom + bbox_top) / 2 - 2;
 
 zVel = 0;
 zGrav = .15;
@@ -50,6 +50,8 @@ inCliff = false;
 
 fallTimeout = 0;
 maxFallTimeout = 60;
+maxCliffTimer = 30;
+cliffTimer = 0;
 
 state = IDLE;
 fCur = 0;
@@ -98,6 +100,30 @@ dsCol = ds_list_create();
         </arguments>
       </action>
     </event>
+    <event eventtype="3" enumb="2">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>cx = (bbox_right + bbox_left) / 2;
+cy = (bbox_bottom + bbox_top) / 2;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
@@ -117,8 +143,9 @@ dsCol = ds_list_create();
             <kind>1</kind>
             <string>if (global.state != G_PLAY) exit;
 
-cx = (bbox_right + bbox_left) / 2;
-cy = (bbox_bottom + bbox_top) / 2 - 2;
+// calculate this after the movement!
+//cx = (bbox_right + bbox_left) / 2;
+//cy = (bbox_bottom + bbox_top) / 2 - 2;
 
 // FLAGS
 inShallowWater = z == 0 &amp;&amp; tile_layer_find(LAYER_WATER, x, y);
@@ -188,12 +215,12 @@ if (!inCliff)
 
 if (cliff != noone) {
     if (dir == DOWN &amp;&amp; kDown) {
-        cliffTimer = min(cliffTimer + 1, 60);
+        cliffTimer = min(cliffTimer + 1, maxCliffTimer);
     } else {
         cliffTimer = 0;
     }
     
-    if (cliffTimer == 60) {
+    if (cliffTimer == maxCliffTimer) {
         inCliff = true;
         z = -1;
         zVel = -2.5;
@@ -517,8 +544,6 @@ if (!place_meeting(x, y + yVel, objSolid)) {
 }
 instance_activate_object(objDestroyable);
 instance_activate_object(objStairs);
-
-
 </string>
           </argument>
         </arguments>
@@ -601,16 +626,12 @@ switch(dir) {
 
 if (!inShallowWater &amp;&amp; !inWater &amp;&amp; !inHole)
 {
-    draw_sprite_ext(sprShadow, -1, cx, cy, 1, 1, 0, c_white, .3);
+    draw_sprite(sprShadow, -1, x, bbox_bottom);
 }
-
-/*if (state == SWIM) {
-    draw_sprite_part(sprWaterShadow, -1, 32*floor((global.timer / 5) % 4), 0, 32, 32, cx - 16, cy - 16);
-}*/
 
 if (!inHole &amp;&amp; state != DROWN) {
     if (invincible % 2 == 0 &amp;&amp; hurt % 2 == 0)
-        draw_sprite_part(sprPlayer, -1, frame*32, row * 32, 32, 32, cx - 16, cy - 16 + z);
+        draw_sprite_part(sprPlayer, -1, frame*32, row * 32, 32, 32, x - 16, cy - 18 + z);
 }
 else {
     var s_fall = (fallTimeout / maxFallTimeout);
@@ -618,7 +639,7 @@ else {
 }
 
 if (inShallowWater &amp;&amp; !inWater) {
-    draw_sprite_part(sprWaterShadow, -1, 32*floor((global.timer / 5) % 4), 0, 32, 32, cx - 16, cy - 16);
+    draw_sprite_part(sprWaterShadow, -1, 32*floor((global.timer / 5) % 4), 0, 32, 32, x - 16, cy - 16);
 }
 
 if (state == DROWN) {

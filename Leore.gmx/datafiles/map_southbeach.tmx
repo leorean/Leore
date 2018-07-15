@@ -624,7 +624,7 @@
    <tile gid="191"/>
    <tile gid="191"/>
    <tile gid="191"/>
-   <tile gid="158"/>
+   <tile/>
    <tile gid="191"/>
    <tile gid="191"/>
    <tile gid="191"/>
@@ -9632,7 +9632,7 @@
    <tile gid="297"/>
    <tile gid="299"/>
    <tile gid="252"/>
-   <tile gid="1061"/>
+   <tile gid="158"/>
    <tile gid="252"/>
    <tile gid="299"/>
    <tile gid="297"/>

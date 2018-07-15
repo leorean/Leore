@@ -189,7 +189,7 @@
     <room>rooms\GAME</room>
   </rooms>
   <constants number="25">
-    <constant name="DEBUG">0</constant>
+    <constant name="DEBUG">keyboard_check(ord('O'))</constant>
     <constant name="G_PAUSE">0</constant>
     <constant name="G_PLAY">1</constant>
     <constant name="G_TEXT">2</constant>

@@ -54,8 +54,9 @@ h = HEIGHT / 2;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (global.state != G_PLAY) exit;
-
+            <string>if (global.state != G_PLAY
+ &amp;&amp; global.state != G_CHANGELEVEL
+ &amp;&amp; global.state != G_TEXT) exit;
 if (!instance_exists(objPlayer)) exit;
 
 tx = objPlayer.cx;

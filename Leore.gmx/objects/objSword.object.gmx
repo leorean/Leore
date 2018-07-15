@@ -103,14 +103,14 @@ switch(state) {
                 minAngle = 0;
                 maxAngle = 90;
                 angleDir = 1;
-                off_y = -2;
+                off_y = -6;
                 off_x = -8;
             break;
             case DOWN:
                 minAngle = 180;
                 maxAngle = 270;
                 angleDir = 1;
-                off_y = 4;
+                off_y = 0;
                 off_x = 6;
             break;
             case LEFT:
