@@ -48,6 +48,7 @@ for (var i = 0; i<w; i ++)
             // stairs
             case 59: case 106: case 153: case 200:
             case 293: case 294: case 340: case 341:
+            case 909: case 956:
                 instance_create(i*TILE, j*TILE, objStairs);
             default:
                 addTile(bg, i*TILE, j*TILE, LAYER_BG);
