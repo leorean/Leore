@@ -18031,15 +18031,6 @@
     <property name="type" value="0"/>
    </properties>
   </object>
-  <object id="5" name="Door" type="door" x="288" y="272" width="16" height="16">
-   <properties>
-    <property name="dir" value="up"/>
-    <property name="target" value="map_southbeach_cave"/>
-    <property name="targetdir" value="up"/>
-    <property name="tx" value="16"/>
-    <property name="ty" value="46"/>
-   </properties>
-  </object>
   <object id="17" name="Enemy" type="enemy" x="368" y="544" width="16" height="16">
    <properties>
     <property name="type" value="0"/>
