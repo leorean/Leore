@@ -112,15 +112,19 @@ sprite_delete(sprMap);
             switch(val) {
                 default: // nothing
                     col = make_color_hsv(0, 0, 0);
+                    draw_set_alpha(0);
                 break;
                 case 1: // solid
-                    col = make_color_hsv(15, 180, 190);
+                    col = make_color_hsv(128, 255, 255);
+                    draw_set_alpha(1);
                 break;
                 case 2: // water
-                    col = make_color_hsv(130, 255, 255);
+                    col = make_color_hsv(128, 255, 200);
+                    draw_set_alpha(.5);
                 break;
                 case 3: // deepwater
-                    col = make_color_hsv(145, 255, 255);
+                    col = make_color_hsv(128, 255, 179);
+                    draw_set_alpha(.25);
                 break;
             }
             if (val) {
