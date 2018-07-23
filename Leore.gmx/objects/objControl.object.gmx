@@ -160,7 +160,7 @@ createLevel(map);
 
 instance_create(global.mapX, global.mapY, objPlayer);
 instance_create(0, 0, objTileManager);
-
+instance_create(0, 0, objLevelMap);
 </string>
           </argument>
         </arguments>

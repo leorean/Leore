@@ -103,6 +103,9 @@ for (var i = 0; i<w; i ++)
             case 2: // solid (invisible)
                 instance_create(i*TILE, j*TILE, objSolid);
             break;
+            case 3: // checkpoint (hole)
+                instance_create(i*TILE, j*TILE, objHoleCheckPoint);
+            break;            
             case 104: // cliffs
                 instance_create(i*TILE, j*TILE, objCliff);
                 addTile(fg, i*TILE, j*TILE, LAYER_FG);
@@ -156,7 +159,14 @@ for (var i = 0; i < ds_list_size(objects); i++) {
                 case "left": door.dir = LEFT; break;
                 case "right": door.dir = RIGHT; break;
             }
-            door.targetdir = ds_map_find_value(obj, "targetdir");            
+            door.targetdir = ds_map_find_value(obj, "targetdir");
+            
+            with(door) {
+                var _s = instance_place(x, y, objSolid);
+                if (_s) {
+                    with(_s) instance_destroy();
+                }
+            }
         break;
         case "sign":
             var sgn = instance_create(obj_x, obj_y, objSign);

@@ -29,6 +29,7 @@
 rMax = r;
 fade = -10;
 global.state = G_CHANGELEVEL;
+
 </string>
           </argument>
         </arguments>

@@ -37,8 +37,10 @@ z = 0;
 xVel = 0;
 yVel = 0;
 maxVel = 6;
-xPrev = x;
-yPrev = y;
+xPrevDrown = x;
+yPrevDrown = y;
+xPrevHole = x;
+yPrevHole = y;
 spd = 1.5;
 
 inWater = false;
@@ -153,7 +155,7 @@ inWater = false;
 if (inShallowWater) {
     var wt = tile_layer_find(LAYER_WATER, x, y);
     var wt_index = getTileIndexForCoordinates(tile_get_left(wt), tile_get_top(wt));
-    if (array_contains(array(658, 659, 660, 661, 662, 612), wt_index)) {
+    if (isWaterTile(wt_index)) {
         inWater = true;
         inShallowWater = false;
     }
@@ -167,8 +169,8 @@ if (state == FALL) {
         fallTimeout = max(fallTimeout - 1, 0);
     }
     else {
-        x = xPrev;
-        y = yPrev;
+        x = xPrevHole;
+        y = yPrevHole;
         state = IDLE;
     }
 } else {
@@ -188,6 +190,19 @@ if (inWater) {
 if (state == DROWN) {
     xVel *= .9;
     yVel *= .9;
+}
+
+// STORING PREV COORDINATES
+
+if (!inShallowWater &amp;&amp; !inWater) {
+    xPrevDrown = x;
+    yPrevDrown = y;
+}
+
+var hcp = instance_place(x, y, objHoleCheckPoint);
+if (hcp) {
+    xPrevHole = hcp.x + 8;
+    yPrevHole = hcp.y + 8;    
 }
 
 // INPUT HANDLING
@@ -433,7 +448,7 @@ if (z == 0) {
 
     for (var i = 0; i &lt; instance_number(objHole); i++) {
         var h = instance_find(objHole, i);
-        if (place_meeting(x, y + 3, h)) {
+        if (place_meeting(x, y, h)) {
             var dist = point_distance(x, y, h.x + 8, h.y + 8);
             if (dist &lt; minDist) {
                 minDist = dist;
@@ -444,7 +459,6 @@ if (z == 0) {
 
     instance_activate_object(objHole);
     if (instance_exists(hole)) {
-    
             var ang = point_direction(cx, cy, hole.x + 8, hole.y + 8);
             var hole_dist = point_distance(cx, cy, hole.x + 8, hole.y + 8);
     
@@ -459,12 +473,6 @@ if (z == 0) {
                 state = FALL;
                 fallTimeout = maxFallTimeout;
             }
-        }
-    } else
-    {
-        if (!inShallowWater &amp;&amp; !inWater) {
-            xPrev = x;
-            yPrev = y;
         }
     }
 }
@@ -541,6 +549,8 @@ if (!place_meeting(x, y + yVel, objSolid)) {
     else
         yVel = 0;
 }
+x = max(min(x, room_width - 8), 8);
+y = max(min(y, room_height - 8), 8);
 instance_activate_object(objDestroyable);
 instance_activate_object(objStairs);
 </string>
@@ -592,8 +602,8 @@ if (global.state == G_PLAY) {
             frame = floor(fCur);
             if (fCur == 4) {
                 if (inWater) {
-                    x = xPrev;
-                    y = yPrev;
+                    x = xPrevDrown;
+                    y = yPrevDrown;
                 } else {
                     state = IDLE;
                 }

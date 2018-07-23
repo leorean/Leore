@@ -104,6 +104,9 @@
       <sprite>sprites\mskSolid</sprite>
       <sprite>sprites\mskHole</sprite>
       <sprite>sprites\mskSign</sprite>
+      <sprite>sprites\mskLevelMap</sprite>
+      <sprite>sprites\mskCliff</sprite>
+      <sprite>sprites\mskPixel</sprite>
     </sprites>
     <sprites name="effects">
       <sprite>sprites\sprEffects</sprite>
@@ -120,7 +123,6 @@
       <sprite>sprites\sprFont</sprite>
     </sprites>
     <sprite>sprites\mskEnemy</sprite>
-    <sprite>sprites\mskCliff</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>
@@ -132,6 +134,7 @@
       <script>scripts\getTileIndexForCoordinates.gml</script>
       <script>scripts\getTileCoordinatesForIndex.gml</script>
       <script>scripts\addTile.gml</script>
+      <script>scripts\isWaterTile.gml</script>
     </scripts>
     <scripts name="level">
       <script>scripts\importLevel.gml</script>
@@ -167,6 +170,7 @@
       <object>objects\objTileManager</object>
       <object>objects\objSword</object>
       <object>objects\objMessage</object>
+      <object>objects\objLevelMap</object>
     </objects>
     <objects name="effects">
       <object>objects\objLeafParticle</object>
@@ -183,6 +187,7 @@
       <object>objects\objEnemy</object>
       <object>objects\objCliff</object>
       <object>objects\objStairs</object>
+      <object>objects\objHoleCheckPoint</object>
     </objects>
   </objects>
   <rooms name="rooms">
