@@ -37,17 +37,21 @@ for (var i = 0; i &lt; w; i++) {
         {
             val = 1;
         } else {
-            var t = tile_layer_find(LAYER_WATER,i*TILE, j*TILE);
-            if (t)
-            t = getTileIndexForCoordinates(tile_get_left(t), tile_get_top(t));
-            
-            if (t &gt; 0) {
-                val = 2;
+            // floor
+            if (tile_layer_find(LAYER_BG, i*TILE, j*TILE))
+            {
+                val = 4;
             }
-            if (isWaterTile(t)) {
-                val = 3;
+            // water + deepwater
+            var t = tile_layer_find(LAYER_WATER, i*TILE, j*TILE);
+            if (t) {
+                t = getTileIndexForCoordinates(tile_get_left(t), tile_get_top(t));
+                if (isWaterTile(t)) {
+                    val = 2;
+                } else {
+                    val = 3;
+                }
             }
-            log(t);
         }
         ds_grid_add(map, i, j, val);
     }
@@ -108,23 +112,27 @@ sprite_delete(sprMap);
     for (var i = 0; i &lt; w; i++) {
         for (var j = 0; j &lt; h; j++) {
             val = ds_grid_get(map, i, j);
-            col = c_black;
+            col = c_white;
             switch(val) {
                 default: // nothing
-                    col = make_color_hsv(0, 0, 0);
+                    //col = make_color_hsv(0, 0, 0);
                     draw_set_alpha(0);
                 break;
                 case 1: // solid
-                    col = make_color_hsv(128, 255, 255);
+                    //col = make_color_hsv(0, 0, 255);
                     draw_set_alpha(1);
                 break;
-                case 2: // water
-                    col = make_color_hsv(128, 255, 200);
-                    draw_set_alpha(.5);
+                case 2: // deepwater
+                    //col = make_color_hsv(255, 255, 190);
+                    draw_set_alpha(.4);
                 break;
-                case 3: // deepwater
-                    col = make_color_hsv(128, 255, 179);
-                    draw_set_alpha(.25);
+                case 3: // shallow water
+                    //col = make_color_hsv(255, 255, 255);
+                    draw_set_alpha(.6);
+                break;
+                case 4: // floor
+                    //col = make_color_hsv(0, 0, 220);
+                    draw_set_alpha(.8);
                 break;
             }
             if (val) {
@@ -144,12 +152,28 @@ if (global.state != G_PLAY &amp;&amp; global.state != G_PAUSE) exit;
 xo = view_wview - sprite_get_width(sprMap) - 3;
 yo = view_hview - sprite_get_height(sprMap) - 3;
 
+// DRAW BG
 draw_set_alpha(1);
 draw_sprite_ext(sprMap, -1, xo, yo, 1, 1, 0, c_white, .75);
 
+// DRAW PLAYER
 var px = objPlayer.x / room_width;
 var py = objPlayer.y / room_height;
-draw_sprite(mskPixel, -1, xo + px * sprite_get_width(sprMap) , yo + py * sprite_get_height(sprMap)); 
+c_player = c_white;
+if ((global.timer % 10) &gt; 5) c_player = c_aqua;
+draw_sprite_ext(mskPixel, -1, xo + px * sprite_get_width(sprMap) , yo + py * sprite_get_height(sprMap), 1, 1, 0, c_player, 1);
+
+// DRAW ENEMIES
+for (var i = 0; i &lt; instance_number(objEnemy); i++) {
+    var e = instance_find(objEnemy, i);
+    
+    var px = e.x / room_width;
+    var py = e.y / room_height;
+    draw_sprite_ext(mskPixel, -1, xo + px * sprite_get_width(sprMap) , yo + py * sprite_get_height(sprMap), 1, 1, 0, c_red, 1);
+    
+}
+
+
 </string>
           </argument>
         </arguments>

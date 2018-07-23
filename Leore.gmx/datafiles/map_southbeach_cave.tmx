@@ -9245,6 +9245,6 @@
     <property name="ty" value="18"/>
    </properties>
   </object>
-  <object id="9" name="Player" type="player" x="272" y="512" width="16" height="16"/>
+  <object id="9" name="Player" type="player" x="256" y="736" width="16" height="16"/>
  </objectgroup>
 </map>

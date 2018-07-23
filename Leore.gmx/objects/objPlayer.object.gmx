@@ -633,6 +633,7 @@ switch(dir) {
 
 // DRAWING 
 
+// shadow
 if (!inShallowWater &amp;&amp; !inWater &amp;&amp; !inHole)
 {
     draw_sprite(sprShadow, -1, x, bbox_bottom);
@@ -647,8 +648,9 @@ else {
     draw_sprite_ext(sprPlayerFall, -1, cx, cy, s_fall, s_fall, s_fall * 360, c_white, s_fall);
 }
 
+// shallow water
 if (inShallowWater &amp;&amp; !inWater) {
-    draw_sprite_part(sprWaterShadow, -1, 32*floor((global.timer / 5) % 4), 0, 32, 32, x - 16, cy - 16);
+    draw_sprite_part(sprWaterShadow, -1, 32*floor((global.timer / 5) % 4), 0, 32, 32, x - 16, y - 20);
 }
 
 if (state == DROWN) {
