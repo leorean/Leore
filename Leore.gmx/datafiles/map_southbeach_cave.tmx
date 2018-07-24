@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2018.06.27" orientation="orthogonal" renderorder="right-down" width="48" height="48" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="19">
+<map version="1.0" tiledversion="2018.06.27" orientation="orthogonal" renderorder="right-down" width="48" height="48" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="21">
  <properties>
   <property name="title" value="South Beach Cave"/>
  </properties>
@@ -9262,6 +9262,11 @@
   <object id="18" name="roll" type="item" x="224" y="624" width="16" height="16">
    <properties>
     <property name="type" value="0"/>
+   </properties>
+  </object>
+  <object id="20" name="Sign" type="sign" x="256" y="608" width="16" height="16">
+   <properties>
+    <property name="text" value="TEST"/>
    </properties>
   </object>
  </objectgroup>

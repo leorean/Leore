@@ -180,6 +180,7 @@
       <object>objects\objStoneParticle</object>
       <object>objects\objEffect</object>
       <object>objects\objDestroyableRemain</object>
+      <object>objects\objLight</object>
     </objects>
     <objects name="level_objects">
       <object>objects\objDestroyable</object>

@@ -26,6 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>global.state = G_TEXT;
+text = "";
 
 i = 0;
 timeout = 0;
@@ -66,7 +67,7 @@ draw_set_color(c_white);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 
-//log(page, array_length_1d(text));
+log(page, array_length_1d(text));
 
 var nextPressed = keyPressed("action1pressed") || keyPressed("action2pressed");
 

@@ -260,9 +260,19 @@ if (inCliff) {
 var item = instance_place(x, y, objItem);
 if (item) {
     if (state != ACQUIRE) {
-        showMessage("Acquired " + get(global.items[item.type], 0));
+        dir = DOWN;
+        state = ACQUIRE;
+        showMessage("Acquired " + get(global.items[item.type], 0) + "!");
+        // TODO: ACTION STUFF..
+        
+        //TODO: LIGHT / ITEM EFFECT STUFFS!
     }
-    state = ACQUIRE;
+    with(item) { instance_destroy(); }
+}
+
+if (state == ACQUIRE) {
+    xVel = 0;
+    yVel = 0;
 }
 
 // TOUCH SIGNS
@@ -583,7 +593,8 @@ instance_activate_object(objStairs);
           <argument>
             <kind>1</kind>
             <string>// DRAWING &lt;-&gt; STATE LOGIC
-if (global.state == G_PLAY) {
+if (global.state == G_PLAY
+    || state == ACQUIRE) {
     switch(state) {
         case IDLE:
             fCur = (fCur + .1) % 4;
@@ -619,6 +630,10 @@ if (global.state == G_PLAY) {
         case SWIM:
             fCur = (fCur + .1) % 3;
             frame = 13 + floor(fCur);        
+        break;
+        case ACQUIRE:
+            fCur = 0;
+            frame = 16;
         break;
     }
 }
