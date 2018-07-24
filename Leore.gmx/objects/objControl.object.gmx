@@ -46,6 +46,10 @@ global.mapY = -1;
 global.dir = DOWN;
 
 global.items[0] = array("Amber", ACTION_ROLL);
+
+
+mx = -1;
+my = -1;
 </string>
           </argument>
         </arguments>
@@ -114,12 +118,26 @@ if (keyboard_check_pressed(ord('P'))) {
 if (keyboard_check_pressed(ord('T'))) objPlayer.canSwim = !objPlayer.canSwim;
 
 // REAL INPUT
+_up = false;
+_down = false;
+_left = false;
+_right = false;
+if (mouse_check_button_pressed(mb_left)) {
+    mx = device_mouse_x_to_gui(0);
+    my = device_mouse_y_to_gui(0);    
+}
+if (mouse_check_button(mb_left)) {
+    if (my - device_mouse_y_to_gui(0) &gt; TILE) _up = true;
+    if (my - device_mouse_y_to_gui(0) &lt; -TILE) _down = true;
+    if (mx - device_mouse_x_to_gui(0) &gt; TILE) _left = true;
+    if (mx - device_mouse_x_to_gui(0) &lt; -TILE) _right = true;
+}
 
 ds_map_clear(global.input);
-ds_map_add(global.input, "up", keyboard_check(vk_up));
-ds_map_add(global.input, "down", keyboard_check(vk_down));
-ds_map_add(global.input, "left", keyboard_check(vk_left));
-ds_map_add(global.input, "right", keyboard_check(vk_right));
+ds_map_add(global.input, "up", keyboard_check(vk_up) || _up);
+ds_map_add(global.input, "down", keyboard_check(vk_down) || _down);
+ds_map_add(global.input, "left", keyboard_check(vk_left) || _left);
+ds_map_add(global.input, "right", keyboard_check(vk_right) || _right);
 ds_map_add(global.input, "action1", keyboard_check(ord('A')));
 ds_map_add(global.input, "action2", keyboard_check(ord('S')));
 ds_map_add(global.input, "action1pressed", keyboard_check_pressed(ord('A')));
