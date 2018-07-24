@@ -1,11 +1,13 @@
 var file;
+var parseObjects = false;
 
 ds[0] = ds_grid_create(1, 1); //BG
 ds[1] = ds_grid_create(1, 1); // FG
 ds[2] = ds_grid_create(1, 1); // WATER
 ds[3] = ds_grid_create(1, 1); // TOP
 obj = ds_list_create(); //OBJ
-    
+props = ds_list_create(); // MAP PROPERTIES
+
 if (file_exists(argument0))
     file = file_text_open_read(argument0);
 else {
@@ -51,33 +53,50 @@ while (!file_text_eof(file)) {
             j = 0;
         }        
     }
+
+    if (!parseObjects) {
     
-    // parsing objects
-    if (string_pos('<object ', f) != 0) {    
-        var o_type = getStringFromXMLIdentifier(f, 'type');
-
-        mObject = ds_map_create();
-        var o_x = getStringFromXMLIdentifier(f, 'x');
-        var o_y = getStringFromXMLIdentifier(f, 'y');
-
-        ds_map_add(mObject, "type", o_type);
-        ds_map_add(mObject, "x", o_x);
-        ds_map_add(mObject, "y", o_y);
-        
-        if (string_pos('/>', f) != 0) {
-            ds_list_add(obj, mObject);
+        // parse map properties
+        if (string_pos('<property ', f) != 0) {
+            mObject = ds_map_create();
+            var o_prop_name = getStringFromXMLIdentifier(f, 'name');
+            var o_prop_value = getStringFromXMLIdentifier(f, 'value');
+            ds_list_add(props, mObject);
+        }
+                    
+        if (string_pos('<tileset ', f) != 0) {
+            parseObjects = true;
         }
     }
-    if (string_pos('<property ', f) != 0) {
-        var o_prop_name = getStringFromXMLIdentifier(f, 'name');
-        var o_prop_value = getStringFromXMLIdentifier(f, 'value');
         
-        ds_map_add(mObject, o_prop_name, o_prop_value);
-    }
-    if (string_pos('</properties>', f) != 0) {
-        ds_list_add(obj, mObject);
+    // parsing objects
+    if (parseObjects) {        
+        if (string_pos('<object ', f) != 0) {    
+            var o_type = getStringFromXMLIdentifier(f, 'type');
+    
+            mObject = ds_map_create();
+            var o_x = getStringFromXMLIdentifier(f, 'x');
+            var o_y = getStringFromXMLIdentifier(f, 'y');
+    
+            ds_map_add(mObject, "type", o_type);
+            ds_map_add(mObject, "x", o_x);
+            ds_map_add(mObject, "y", o_y);
+            
+            if (string_pos('/>', f) != 0) {
+                ds_list_add(obj, mObject);
+            }
+        }
+        if (string_pos('<property ', f) != 0) {
+            var o_prop_name = getStringFromXMLIdentifier(f, 'name');
+            var o_prop_value = getStringFromXMLIdentifier(f, 'value');
+            
+            ds_map_add(mObject, o_prop_name, o_prop_value);
+        }
+        if (string_pos('</properties>', f) != 0) {
+            ds_list_add(obj, mObject);
+        }
     }
 }
 
 file_text_close(file);
-return array(ds, obj);
+return array(ds, obj, props);

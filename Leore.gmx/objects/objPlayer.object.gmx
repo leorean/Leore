@@ -392,7 +392,6 @@ if (state == SWIM) {
 // GETTING HIT
 
 invincible = max(invincible - 1, 0);
-hurt = max(hurt - 1, 0);
 var enemy = instance_place(x, y, objEnemy);
 if (instance_exists(enemy) &amp;&amp; enemy.hp &gt; 0 &amp;&amp; !enemy.hurt &amp;&amp; !hurt &amp;&amp; !invincible) {
     var kbAngle = point_direction(cx, cy, enemy.x, enemy.y);
@@ -403,12 +402,13 @@ if (instance_exists(enemy) &amp;&amp; enemy.hp &gt; 0 &amp;&amp; !enemy.hurt &am
 }
 
 if (state == HURT) {
+    hurt = max(hurt - 1, 0);
     xVel *= .85;
     yVel *= .85;
     
     if (!hurt) {
         state = IDLE;
-        invincible = 30;
+        invincible = 60;
     }
 }
 

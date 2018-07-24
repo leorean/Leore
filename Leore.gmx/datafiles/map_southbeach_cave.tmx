@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2018.06.27" orientation="orthogonal" renderorder="right-down" width="48" height="48" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="16">
+<map version="1.0" tiledversion="2018.06.27" orientation="orthogonal" renderorder="right-down" width="48" height="48" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="18">
+ <properties>
+  <property name="title" value="South Beach Cave"/>
+ </properties>
  <tileset firstgid="1" name="leore_tileset" tilewidth="16" tileheight="16" tilecount="3008" columns="47">
   <image source="../../GFX/leore_tileset.png" width="752" height="1024"/>
  </tileset>
@@ -9246,5 +9249,15 @@
    </properties>
   </object>
   <object id="9" name="Player" type="player" x="256" y="736" width="16" height="16"/>
+  <object id="16" name="Enemy" type="enemy" x="304" y="640" width="16" height="16">
+   <properties>
+    <property name="type" value="0"/>
+   </properties>
+  </object>
+  <object id="17" name="Enemy" type="enemy" x="352" y="608" width="16" height="16">
+   <properties>
+    <property name="type" value="0"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

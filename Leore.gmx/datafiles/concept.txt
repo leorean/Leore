@@ -11,6 +11,7 @@
 	- swim
 	- RUNES
 		- roll
+		- carry
 		- levitate
 		- dig
 		- magic orb
@@ -21,7 +22,7 @@
 	- additional player states: 
 		- acquire item
 		- wake up (for beginning story etc.)
-		- die (+ restart from last save point menu)
+		- die (+ restart from last save statue)
 	- HUD
 		- HP
 		- Magic
@@ -33,4 +34,6 @@
 * STORYLINE:
 	- player awakes at the shore - his memory is lost
 	- player starts walking north from the southmost point of leore, south beach, where he will find the shrine of shin
-	- in the shrine of shin, he will find an old relic
+	- the entrance to the shrine is blocked, so he will find a cave below instead
+	- in the cave, he will find an old relic: a rune necklace and the first rune: rolling
+	- with this power, he can enter the shrine of shin, where he will begin to learn his purpose and be granted a weapon

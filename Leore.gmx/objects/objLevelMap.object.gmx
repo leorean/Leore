@@ -186,7 +186,7 @@ draw_sprite_ext(sprMap, -1, xo, yo, 1, 1, 0, c_white, .75);
 // DRAW PLAYER
 var px = objPlayer.x / room_width;
 var py = objPlayer.y / room_height;
-if ((global.timer % 10) &gt; 5) {
+if ((global.timer % 16) &gt; 8) {
     draw_sprite_ext(mskPixel, -1, xo + px * sprite_get_width(sprMap) , yo + py * sprite_get_height(sprMap), 1, 1, 0, c_white, 1);
 }
 

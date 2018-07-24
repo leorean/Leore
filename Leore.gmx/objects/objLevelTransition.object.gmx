@@ -30,6 +30,7 @@ rMax = r;
 fade = -10;
 global.state = G_CHANGELEVEL;
 
+textTimer = 0;
 </string>
           </argument>
         </arguments>
@@ -67,6 +68,7 @@ if (r == -64) {
     x = _tx;
     y = _ty;
     room_restart();
+    textTimer = 90;
 }
 
 r = min(r, rMax);
@@ -94,6 +96,14 @@ draw_set_blend_mode(bm_normal);
 draw_set_color(c_white);
 
 surface_free(surf);
+
+
+draw_set_font(global.fnt);
+draw_set_color(c_white);
+draw_set_alpha(1);
+draw_set_valign(fa_center);
+draw_set_halign(fa_center);
+draw_text(view_wview/2, view_hview/3, global.mapTitle);
 </string>
           </argument>
         </arguments>

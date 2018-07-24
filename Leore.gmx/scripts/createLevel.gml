@@ -2,6 +2,7 @@
 
 var data = argument0[0];
 var objects = argument0[1];
+var props = argument0[2];
 
 var w = ds_grid_width(data[0]);
 var h = ds_grid_height(data[0]);
@@ -177,6 +178,12 @@ for (var i = 0; i < ds_list_size(objects); i++) {
             e.type = real(ds_map_find_value(obj, "type"));
         break;
     }
+}
+
+// level properties
+for(var i = 0; i < ds_list_size(props); i++) {
+    var prop = ds_list_find_value(props, i);
+    global.mapTitle = ds_map_find_value(props, "title");
 }
 
 ds_list_destroy(dsIgnore);
