@@ -38,13 +38,14 @@ global.debug = DEBUG; //SET TO 1 FOR DEBUG DRAWINGS ETC.
 
 display_set_gui_size(.5 * WIDTH, .5 * HEIGHT);
 
-// TODO: load? change? etc.
 global.map = -1;
 global.mapName = "map_southbeach_cave";
 global.mapTitle = "";
 global.mapX = -1;
 global.mapY = -1;
 global.dir = DOWN;
+
+global.items[0] = array("Amber", ACTION_ROLL);
 </string>
           </argument>
         </arguments>
@@ -172,23 +173,9 @@ view_hborder[0] = 999;
 view_visible[0] = true;
 view_enabled[0] = true;
 
-// CLEAN UP PREVIOUS LEVEL!!
-if (global.map != -1) {
-    var ds = global.map[0];
-    ds_grid_destroy(ds[0]);
-    ds_grid_destroy(ds[1]);
-    ds_grid_destroy(ds[2]);
-    ds_grid_destroy(ds[3]);
-    for(var i = 0; i &lt; ds_list_size(global.map[1]); i++) {
-        ds_map_destroy(ds_list_find_value(global.map[1], i));
-    }
-        for(var i = 0; i &lt; ds_list_size(global.map[2]); i++) {
-        ds_map_destroy(ds_list_find_value(global.map[2], i));
-    }
-    ds_list_destroy(global.map[1]); // OBJ
-    ds_list_destroy(global.map[2]); // PROPS
-}
-
+// free previous level
+if (global.map != -1)
+    freeLevel(global.map);
 // load level
 global.map = importLevel(global.mapName + ".tmx");
 createLevel(global.map);
@@ -196,6 +183,7 @@ createLevel(global.map);
 instance_create(global.mapX, global.mapY, objPlayer);
 instance_create(0, 0, objTileManager);
 instance_create(0, 0, objLevelMap);
+instance_create(0, 0, objLevelIntro);
 </string>
           </argument>
         </arguments>

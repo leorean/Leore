@@ -60,7 +60,8 @@ while (!file_text_eof(file)) {
         if (string_pos('<property ', f) != 0) {
             mObject = ds_map_create();
             var o_prop_name = getStringFromXMLIdentifier(f, 'name');
-            var o_prop_value = getStringFromXMLIdentifier(f, 'value');
+            var o_prop_value = getStringFromXMLIdentifier(f, 'value');            
+            ds_map_add(mObject, o_prop_name, o_prop_value);
             ds_list_add(props, mObject);
         }
                     

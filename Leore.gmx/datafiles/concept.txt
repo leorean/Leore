@@ -4,18 +4,19 @@
 	- doors have "dir" & "targetdir"
 		- dir means the direction the player has to face to walk in
 		- targetdir is the direction the player is rotated in the new level
-
+	- items
+		- "type" = type of the item (necklace, sword, etc..) -> action will be handled in big switch case
+		- every item can only be taken once -> the type will be stored in a list and saved
 * POWERS / ITEMS:
 	- sword
-		- magic sword types? each sword has a unique power?
-	- swim
-	- RUNES
-		- roll
-		- carry
-		- levitate
-		- dig
-		- magic orb
-		- lightning
+		- no rune, no power
+	- MAGICRYSTALS
+		- Amber: roll
+		- Aquamarine: swim
+		- Quartz: dig
+		- Opal: levitate
+		- Amethyst: magic orb
+		- Spinel: lightning/thunder
 		
 * TODO / WHAT'S MISSING
 	- save statues

@@ -10,6 +10,9 @@
  <objecttype name="enemy" color="#ff0004">
   <property name="type" type="string"/>
  </objecttype>
+ <objecttype name="item" color="#61ffdd">
+  <property name="type" type="string"/>
+ </objecttype>
  <objecttype name="player" color="#ffffff"/>
  <objecttype name="sign" color="#e1984e">
   <property name="text" type="string"/>

@@ -255,8 +255,17 @@ if (inCliff) {
     }
 }
 
-// TOUCH SIGNS
+// ITEMS
 
+var item = instance_place(x, y, objItem);
+if (item) {
+    if (state != ACQUIRE) {
+        showMessage("Acquired " + get(global.items[item.type], 0));
+    }
+    state = ACQUIRE;
+}
+
+// TOUCH SIGNS
 var sgn = instance_place(x, y, objSign);
 if (sgn != noone &amp;&amp; dir == UP) {
     if (kAction1Pressed)
@@ -292,7 +301,6 @@ if (state == WALK || state == ROLL) {
 }
 
 // WALKING
-
 if (state == IDLE || state == WALK) {
 
     if (kLeft) dir = LEFT;
@@ -329,7 +337,6 @@ if (state == IDLE || state == WALK) {
 } 
 
 // ROLLING
-
 if (state == ROLL) {
     
     if (kLeft) dir = LEFT;
@@ -408,7 +415,7 @@ if (state == HURT) {
     
     if (!hurt) {
         state = IDLE;
-        invincible = 60;
+        invincible = 45;
     }
 }
 
@@ -640,8 +647,12 @@ if (!inShallowWater &amp;&amp; !inWater &amp;&amp; !inHole)
 }
 
 if (!inHole &amp;&amp; state != DROWN) {
-    if (invincible % 2 == 0 &amp;&amp; hurt % 2 == 0)
-        draw_sprite_part(sprPlayer, -1, frame*32, row * 32, 32, 32, x - 16, cy - 18 + z);
+    if (((invincible + hurt) % 4) &lt; 2) {
+    } else {
+        d3d_set_fog(1, c_black, 0, 0)   
+    }
+    draw_sprite_part(sprPlayer, -1, frame*32, row * 32, 32, 32, x - 16, cy - 18 + z);
+    d3d_set_fog(0,0,0,0)
 }
 else {
     var s_fall = (fallTimeout / maxFallTimeout);

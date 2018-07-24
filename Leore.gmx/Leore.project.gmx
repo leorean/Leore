@@ -123,6 +123,7 @@
       <sprite>sprites\sprFont</sprite>
     </sprites>
     <sprite>sprites\mskEnemy</sprite>
+    <sprite>sprites\mskItem</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>
@@ -140,6 +141,7 @@
       <script>scripts\importLevel.gml</script>
       <script>scripts\createLevel.gml</script>
       <script>scripts\getStringFromXMLIdentifier.gml</script>
+      <script>scripts\freeLevel.gml</script>
     </scripts>
     <script>scripts\in.gml</script>
     <scripts name="controls">
@@ -171,6 +173,7 @@
       <object>objects\objSword</object>
       <object>objects\objMessage</object>
       <object>objects\objLevelMap</object>
+      <object>objects\objLevelIntro</object>
     </objects>
     <objects name="effects">
       <object>objects\objLeafParticle</object>
@@ -188,12 +191,13 @@
       <object>objects\objCliff</object>
       <object>objects\objStairs</object>
       <object>objects\objHoleCheckPoint</object>
+      <object>objects\objItem</object>
     </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\GAME</room>
   </rooms>
-  <constants number="25">
+  <constants number="32">
     <constant name="DEBUG">keyboard_check(ord('O'))</constant>
     <constant name="G_PAUSE">0</constant>
     <constant name="G_PLAY">1</constant>
@@ -219,6 +223,13 @@
     <constant name="ATTACK">5</constant>
     <constant name="HURT">6</constant>
     <constant name="SWIM">7</constant>
+    <constant name="ACQUIRE">8</constant>
+    <constant name="ACTION_NONE">0</constant>
+    <constant name="ACTION_ROLL">1</constant>
+    <constant name="ACTION_DIG">2</constant>
+    <constant name="ACTION_LEVITATE">3</constant>
+    <constant name="ACTION_ORB">4</constant>
+    <constant name="ACTION_THUNDER">5</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

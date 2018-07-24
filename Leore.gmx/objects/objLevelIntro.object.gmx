@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>-1</persistent>
+  <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -25,10 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>r = max(view_wview, view_hview) + 128;
-rMax = r;
-fade = -10;
-global.state = G_CHANGELEVEL;
+            <string>maxTimer = 60;
+timer = 2*maxTimer;
 </string>
           </argument>
         </arguments>
@@ -51,49 +49,21 @@ global.state = G_CHANGELEVEL;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var _x = (x - view_xview);
-var _y = (y - view_yview);
+            <string>draw_set_font(global.fnt);
+draw_set_color(c_white);
+draw_set_valign(fa_center);
+draw_set_halign(fa_center);
 
-r = max(r + fade, -64);
+timer = max(timer - 1, 0);
 
-if (r == -64) {
-    fade = -fade;
-    global.mapName = target;
-    var _tx = tx * TILE + 8;
-    var _ty = ty * TILE + 8;
-    global.mapX = _tx;
-    global.mapY = _ty;
-    x = _tx;
-    y = _ty;
-    room_restart();
-    textTimer = 90;
-}
-
-r = min(r, rMax);
-if (r == rMax) {
+var a = timer / maxTimer;
+draw_set_alpha(a);
+draw_text(view_wview/2, view_hview/2, global.mapTitle);
+draw_set_alpha(1);
+if (timer == 0) {
     instance_destroy();
 }
 
-draw_set_blend_mode(bm_normal);
-var surf = surface_create(view_wview, view_hview);
-surface_set_target(surf);
-cc = 255 - ((max(r, 0) / rMax) * 255);
-log (cc);
-c = make_color_hsv(0, 0, cc);
-draw_set_color(c);
-draw_rectangle(0, 0, view_wview, view_hview, false);
-draw_set_color(c_black);
-draw_circle(_x, _y, max(r, 0), false);
-
-surface_reset_target();
-
-draw_set_blend_mode(bm_subtract);
-draw_surface(surf, 0, 0);
-
-draw_set_blend_mode(bm_normal);
-draw_set_color(c_white);
-
-surface_free(surf);
 </string>
           </argument>
         </arguments>

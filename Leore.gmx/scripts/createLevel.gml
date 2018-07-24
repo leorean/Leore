@@ -177,6 +177,10 @@ for (var i = 0; i < ds_list_size(objects); i++) {
             var e = instance_create(obj_x + 8, obj_y + 8, objEnemy);
             e.type = real(ds_map_find_value(obj, "type"));
         break;
+        case "item":
+            var item = instance_create(obj_x + 8, obj_y + 8, objItem);
+            item.type = real(ds_map_find_value(obj, "type"));
+        break;
     }
 }
 
