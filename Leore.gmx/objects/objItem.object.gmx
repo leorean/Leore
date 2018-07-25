@@ -82,27 +82,42 @@ if (!acquired) {
     }
 } else {
     if (!instance_exists(light)) {
-        showMessage("Acquired " + get(global.items[type], 0) + "!");
-
+        showMessage(get(ds_map_find_value(global.dsItems, type), 1));
+        ds_list_add(global.items, type);
+            var action = get(ds_map_find_value(global.dsItems, type), 2);
+        if (action != A.NONE) {
+            global.action = get(ds_map_find_value(global.dsItems, type), 2);
+        }
         switch(type) {
-            case I.ROLL:
-            case I.LEVITATE:
-            case I.DIG:
-            case I.THUNDER:
-            case I.ORB:
-                ds_list_add(global.actions, type);
+            case "roll":
+            case "levitate":
+            case "dig":
+            case "thunder":
             break;
-            case I.SWIM:
+            case "orb":
+                global.orb = true;
+            break;
+            case "swim":
                 global.swim = true;
             break;
+            case "sword1":
+                global.sword = 0;
+            break;            
         }
         light = instance_create(x, y, objLight);
+    } else {
+        if (global.state != G.TEXT) {
+            objPlayer.state = S.IDLE;
+            instance_destroy();
+        }
     }
     depth = objPlayer.depth - 1;
     x = objPlayer.x;
     y = objPlayer.y - 24;
-    light.x = x;
-    light.y = y;
+    if (instance_exists(light)) {
+        light.x = x;    
+        light.y = y;
+    }
 }
 </string>
           </argument>

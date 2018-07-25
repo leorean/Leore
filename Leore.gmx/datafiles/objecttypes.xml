@@ -11,7 +11,7 @@
   <property name="type" type="string"/>
  </objecttype>
  <objecttype name="item" color="#61ffdd">
-  <property name="type" type="string"/>
+  <property name="itemType" type="string"/>
  </objecttype>
  <objecttype name="player" color="#ffffff"/>
  <objecttype name="sign" color="#e1984e">

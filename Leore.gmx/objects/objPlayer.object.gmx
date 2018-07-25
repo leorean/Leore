@@ -255,8 +255,6 @@ if (item) {
     if (state != S.ACQUIRE) {
         dir = D.DOWN;
         state = S.ACQUIRE;
-        // TODO: ACTION STUFF.  
-        //TODO: LIGHT / ITEM EFFECT STUFFS!
     }
     item.acquired = true;
 }

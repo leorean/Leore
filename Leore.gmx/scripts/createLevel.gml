@@ -168,15 +168,20 @@ for (var i = 0; i < ds_list_size(objects); i++) {
         break;
         case "sign":
             var sgn = instance_create(obj_x, obj_y, objSign);
-            sgn.text = string_split(ds_map_find_value(obj, "text"), "|");
+            sgn.text = string_split(ds_map_find_value(obj, "text"), "|"); // TODO: split in message itself?!
         break;
         case "enemy":
             var e = instance_create(obj_x + 8, obj_y + 8, objEnemy);
             e.type = real(ds_map_find_value(obj, "type"));
         break;
         case "item":
-            var item = instance_create(obj_x + 8, obj_y + 8, objItem);
-            item.type = real(ds_map_find_value(obj, "type"));
+            var itemType = string(ds_map_find_value(obj, "itemType"));
+                show_debug_message(itemType);
+                if (!ds_list_find_index(global.items, itemType)) {
+                var item = instance_create(obj_x + 8, obj_y + 8, objItem);
+                item.type = itemType;
+
+            }
         break;
     }
 }

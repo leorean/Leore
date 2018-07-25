@@ -163,7 +163,8 @@ instance_create(0, 0, objLevelIntro);
             <kind>1</kind>
             <string>freeLevel(global.map);
 
-ds_list_destroy(global.actions);
+ds_list_destroy(global.items);
+ds_map_destroy(global.dsItems);
 </string>
           </argument>
         </arguments>
@@ -197,7 +198,29 @@ global.debug = DEBUG; //SET TO 1 FOR DEBUG DRAWINGS ETC.
 
 display_set_gui_size(.5 * WIDTH, .5 * HEIGHT);
 
-global.items[0] = array("Amber", A.ROLL);
+global.dsItems = ds_map_create();
+ds_map_add(global.dsItems,
+    "roll",
+    array(
+        "Amber Bracelet",
+        array(
+            "You've found an ancient Bracelet!", 
+            "It appears to have an amber stone attached to it.#You find a writing at the inside:",
+            '"Become like a marble - smooth and agile will you overrun any obstacle."'
+        ),
+        A.ROLL
+    )
+);
+ds_map_add(global.dsItems,
+    "sword1",
+    array(
+        "Short Sword",
+        array(
+            "TEST"
+        ),
+        A.NONE
+    )
+);
 
 // begin LOAD SAVE
 global.map = -1;
@@ -206,10 +229,10 @@ global.mapTitle = "";
 global.mapX = -1;
 global.mapY = -1;
 global.dir = D.DOWN;
-
-global.actions = ds_list_create(); // &lt;- store what the player can "do"
-global.action = A.NONE;
+global.items = ds_list_create();
+global.action = 0;
 global.swim = false;
+global.orb = false;
 global.sword = -1;
 global.hp = 3;
 global.mp = 0;
@@ -250,14 +273,18 @@ enum A {
     THUNDER
 }
 
-enum I {
-    ROLL,
+/*enum I {
+    ROLL = "roll",
     SWIM,
     DIG,
     LEVITATE,
     ORB,
-    THUNDER
-}
+    THUNDER,
+    SWORD1,
+    SWORD2,
+    SWORD3,
+    SWORD4
+}*/
 </string>
           </argument>
         </arguments>
