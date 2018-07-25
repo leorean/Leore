@@ -176,7 +176,6 @@ for (var i = 0; i < ds_list_size(objects); i++) {
         break;
         case "item":
             var itemType = string(ds_map_find_value(obj, "itemType"));
-                show_debug_message(itemType);
                 if (!ds_list_find_index(global.items, itemType)) {
                 var item = instance_create(obj_x + 8, obj_y + 8, objItem);
                 item.type = itemType;

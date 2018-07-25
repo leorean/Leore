@@ -115,7 +115,7 @@ if (textFull &amp;&amp; !nextPressed) {
     var f = 0;
     if (page &gt;= array_length_1d(text) - 1)
         f = 1;
-    draw_sprite_part(sprHud, -1, f*32, 0, 32, 32, xo + background_get_width(bgMessage) / 2 - 32, yo + background_get_height(bgMessage) - 43 - z);
+    draw_background_part(bgMessage, f*32, 96, 32, 32, xo + background_get_width(bgMessage) / 2 - 32, yo + background_get_height(bgMessage) - 43 - z);
 }
 </string>
           </argument>
