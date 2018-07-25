@@ -83,7 +83,7 @@ for (var i = 0; i &lt; array_length_1d(all_tiles); i++) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (global.state != G_PLAY) exit;
+            <string>if (global.state != G.PLAY) exit;
 
 // animation_tiles: tile, left, count, frame
 

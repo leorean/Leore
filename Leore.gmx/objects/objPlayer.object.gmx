@@ -55,7 +55,7 @@ maxFallTimeout = 60;
 maxCliffTimer = 30;
 cliffTimer = 0;
 
-state = IDLE;
+state = S.IDLE;
 fCur = 0;
 frame = 0;
 dir = global.dir;
@@ -66,9 +66,6 @@ sword = instance_create(x, y, objSword);
 hp = 3;
 hurt = 0;
 invincible = 0;
-
-canSwim = true;
-canRoll = true;
 
 hole = noone;
 
@@ -143,11 +140,7 @@ cy = (bbox_bottom + bbox_top) / 2;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (global.state != G_PLAY) exit;
-
-// calculate this after the movement!
-//cx = (bbox_right + bbox_left) / 2;
-//cy = (bbox_bottom + bbox_top) / 2 - 2;
+            <string>if (global.state != G.PLAY) exit;
 
 // FLAGS
 inShallowWater = z == 0 &amp;&amp; tile_layer_find(LAYER_WATER, x, y);
@@ -161,33 +154,33 @@ if (inShallowWater) {
     }
 }
 
-if (state == FALL) {
+if (state == S.FALL) {
     xVel = 0;
     yVel = 0;
     if (fallTimeout) {
-        dir = DOWN;
+        dir = D.DOWN;
         fallTimeout = max(fallTimeout - 1, 0);
     }
     else {
         x = xPrevHole;
         y = yPrevHole;
-        state = IDLE;
+        state = S.IDLE;
     }
 } else {
     inHole = false;
 }
 
 if (inWater) {
-    if (!canSwim &amp;&amp; state != DROWN) {
-        state = DROWN;
+    if (!global.swim &amp;&amp; state != S.DROWN) {
+        state = S.DROWN;
         fCur = 0;
     }
-    if (canSwim) {
-        state = SWIM;
+    if (global.swim) {
+        state = S.SWIM;
     }
 }
 
-if (state == DROWN) {
+if (state == S.DROWN) {
     xVel *= .9;
     yVel *= .9;
 }
@@ -207,7 +200,7 @@ if (hcp) {
 
 // INPUT HANDLING
 
-if (inWater &amp;&amp; !canSwim) setControlsEnabled(false);
+if (inWater &amp;&amp; !global.swim) setControlsEnabled(false);
 if (inHole) setControlsEnabled(false);
 if (hurt) setControlsEnabled(false);
 
@@ -229,7 +222,7 @@ if (!inCliff)
     cliff = instance_place(x, y + 2, objCliff);
 
 if (cliff != noone) {
-    if (dir == DOWN &amp;&amp; kDown) {
+    if (dir == D.DOWN &amp;&amp; kDown) {
         cliffTimer = min(cliffTimer + 1, maxCliffTimer);
     } else {
         cliffTimer = 0;
@@ -259,31 +252,29 @@ if (inCliff) {
 
 var item = instance_place(x, y, objItem);
 if (item) {
-    if (state != ACQUIRE) {
-        dir = DOWN;
-        state = ACQUIRE;
-        showMessage("Acquired " + get(global.items[item.type], 0) + "!");
-        // TODO: ACTION STUFF..
-        
+    if (state != S.ACQUIRE) {
+        dir = D.DOWN;
+        state = S.ACQUIRE;
+        // TODO: ACTION STUFF.  
         //TODO: LIGHT / ITEM EFFECT STUFFS!
     }
-    with(item) { instance_destroy(); }
+    item.acquired = true;
 }
 
-if (state == ACQUIRE) {
+if (state == S.ACQUIRE) {
     xVel = 0;
     yVel = 0;
 }
 
 // TOUCH SIGNS
 var sgn = instance_place(x, y, objSign);
-if (sgn != noone &amp;&amp; dir == UP) {
+if (sgn != noone &amp;&amp; dir == D.UP) {
     if (kAction1Pressed)
         showMessage(sgn.text);
 }
 
 // DOORS
-if (state == WALK || state == ROLL) {
+if (state == S.WALK || state == S.ROLL) {
     var door = instance_place(x, y, objDoor);
     if (door) {
         if (dir == door.dir) {
@@ -294,16 +285,16 @@ if (state == WALK || state == ROLL) {
             trans.target = door.target;
             switch(door.targetdir) {
                 case "up":
-                    global.dir = UP;
+                    global.dir = D.UP;
                 break;
                 case "down":
-                    global.dir = DOWN;
+                    global.dir = D.DOWN;
                 break;
                 case "left":
-                    global.dir = LEFT;
+                    global.dir = D.LEFT;
                 break;
                 case "right":
-                    global.dir = RIGHT;
+                    global.dir = D.RIGHT;
                 break;
             }
         }
@@ -311,12 +302,12 @@ if (state == WALK || state == ROLL) {
 }
 
 // WALKING
-if (state == IDLE || state == WALK) {
+if (state == S.IDLE || state == S.WALK) {
 
-    if (kLeft) dir = LEFT;
-    if (kRight) dir = RIGHT;
-    if (kUp) dir = UP;
-    if (kDown) dir = DOWN;
+    if (kLeft) dir = D.LEFT;
+    if (kRight) dir = D.RIGHT;
+    if (kUp) dir = D.UP;
+    if (kDown) dir = D.DOWN;
     
     if (kLeft) {
         xVel = max(xVel - .2, -spd);
@@ -334,25 +325,25 @@ if (state == IDLE || state == WALK) {
     if (!kLeft &amp;&amp; !kRight) xVel = 0;
     if (!kUp &amp;&amp; !kDown) yVel = 0;
         
-    if (state == IDLE) {    
-        if (kLeft || kRight || kUp || kDown) state = WALK;
+    if (state == S.IDLE) {    
+        if (kLeft || kRight || kUp || kDown) state = S.WALK;
     }
-    if (state == WALK)
-        if (!kLeft &amp;&amp; !kRight &amp;&amp; !kUp &amp;&amp; !kDown) state = IDLE;
+    if (state == S.WALK)
+        if (!kLeft &amp;&amp; !kRight &amp;&amp; !kUp &amp;&amp; !kDown) state = S.IDLE;
 
-    if (canRoll) {
-        if (kAction1) state = ROLL;
+    if (global.action == A.ROLL) {
+        if (kAction1) state = S.ROLL;
     }
         
 } 
 
 // ROLLING
-if (state == ROLL) {
+if (state == S.ROLL) {
     
-    if (kLeft) dir = LEFT;
-    if (kRight) dir = RIGHT;
-    if (kUp) dir = UP;
-    if (kDown) dir = DOWN;
+    if (kLeft) dir = D.LEFT;
+    if (kRight) dir = D.RIGHT;
+    if (kUp) dir = D.UP;
+    if (kDown) dir = D.DOWN;
 
     if (kAction1) {
         if (kRight) { xVel += .1; }
@@ -365,7 +356,7 @@ if (state == ROLL) {
     }
 
     if (!kAction1 &amp;&amp; xVel == 0 &amp;&amp; yVel == 0 &amp;&amp; z == 0) 
-        state = IDLE;
+        state = S.IDLE;
 
     if ((!kLeft &amp;&amp; !kRight) || !kAction1) xVel = sign(xVel)*max(abs(xVel) - .1, 0);
     if (   (!kUp &amp;&amp; !kDown) || !kAction1) yVel = sign(yVel)*max(abs(yVel) - .1, 0);
@@ -381,22 +372,21 @@ if (inShallowWater &amp;&amp; !inWater) {
 
 // SWIMMING
 
-if (state == SWIM) {
+if (state == S.SWIM) {
     if (!inWater) {
-        state = IDLE;
+        state = S.IDLE;
     }
     
-    if (kLeft) dir = LEFT;
-    if (kRight) dir = RIGHT;
-    if (kUp) dir = UP;
-    if (kDown) dir = DOWN;
+    if (kLeft) dir = D.LEFT;
+    if (kRight) dir = D.RIGHT;
+    if (kUp) dir = D.UP;
+    if (kDown) dir = D.DOWN;
 
     if (kRight) { xVel += .05; }
     if (kLeft) {  xVel -= .05; }
     
     if (!kLeft &amp;&amp; !kRight) xVel = sign(xVel) * max(abs(xVel) - .05, 0);
     if (!kUp &amp;&amp; !kDown)    yVel = sign(yVel) * max(abs(yVel) - .05, 0);
-    
     
     if (kDown) {  yVel += .05; }
     if (kUp) {    yVel -= .05; }
@@ -415,23 +405,22 @@ if (instance_exists(enemy) &amp;&amp; enemy.hp &gt; 0 &amp;&amp; !enemy.hurt &am
     xVel = lengthdir_x(-3, kbAngle);
     yVel = lengthdir_y(-3, kbAngle);
     hurt = 20;
-    state = HURT;
+    state = S.HURT;
 }
 
-if (state == HURT) {
+if (state == S.HURT) {
     hurt = max(hurt - 1, 0);
     xVel *= .85;
     yVel *= .85;
     
     if (!hurt) {
-        state = IDLE;
+        state = S.IDLE;
         invincible = 45;
     }
 }
 
-// DESTROYING OBJECTS
-
-canDestroy = state == ROLL &amp;&amp; (max(abs(xVel), abs(yVel)) &gt; .5) &amp;&amp; z == 0;
+// DESTROYING OBJECTS (ROLL)
+canDestroy = state == S.ROLL &amp;&amp; (max(abs(xVel), abs(yVel)) &gt; .5) &amp;&amp; z == 0;
 
 ds_list_clear(dsCol);
 instance_deactivate_object(objDestroyable);
@@ -482,12 +471,12 @@ if (z == 0) {
             xVel += lengthdir_x(.3, ang);
             yVel += lengthdir_y(.3, ang);
 
-        if (state != FALL) {
+        if (state != S.FALL) {
 
             if (collision_point(cx, cy, objHole, 0, 1)) {
                 inHole = true;
                 hole = noone;
-                state = FALL;
+                state = S.FALL;
                 fallTimeout = maxFallTimeout;
             }
         }
@@ -496,15 +485,17 @@ if (z == 0) {
 
 // SWORD
 
-if (state == ATTACK) {
+if (state == S.ATTACK) {
     xVel = 0;
     yVel = 0;
 }
-if (state == IDLE || state == WALK) {
+if (state == S.IDLE || state == S.WALK) {
     if (kAction2Pressed &amp;&amp; z == 0) {
-        fCur = 0;
-        state = ATTACK;
-        sword.state = ATTACK;
+        if (global.sword &gt; -1) {
+            fCur = 0;
+            state = S.ATTACK;
+            sword.state = S.ATTACK;
+        }
     }
 }
 
@@ -543,7 +534,7 @@ if (stairs &amp;&amp; z == 0) {
 if (!place_meeting(x + xVel, y, objSolid)) {
     x += xVel;
 } else {
-    if (state == ROLL &amp;&amp; z == 0) {
+    if (state == S.ROLL &amp;&amp; z == 0) {
         xVel = -xVel * .5;
         if (abs(xVel) &gt; .5) {
             xVel *= .8;
@@ -556,7 +547,7 @@ if (!place_meeting(x + xVel, y, objSolid)) {
 if (!place_meeting(x, y + yVel, objSolid)) {
     y += yVel;
 } else {
-    if (state == ROLL &amp;&amp; z == 0) {
+    if (state == S.ROLL &amp;&amp; z == 0) {
         yVel = -yVel * .5;
         if (abs(yVel) &gt; .5) {
             yVel *= .8;
@@ -593,29 +584,29 @@ instance_activate_object(objStairs);
           <argument>
             <kind>1</kind>
             <string>// DRAWING &lt;-&gt; STATE LOGIC
-if (global.state == G_PLAY
-    || state == ACQUIRE) {
+if (global.state == G.PLAY
+    || state == S.ACQUIRE) {
     switch(state) {
-        case IDLE:
+        case S.IDLE:
             fCur = (fCur + .1) % 4;
             frame = floor(fCur);
         break;
-        case WALK:
+        case S.WALK:
             fCur = (fCur + .2) % 4;
             frame = 4 + floor(fCur);
         break;
-        case ROLL:
+        case S.ROLL:
             fCur = (fCur + max(.2, .6 * sqrt(abs(xVel) + abs(yVel)) / 3 )) % 4;
             frame = 8 + floor(fCur);
         break;
-        case FALL:
+        case S.FALL:
             frame = 0;
         break;
-        case ATTACK:
+        case S.ATTACK:
             fCur = 0;
             frame = 12 + floor(fCur);        
         break;
-        case DROWN:
+        case S.DROWN:
             fCur = min(fCur + .1, 4);
             frame = floor(fCur);
             if (fCur == 4) {
@@ -623,15 +614,15 @@ if (global.state == G_PLAY
                     x = xPrevDrown;
                     y = yPrevDrown;
                 } else {
-                    state = IDLE;
+                    state = S.IDLE;
                 }
             }
         break;
-        case SWIM:
+        case S.SWIM:
             fCur = (fCur + .1) % 3;
             frame = 13 + floor(fCur);        
         break;
-        case ACQUIRE:
+        case S.ACQUIRE:
             fCur = 0;
             frame = 16;
         break;
@@ -639,16 +630,16 @@ if (global.state == G_PLAY
 }
 
 switch(dir) {
-    case UP:
+    case D.UP:
         row = 1;
     break;
-    case DOWN:
+    case D.DOWN:
         row = 0;
     break;
-    case LEFT:
+    case D.LEFT:
         row = 3;
     break;
-    case RIGHT:
+    case D.RIGHT:
         row = 2;
     break;
 }
@@ -661,7 +652,7 @@ if (!inShallowWater &amp;&amp; !inWater &amp;&amp; !inHole)
     draw_sprite(sprShadow, -1, x, bbox_bottom);
 }
 
-if (!inHole &amp;&amp; state != DROWN) {
+if (!inHole &amp;&amp; state != S.DROWN) {
     if (((invincible + hurt) % 4) &lt; 2) {
     } else {
         d3d_set_fog(1, c_black, 0, 0)   
@@ -679,7 +670,7 @@ if (inShallowWater &amp;&amp; !inWater) {
     draw_sprite_part(sprWaterShadow, -1, 32*floor((global.timer / 5) % 4), 0, 32, 32, x - 16, y - 20);
 }
 
-if (state == DROWN) {
+if (state == S.DROWN) {
     draw_sprite(sprDrown, frame, cx, cy);
 }
 

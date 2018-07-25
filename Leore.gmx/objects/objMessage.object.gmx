@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>global.state = G_TEXT;
+            <string>global.state = G.TEXT;
 text = "";
 
 i = 0;
@@ -73,7 +73,7 @@ var nextPressed = keyPressed("action1pressed") || keyPressed("action2pressed");
 
 if (page == array_length_1d(text)) {
     io_clear();
-    global.state = G_PLAY;
+    global.state = G.PLAY;
     instance_destroy();
 }
 

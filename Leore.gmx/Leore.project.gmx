@@ -124,6 +124,7 @@
     </sprites>
     <sprite>sprites\mskEnemy</sprite>
     <sprite>sprites\mskItem</sprite>
+    <sprite>sprites\sprLight</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>
@@ -169,8 +170,8 @@
       <object>objects\objLevelTransition</object>
       <object>objects\objCamera</object>
       <object>objects\objPlayer</object>
-      <object>objects\objTileManager</object>
       <object>objects\objSword</object>
+      <object>objects\objTileManager</object>
       <object>objects\objMessage</object>
       <object>objects\objLevelMap</object>
       <object>objects\objLevelIntro</object>
@@ -198,12 +199,8 @@
   <rooms name="rooms">
     <room>rooms\GAME</room>
   </rooms>
-  <constants number="32">
+  <constants number="9">
     <constant name="DEBUG">keyboard_check(ord('O'))</constant>
-    <constant name="G_PAUSE">0</constant>
-    <constant name="G_PLAY">1</constant>
-    <constant name="G_TEXT">2</constant>
-    <constant name="G_CHANGELEVEL">3</constant>
     <constant name="WIDTH">688</constant>
     <constant name="HEIGHT">416</constant>
     <constant name="TILE">16</constant>
@@ -212,25 +209,6 @@
     <constant name="LAYER_WATER">999</constant>
     <constant name="LAYER_FG">998</constant>
     <constant name="LAYER_TOP">-100000</constant>
-    <constant name="LEFT">-1</constant>
-    <constant name="RIGHT">1</constant>
-    <constant name="UP">-2</constant>
-    <constant name="DOWN">2</constant>
-    <constant name="IDLE">0</constant>
-    <constant name="WALK">1</constant>
-    <constant name="ROLL">2</constant>
-    <constant name="FALL">3</constant>
-    <constant name="DROWN">4</constant>
-    <constant name="ATTACK">5</constant>
-    <constant name="HURT">6</constant>
-    <constant name="SWIM">7</constant>
-    <constant name="ACQUIRE">8</constant>
-    <constant name="ACTION_NONE">0</constant>
-    <constant name="ACTION_ROLL">1</constant>
-    <constant name="ACTION_DIG">2</constant>
-    <constant name="ACTION_LEVITATE">3</constant>
-    <constant name="ACTION_ORB">4</constant>
-    <constant name="ACTION_THUNDER">5</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

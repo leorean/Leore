@@ -5,9 +5,112 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>objAny</parentName>
   <maskName>&lt;undefined&gt;</maskName>
-  <events/>
+  <events>
+    <event eventtype="0" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>r1 = random(360);
+r2 = random(360);
+v1 = 2;
+v2 = -1;
+
+s0 = 0;
+sv0 = .02;
+s1 = random(2*pi);
+s2 = random(2*pi);
+sv1 = .05;
+sv2 = .02;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>depth = -y - 100;
+
+if (global.state == G.PAUSE) exit;
+
+r1 = (r1 + v1) % 360;
+r2 = (r2 + v2) % 360;
+
+s1 = (s1 + sv1) % (2*pi);
+s2 = (s2 + sv2) % (2*pi);
+
+s0 = (s0 + sv0) % (2*pi);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_set_blend_mode(bm_add);
+draw_set_color(c_white);
+draw_set_alpha(1);
+
+var _s0 = .05 * abs(sin(s0));
+
+draw_sprite_ext(sprLight, 0, x, y, .85 + _s0, .85 + _s0, 0, c_white, .25);
+draw_sprite_ext(sprLight, 0, x, y, .65 + 1.5 * _s0, .65 + 1.5 * _s0, 0, c_white, .15 + .5 * _s0);
+draw_sprite_ext(sprLight, 0, x, y, .45 + 2 * _s0, .45 + 2 * _s0, 0, c_white, .1 + _s0);
+
+draw_sprite_ext(sprLight, 1, x, y, 1, 1, r1, c_white, .1 * abs(sin(s1)));
+draw_sprite_ext(sprLight, 1, x, y, 1, 1, r2, c_white, .1 * abs(sin(s2)));
+
+draw_set_blend_mode(bm_normal);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+  </events>
   <PhysicsObject>0</PhysicsObject>
   <PhysicsObjectSensor>0</PhysicsObjectSensor>
   <PhysicsObjectShape>0</PhysicsObjectShape>

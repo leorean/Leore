@@ -174,7 +174,7 @@ for (var i = 0; i &lt; instance_number(objEnemy); i++) {
     surface_free(surf);
 }
 
-if (global.state != G_PLAY &amp;&amp; global.state != G_PAUSE) exit;
+if (global.state != G.PLAY &amp;&amp; global.state != G.PAUSE) exit;
 
 xo = view_wview - sprite_get_width(sprMap) - 3;
 yo = view_hview - sprite_get_height(sprMap) - 3;

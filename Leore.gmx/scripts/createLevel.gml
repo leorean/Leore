@@ -20,9 +20,6 @@ if (room_width!=w*TILE || room_height!=h*TILE)
     room_restart();
     exit;
 }
-
-dsIgnore = ds_list_create();
-
 // tiles
 for (var i = 0; i<w; i ++)
 {
@@ -155,10 +152,10 @@ for (var i = 0; i < ds_list_size(objects); i++) {
             door.target = ds_map_find_value(obj, "target");
             var ddir = ds_map_find_value(obj, "dir");
             switch(ddir) {
-                case "up": door.dir = UP; break;
-                case "down": door.dir = DOWN; break;
-                case "left": door.dir = LEFT; break;
-                case "right": door.dir = RIGHT; break;
+                case "up": door.dir = D.UP; break;
+                case "down": door.dir = D.DOWN; break;
+                case "left": door.dir = D.LEFT; break;
+                case "right": door.dir = D.RIGHT; break;
             }
             door.targetdir = ds_map_find_value(obj, "targetdir");
             
@@ -185,9 +182,6 @@ for (var i = 0; i < ds_list_size(objects); i++) {
 }
 
 // level properties
-for(var i = 0; i < ds_list_size(props); i++) {
-    var prop = ds_list_find_value(props, i);
+for(var i = 0; i < ds_map_size(props); i++) {
     global.mapTitle = ds_map_find_value(props, "title");
 }
-
-ds_list_destroy(dsIgnore);

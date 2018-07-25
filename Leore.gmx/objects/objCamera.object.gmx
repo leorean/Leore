@@ -54,18 +54,14 @@ h = HEIGHT / 2;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (global.state != G_PLAY
- &amp;&amp; global.state != G_CHANGELEVEL
- &amp;&amp; global.state != G_TEXT) exit;
+            <string>if (global.state != G.PLAY
+ &amp;&amp; global.state != G.CHANGELEVEL
+ &amp;&amp; global.state != G.TEXT) exit;
 if (!instance_exists(objPlayer)) exit;
 
 tx = objPlayer.cx;
 ty = objPlayer.cy;
-    
-/*if (instance_exists(objStaff)) {
-    tx = (objPlayer.cx + objStaff.x) / 2;
-    ty = (objPlayer.cy + objStaff.y) / 2;
-}*/
+
 xVel = (tx - x) / 16;
 yVel = (ty - y) / 16;
 

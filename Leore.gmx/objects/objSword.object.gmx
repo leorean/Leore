@@ -36,14 +36,13 @@ angleDir = 1;
 off_x = 0;
 off_y = 0;
 
-state = IDLE;
-dir = DOWN;
+state = S.IDLE;
+dir = D.DOWN;
 dist = 0;
 maxDist = TILE;
 
 dsObjects = ds_list_create();
 
-type = 0;
 len = 0;
 dmg = 0;
 </string>
@@ -91,36 +90,36 @@ dmg = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (global.state != G_PLAY) exit;
+            <string>if (global.state != G.PLAY) exit;
 
 switch(state) {
-    case IDLE:
+    case S.IDLE:
         x = -100;
         y = -100;
         dir = objPlayer.dir;
         switch(dir) {
-            case UP:
+            case D.UP:
                 minAngle = 0;
                 maxAngle = 90;
                 angleDir = 1;
                 off_y = -6;
                 off_x = -8;
             break;
-            case DOWN:
+            case D.DOWN:
                 minAngle = 180;
                 maxAngle = 270;
                 angleDir = 1;
                 off_y = 0;
                 off_x = 6;
             break;
-            case LEFT:
+            case D.LEFT:
                 minAngle = 90;
                 maxAngle = 180;
                 angleDir = 1;
                 off_y = 0;
                 off_x = 0;                
             break;
-            case RIGHT:
+            case D.RIGHT:
                 minAngle = 90;
                 maxAngle = 0;
                 angleDir = -1;
@@ -132,17 +131,17 @@ switch(state) {
         dist = 0;
         ds_list_clear(dsObjects);
     break;
-    case ATTACK:
+    case S.ATTACK:
         angle += sign(angleDir) * velAngle;
     
         x = objPlayer.cx + off_x + lengthdir_x(dist, angle);
         y = objPlayer.cy + off_y + lengthdir_y(dist, angle);
-                
+        objPlayer.dir = dir;
         if (sign(angleDir) * angle &gt;= sign(angleDir) * maxAngle) {
             dist = max(dist - 4, 0);
             if (dist == 0) {
-                objPlayer.state = IDLE;
-                state = IDLE;
+                objPlayer.state = S.IDLE;
+                state = S.IDLE;
             }
         } else {
             dist = min(dist + 2, maxDist);
@@ -150,7 +149,7 @@ switch(state) {
 
         // DESTROYING
         
-        switch(type) {
+        switch(global.sword) {
             case 0:
                 len = 16;
                 dmg = 1;
@@ -246,7 +245,7 @@ switch(state) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite_ext(sprSword, type, x, y, 1, 1, angle, c_white, 1);
+            <string>draw_sprite_ext(sprSword, global.sword, x, y, 1, 1, angle, c_white, 1);
 
 if (global.debug) {
     var x1 = x;

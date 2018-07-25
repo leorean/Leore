@@ -6,7 +6,7 @@ ds[1] = ds_grid_create(1, 1); // FG
 ds[2] = ds_grid_create(1, 1); // WATER
 ds[3] = ds_grid_create(1, 1); // TOP
 obj = ds_list_create(); //OBJ
-props = ds_list_create(); // MAP PROPERTIES
+props = ds_map_create(); // MAP PROPERTIES
 
 if (file_exists(argument0))
     file = file_text_open_read(argument0);
@@ -58,11 +58,9 @@ while (!file_text_eof(file)) {
     
         // parse map properties
         if (string_pos('<property ', f) != 0) {
-            mObject = ds_map_create();
             var o_prop_name = getStringFromXMLIdentifier(f, 'name');
             var o_prop_value = getStringFromXMLIdentifier(f, 'value');            
-            ds_map_add(mObject, o_prop_name, o_prop_value);
-            ds_list_add(props, mObject);
+            ds_map_add(props, o_prop_name, o_prop_value);
         }
                     
         if (string_pos('<tileset ', f) != 0) {

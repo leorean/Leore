@@ -49,7 +49,7 @@ type = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (global.state == G_PLAY) {
+            <string>if (global.state == G.PLAY) {
     if (hp == 0) {
         switch(type) {
             case 0: // bush

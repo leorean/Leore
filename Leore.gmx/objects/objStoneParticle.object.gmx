@@ -56,7 +56,7 @@ depth = LAYER_TOP - 1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (global.state == G_PLAY) {
+            <string>if (global.state == G.PLAY) {
     
     x += lengthdir_x(vel, angle);
     y += lengthdir_y(vel, angle);

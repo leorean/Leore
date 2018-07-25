@@ -28,7 +28,7 @@
             <string>r = max(view_wview, view_hview) + 128;
 rMax = r;
 fade = -10;
-global.state = G_CHANGELEVEL;
+global.state = G.CHANGELEVEL;
 </string>
           </argument>
         </arguments>

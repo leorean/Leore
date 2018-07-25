@@ -11,12 +11,24 @@
 	- sword
 		- no rune, no power
 	- MAGICRYSTALS
-		- Amber: roll
-		- Aquamarine: swim
-		- Quartz: dig
-		- Opal: levitate
-		- Amethyst: magic orb
-		- Spinel: lightning/thunder
+		- Amber: 
+			- rolling (Action)
+			- + 10 MP
+		- Aquamarine: 
+			- swim (Ability)
+			- + 10 MP			
+		- Quartz:
+			- dig (Action)
+			- + 5 MP
+		- Opal:
+			- levitate (Action)
+			- + 5 MP
+		- Amethyst:
+			- magic orb (Ability)
+			- + 15 MP 
+		- Spinel:
+			- lightning/thunder (Action)
+			- + 15 MP
 		
 * TODO / WHAT'S MISSING
 	- save statues
@@ -36,5 +48,6 @@
 	- player awakes at the shore - his memory is lost
 	- player starts walking north from the southmost point of leore, south beach, where he will find the shrine of shin
 	- the entrance to the shrine is blocked, so he will find a cave below instead
-	- in the cave, he will find an old relic: a rune necklace and the first rune: rolling
-	- with this power, he can enter the shrine of shin, where he will begin to learn his purpose and be granted a weapon
+	- in the cave, he will find an old relic: Amber Bracelet
+	- with its' power, he can enter the shrine of shin, where he will begin to learn his purpose and face his first trial
+	- Upon succeeding, he is granted a weapon
