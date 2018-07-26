@@ -43,11 +43,6 @@ for (var i = 0; i<w; i ++)
         switch(bg) {
             case -1: case 0: // nothing
             break;
-            // stairs
-            case 59: case 106: case 153: case 200:
-            case 293: case 294: case 340: case 341:
-            case 909: case 956:
-                instance_create(i*TILE, j*TILE, objStairs);
             default:
                 addTile(bg, i*TILE, j*TILE, LAYER_BG);
             break;
@@ -115,11 +110,18 @@ for (var i = 0; i<w; i ++)
             case 423: case 424: case 425:
             case 470: case 471: case 472:
             case 517: case 518: case 519:
-            case 564: case 565: case 566:
-            
+            case 564: case 565: case 566:            
                 addTile(fg, i*TILE, j*TILE, LAYER_FG);
                 instance_create(i*TILE, j*TILE, objHole);
             break;
+            // stairs
+            case 59: case 106: case 153: case 200:
+            case 204:
+            case 293: case 294: case 340: case 341:
+            case 852: case 899:
+                instance_create(i*TILE, j*TILE, objStairs);
+                addTile(fg, i*TILE, j*TILE, LAYER_FG);
+                break;
             default:
                 addTile(fg, i*TILE, j*TILE, LAYER_FG);
                 instance_create(i*TILE, j*TILE, objSolid);
