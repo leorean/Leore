@@ -123,6 +123,9 @@ for (var i = 0; i<w; i ++)
                 instance_create(i*TILE, j*TILE, objStairs);
                 addTile(fg, i*TILE, j*TILE, LAYER_FG);
                 break;
+            /*case 998: // ignore solid block
+                addTile(fg, i*TILE, j*TILE, LAYER_FG);
+            break;*/
             default:
                 addTile(fg, i*TILE, j*TILE, LAYER_FG);
                 instance_create(i*TILE, j*TILE, objSolid);
