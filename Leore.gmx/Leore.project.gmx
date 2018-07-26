@@ -93,7 +93,6 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
-    <sprite>sprites\sprHud</sprite>
     <sprite>sprites\sprPlayer</sprite>
     <sprites name="masks">
       <sprite>sprites\mskDestroyable</sprite>
@@ -104,7 +103,7 @@
       <sprite>sprites\mskSolid</sprite>
       <sprite>sprites\mskHole</sprite>
       <sprite>sprites\mskSign</sprite>
-      <sprite>sprites\mskLevelMap</sprite>
+      <sprite>sprites\mskMiniMap</sprite>
       <sprite>sprites\mskCliff</sprite>
       <sprite>sprites\mskPixel</sprite>
     </sprites>
@@ -157,6 +156,7 @@
       <script>scripts\get.gml</script>
       <script>scripts\array_contains.gml</script>
     </scripts>
+    <script>scripts\is.gml</script>
   </scripts>
   <objects name="objects">
     <objects name="hierarchy">
@@ -173,7 +173,7 @@
       <object>objects\objSword</object>
       <object>objects\objTileManager</object>
       <object>objects\objMessage</object>
-      <object>objects\objLevelMap</object>
+      <object>objects\objMiniMap</object>
       <object>objects\objLevelIntro</object>
     </objects>
     <objects name="effects">

@@ -519,8 +519,8 @@ for (var i = 0; i &lt; ds_list_size(dsCol); i++) {
 
 var xCol = instance_place(x + xVel, y, objDestroyable);
 var yCol = instance_place(x, y + yVel, objDestroyable);
-if (xCol &amp;&amp; xCol.object_index == objEnemy) xCol = noone;
-if (yCol &amp;&amp; yCol.object_index == objEnemy) yCol = noone;
+if (xCol &amp;&amp; is(xCol, objEnemy)) xCol = noone;
+if (yCol &amp;&amp; is(yCol, objEnemy)) yCol = noone;
 
 // stairs
 var stairs = instance_place(x + xVel, y + yVel, objStairs);
@@ -529,7 +529,8 @@ if (stairs &amp;&amp; z == 0) {
     instance_deactivate_object(objStairs);
 }
 
-if (!place_meeting(x + xVel, y, objSolid)) {
+xCol = instance_place(x + xVel, y, objSolid);
+if (!xCol || is(xCol, objHole)) {
     x += xVel;
 } else {
     if (state == S.ROLL &amp;&amp; z == 0) {
@@ -542,7 +543,8 @@ if (!place_meeting(x + xVel, y, objSolid)) {
     else
         xVel = 0;
 }
-if (!place_meeting(x, y + yVel, objSolid)) {
+yCol = instance_place(x, y + yVel, objSolid);
+if (!yCol || is(yCol, objHole)) {
     y += yVel;
 } else {
     if (state == S.ROLL &amp;&amp; z == 0) {

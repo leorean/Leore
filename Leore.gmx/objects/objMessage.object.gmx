@@ -104,18 +104,25 @@ if (page &lt; array_length_1d(text)) {
     }
 }
 
-//if (string_length(t) &gt; 0)
-    draw_background(bgMessage, xo - 16, yo - 16);
+draw_background_part(bgMessage, 0, 0, 344, 96, xo - 16, yo - 16);
 draw_text_ext(xo, yo, t, 16, display_get_gui_width() - 32);
 
-zt = (zt + .1) % (2*pi);
-z = sin(zt);
+var f = page &gt;= array_length_1d(text) - 1;
+
+if (f == 0) {
+    zt = (zt + .1) % (2*pi);
+    z = sin(zt);
+}
+if (f == 1) {
+    zt = (zt + .03) % (2*pi);
+    z = abs(sin(zt));
+}
 
 if (textFull &amp;&amp; !nextPressed) {
-    var f = 0;
-    if (page &gt;= array_length_1d(text) - 1)
-        f = 1;
-    draw_background_part(bgMessage, f*32, 96, 32, 32, xo + background_get_width(bgMessage) / 2 - 32, yo + background_get_height(bgMessage) - 43 - z);
+    if (f == 0)
+        draw_background_part(bgMessage, 0, 96, 32, 32, xo + 344 / 2 - 32, yo + 48 - z);
+    if (f == 1)
+        draw_background_part_ext(bgMessage, 32, 96, 32, 32, xo + 344 / 2 - 32, yo + 48, 1, 1, c_white, z);
 }
 </string>
           </argument>
