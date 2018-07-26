@@ -13,6 +13,11 @@
  <objecttype name="item" color="#61ffdd">
   <property name="itemType" type="string"/>
  </objecttype>
+ <objecttype name="light" color="#ffffff">
+  <property name="alpha" type="string"/>
+  <property name="scale" type="string"/>
+  <property name="shimmer" type="string"/>
+ </objecttype>
  <objecttype name="player" color="#ffffff"/>
  <objecttype name="sign" color="#e1984e">
   <property name="text" type="string"/>

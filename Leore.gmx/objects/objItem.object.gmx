@@ -27,6 +27,7 @@
             <kind>1</kind>
             <string>//instance_create(x, y, objLight);
 acquired = false;
+
 light = noone;
 </string>
           </argument>
@@ -105,6 +106,7 @@ if (!acquired) {
             break;            
         }
         light = instance_create(x, y, objLight);
+        light.shimmer = true;
     } else {
         if (global.state != G.TEXT) {
             objPlayer.state = S.IDLE;

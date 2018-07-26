@@ -46,7 +46,9 @@ array(1081, 6), array(1128, 6), array(1175, 6), array(1222, 6),
 // water to deep water:
 array(1269, 4), array(1316, 4), array(1363, 4), array(1410, 4),
 array(1457, 4), array(1504, 4), array(1551, 4), array(1598, 4),
-array(1645, 4), array(1692, 4), array(1739, 4), array(1786, 4)
+array(1645, 4), array(1692, 4), array(1739, 4), array(1786, 4),
+// cave light
+array(1228, 4)
 );
 
 for (var i = 0; i &lt; array_length_1d(all_tiles); i++) {

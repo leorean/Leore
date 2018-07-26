@@ -36,6 +36,10 @@ s1 = random(2*pi);
 s2 = random(2*pi);
 sv1 = .05;
 sv2 = .02;
+
+shimmer = false;
+scale = 1;
+alpha = 1;
 </string>
           </argument>
         </arguments>
@@ -97,13 +101,14 @@ draw_set_alpha(1);
 
 var _s0 = .05 * abs(sin(s0));
 
-draw_sprite_ext(sprLight, 0, x, y, .85 + _s0, .85 + _s0, 0, c_white, .25);
-draw_sprite_ext(sprLight, 0, x, y, .65 + 1.5 * _s0, .65 + 1.5 * _s0, 0, c_white, .15 + .5 * _s0);
-draw_sprite_ext(sprLight, 0, x, y, .45 + 2 * _s0, .45 + 2 * _s0, 0, c_white, .1 + _s0);
+draw_sprite_ext(sprLight, 0, x, y, (.85 + _s0) * scale, (.85 + _s0) * scale, 0, c_white, (.25) * alpha);
+draw_sprite_ext(sprLight, 0, x, y, (.65 + 1.5 * _s0) * scale, (.65 + 1.5 * _s0) * scale, 0, c_white, (.15 + .5 * _s0) * alpha);
+draw_sprite_ext(sprLight, 0, x, y, (.45 + 2 * _s0) * scale, (.45 + 2 * _s0) * scale, 0, c_white, (.1 + _s0) * alpha);
 
-draw_sprite_ext(sprLight, 1, x, y, 1, 1, r1, c_white, .1 * abs(sin(s1)));
-draw_sprite_ext(sprLight, 1, x, y, 1, 1, r2, c_white, .1 * abs(sin(s2)));
-
+if (shimmer) {
+    draw_sprite_ext(sprLight, 1, x, y, 1 * scale, 1 * scale, r1, c_white, (.1 * abs(sin(s1))) * alpha);
+    draw_sprite_ext(sprLight, 1, x, y, 1 * scale, 1 * scale, r2, c_white, (.1 * abs(sin(s2))) * alpha);
+}
 draw_set_blend_mode(bm_normal);
 </string>
           </argument>

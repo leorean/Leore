@@ -98,8 +98,9 @@ for (var i = 0; i<w; i ++)
             break;
             case 3: // checkpoint (hole)
                 instance_create(i*TILE, j*TILE, objHoleCheckPoint);
-            break;            
-            case 104: // cliffs
+            break;   
+            // cliffs         
+            case 104: case 1183:
                 instance_create(i*TILE, j*TILE, objCliff);
                 addTile(fg, i*TILE, j*TILE, LAYER_FG);
             break;
@@ -176,6 +177,12 @@ for (var i = 0; i < ds_list_size(objects); i++) {
             var e = instance_create(obj_x + 8, obj_y + 8, objEnemy);
             e.type = real(ds_map_find_value(obj, "type"));
         break;
+        case "light":
+            var light = instance_create(obj_x + 8, obj_y + 8, objLight);
+            light.shimmer = bool(ds_map_find_value(obj, "shimmer"));
+            light.scale = string_to_real(ds_map_find_value(obj, "scale"));
+            light.alpha = string_to_real(ds_map_find_value(obj, "alpha"));
+        break;        
         case "item":
             var itemType = string(ds_map_find_value(obj, "itemType"));
             if (ds_list_find_index(global.items, itemType) == -1) {

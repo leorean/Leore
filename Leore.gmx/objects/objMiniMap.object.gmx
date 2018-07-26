@@ -34,7 +34,8 @@ enemies = ds_list_create();
 for (var i = 0; i &lt; w; i++) {
     for (var j = 0; j &lt; h; j++) {
         val = 0;
-        if (instance_place(i*TILE, j*TILE, objSolid))
+        var s = instance_place(i*TILE, j*TILE, objSolid);
+        if (s &amp;&amp; !is(s, objHole) &amp;&amp; !is(s, objDestroyable))
         {
             val = 1;
         } else {

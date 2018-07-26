@@ -158,6 +158,7 @@
       <script>scripts\array_contains.gml</script>
     </scripts>
     <script>scripts\is.gml</script>
+    <script>scripts\string_to_real.gml</script>
   </scripts>
   <objects name="objects">
     <objects name="hierarchy">
