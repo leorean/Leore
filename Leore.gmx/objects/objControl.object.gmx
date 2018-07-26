@@ -199,6 +199,8 @@ global.debug = DEBUG; //SET TO 1 FOR DEBUG DRAWINGS ETC.
 display_set_gui_size(.5 * WIDTH, .5 * HEIGHT);
 
 global.dsItems = ds_map_create();
+// item structure:
+// type, name, description, action, icon-index
 ds_map_add(global.dsItems,
     "roll",
     array(
@@ -208,7 +210,8 @@ ds_map_add(global.dsItems,
             "It appears to have an amber stone attached to it.#You find a writing at the inside:",
             '"Become like a marble - smooth and agile will you overrun any obstacle."'
         ),
-        A.ROLL
+        A.ROLL,
+        0
     )
 );
 ds_map_add(global.dsItems,
@@ -218,7 +221,8 @@ ds_map_add(global.dsItems,
         array(
             "TEST"
         ),
-        A.NONE
+        A.NONE,
+        1
     )
 );
 
@@ -229,8 +233,8 @@ global.mapTitle = "";
 global.mapX = -1;
 global.mapY = -1;
 global.dir = D.DOWN;
-global.items = ds_list_create();
-global.action = 0;
+global.items = ds_list_create(); // &lt;- load
+global.action = A.NONE;
 global.swim = false;
 global.orb = false;
 global.sword = -1;
@@ -272,19 +276,6 @@ enum A {
     ORB,
     THUNDER
 }
-
-/*enum I {
-    ROLL = "roll",
-    SWIM,
-    DIG,
-    LEVITATE,
-    ORB,
-    THUNDER,
-    SWORD1,
-    SWORD2,
-    SWORD3,
-    SWORD4
-}*/
 </string>
           </argument>
         </arguments>

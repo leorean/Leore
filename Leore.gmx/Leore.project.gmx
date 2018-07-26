@@ -93,6 +93,7 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
+    <sprite>sprites\sprItems</sprite>
     <sprite>sprites\sprPlayer</sprite>
     <sprites name="masks">
       <sprite>sprites\mskDestroyable</sprite>
@@ -106,6 +107,8 @@
       <sprite>sprites\mskMiniMap</sprite>
       <sprite>sprites\mskCliff</sprite>
       <sprite>sprites\mskPixel</sprite>
+      <sprite>sprites\mskEnemy</sprite>
+      <sprite>sprites\mskItem</sprite>
     </sprites>
     <sprites name="effects">
       <sprite>sprites\sprEffects</sprite>
@@ -121,8 +124,6 @@
       <sprite>sprites\sprFontSmall</sprite>
       <sprite>sprites\sprFont</sprite>
     </sprites>
-    <sprite>sprites\mskEnemy</sprite>
-    <sprite>sprites\mskItem</sprite>
     <sprite>sprites\sprLight</sprite>
   </sprites>
   <backgrounds name="background">
