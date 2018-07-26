@@ -18044,7 +18044,7 @@
     <property name="dir" value="up"/>
     <property name="target" value="map_southbeach_cave"/>
     <property name="targetdir" value="up"/>
-    <property name="tx" value="16"/>
+    <property name="tx" value="19"/>
     <property name="ty" value="46"/>
    </properties>
   </object>
