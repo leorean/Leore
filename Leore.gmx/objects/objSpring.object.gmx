@@ -53,12 +53,16 @@ z = 0;
 
 if (global.state != G.PLAY) exit;
 
-if (sprung) {
+if (sprung &amp;&amp; z == 0) {
     z = -8;
-    sprung = false;
 }
 
 z = min(z + 1, 0);
+
+if (z == 0) {
+    sprung = false;
+}
+
 </string>
           </argument>
         </arguments>
@@ -81,7 +85,15 @@ z = min(z + 1, 0);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite_part(sprSpring, -1, 0, 0, 16, 16, x, y + z);
+            <string>// shadow
+draw_sprite_part(sprSpring, -1, 32, 0, 16, 16, x, y);
+
+// spring
+draw_sprite_part(sprSpring, -1, 16, 0, 16, 16, x, y);
+
+// top
+draw_sprite_part(sprSpring, -1, 0, 0, 16, 16, x, y + z);
+
 </string>
           </argument>
         </arguments>

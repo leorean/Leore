@@ -343,10 +343,10 @@ if (state == S.ROLL) {
     if (kDown) dir = D.DOWN;
 
     if (kAction1) {
-        if (kRight) { xVel += .1; }
-        if (kLeft) {  xVel -= .1; }    
-        if (kDown) { yVel += .1; }
-        if (kUp) {   yVel -= .1; }
+        if (kRight) { if (abs(xVel) &lt; 3) xVel += .1; }
+        if (kLeft) {  if (abs(xVel) &lt; 3) xVel -= .1; }    
+        if (kDown) { if (abs(yVel) &lt; 3) yVel += .1; }
+        if (kUp) {   if (abs(yVel) &lt; 3) yVel -= .1; }
     }
     if (z == 0) {        
         var spring = collision_point(x, y, objSpring, false, true);
@@ -365,8 +365,8 @@ if (state == S.ROLL) {
     if ((!kLeft &amp;&amp; !kRight) || !kAction1) xVel = sign(xVel)*max(abs(xVel) - .1, 0);
     if (   (!kUp &amp;&amp; !kDown) || !kAction1) yVel = sign(yVel)*max(abs(yVel) - .1, 0);
 
-    xVel = sign(xVel) * min(abs(xVel), 3);
-    yVel = sign(yVel) * min(abs(yVel), 3);
+    /*xVel = sign(xVel) * min(abs(xVel), 3);
+    yVel = sign(yVel) * min(abs(yVel), 3);*/
 }
 
 if (inShallowWater &amp;&amp; !inWater) {
