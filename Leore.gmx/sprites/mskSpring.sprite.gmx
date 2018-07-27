@@ -3,10 +3,10 @@
   <type>0</type>
   <xorig>0</xorig>
   <yorigin>0</yorigin>
-  <colkind>2</colkind>
+  <colkind>1</colkind>
   <coltolerance>0</coltolerance>
   <sepmasks>0</sepmasks>
-  <bboxmode>1</bboxmode>
+  <bboxmode>0</bboxmode>
   <bbox_left>0</bbox_left>
   <bbox_right>15</bbox_right>
   <bbox_top>0</bbox_top>
@@ -20,6 +20,6 @@
   <width>16</width>
   <height>16</height>
   <frames>
-    <frame index="0">images\mskHole_0.png</frame>
+    <frame index="0">images\mskSpring_0.png</frame>
   </frames>
 </sprite>

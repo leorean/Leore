@@ -99,6 +99,9 @@ for (var i = 0; i<w; i ++)
             case 3: // checkpoint (hole)
                 instance_create(i*TILE, j*TILE, objHoleCheckPoint);
             break;   
+            case 4: // springs
+                instance_create(i*TILE, j*TILE, objSpring);
+            break;            
             // cliffs         
             case 104: case 1183:
                 instance_create(i*TILE, j*TILE, objCliff);

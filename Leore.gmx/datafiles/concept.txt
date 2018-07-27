@@ -57,9 +57,16 @@
 ---------- Concept revolves around rolling ----------
 
 Objects:
+	- Freezer / Unfreezer:
+		- freezes the player into a ball and disables controls
+		- unfreezes player and enables controls
 	- Spring (in every 45°, or better: full 360°)
 		- bounces the player off into the direction
 	- Speed Tile (4-directional)
 		- gives the player full speed in the given direction if he rolls
 	- Floor Spring
 		- shoots player in the air when z == 0
+	- Wind (4 directional)
+		- pushes the player in one direction, but rolling can outlast it
+	- big Marbles / blocks
+		- block the way but can be pushed through rolling

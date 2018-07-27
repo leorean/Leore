@@ -344,17 +344,24 @@ if (state == S.ROLL) {
 
     if (kAction1) {
         if (kRight) { xVel += .1; }
-        if (kLeft) {  xVel -= .1; }
-    }
-    
-    if (kAction1) {
+        if (kLeft) {  xVel -= .1; }    
         if (kDown) { yVel += .1; }
         if (kUp) {   yVel -= .1; }
     }
-
-    if (!kAction1 &amp;&amp; xVel == 0 &amp;&amp; yVel == 0 &amp;&amp; z == 0) 
+    if (z == 0) {        
+        var spring = collision_point(x, y, objSpring, false, true);
+        if (spring &amp;&amp; !spring.sprung) {
+            spring.sprung = true;
+            zVel = -3;
+            xVel = sign(xVel) * min(abs(xVel), 2);
+            yVel = sign(yVel) * min(abs(yVel), 2);
+        }
+    }
+    if (!kAction1 &amp;&amp; xVel == 0 &amp;&amp; yVel == 0 &amp;&amp; z == 0) {
+        zVel = 0;
         state = S.IDLE;
-
+    }
+    
     if ((!kLeft &amp;&amp; !kRight) || !kAction1) xVel = sign(xVel)*max(abs(xVel) - .1, 0);
     if (   (!kUp &amp;&amp; !kDown) || !kAction1) yVel = sign(yVel)*max(abs(yVel) - .1, 0);
 
@@ -528,29 +535,41 @@ if (stairs &amp;&amp; z == 0) {
     instance_deactivate_object(objStairs);
 }
 
-xCol = instance_place(x + xVel, y, objSolid);
-if (!xCol || is(xCol, objHole)) {
+instance_deactivate_object(objSolid);
+instance_activate_region(cx - 2*TILE, cy - 2*TILE, 4*TILE, 4*TILE, true);
+xCol = false;
+yCol = false;
+for (var i = 0; i &lt; instance_number(objSolid); i++) {
+    var s = instance_find(objSolid, i);
+    if (place_meeting(x + xVel, y, s) &amp;&amp; !is(s, objHole) &amp;&amp; !is(s, objStairs)) {
+        xCol = true;
+    }
+    if (place_meeting(x, y + yVel, s) &amp;&amp; !is(s, objHole) &amp;&amp; !is(s, objStairs)) {
+        yCol = true;
+}}
+instance_activate_object(objSolid);
+
+if (!xCol) {
     x += xVel;
 } else {
     if (state == S.ROLL &amp;&amp; z == 0) {
         xVel = -xVel * .5;
         if (abs(xVel) &gt; .5) {
             xVel *= .8;
-            zVel = -1.2;
+            //zVel = -1.2;
         }
     }
     else
         xVel = 0;
 }
-yCol = instance_place(x, y + yVel, objSolid);
-if (!yCol || is(yCol, objHole)) {
+if (!yCol) {
     y += yVel;
 } else {
     if (state == S.ROLL &amp;&amp; z == 0) {
         yVel = -yVel * .5;
         if (abs(yVel) &gt; .5) {
             yVel *= .8;
-            zVel = -1.2;
+            //zVel = -1.2;
         }
     }
     else

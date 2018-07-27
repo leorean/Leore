@@ -119,13 +119,16 @@
       <sprite>sprites\sprPlayerFall</sprite>
       <sprite>sprites\sprCeilingRock</sprite>
     </sprites>
-    <sprite>sprites\sprBush</sprite>
     <sprite>sprites\sprSword</sprite>
     <sprites name="fonts">
       <sprite>sprites\sprFontSmall</sprite>
       <sprite>sprites\sprFont</sprite>
     </sprites>
-    <sprite>sprites\sprLight</sprite>
+    <sprites name="level">
+      <sprite>sprites\sprLight</sprite>
+      <sprite>sprites\sprSpring</sprite>
+    </sprites>
+    <sprite>sprites\mskSpring</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>
@@ -145,21 +148,26 @@
       <script>scripts\getStringFromXMLIdentifier.gml</script>
       <script>scripts\freeLevel.gml</script>
     </scripts>
-    <script>scripts\in.gml</script>
     <scripts name="controls">
       <script>scripts\setControlsEnabled.gml</script>
       <script>scripts\keyPressed.gml</script>
     </scripts>
     <script>scripts\log.gml</script>
     <script>scripts\showMessage.gml</script>
-    <script>scripts\string_split.gml</script>
     <scripts name="array_util">
       <script>scripts\array.gml</script>
       <script>scripts\get.gml</script>
       <script>scripts\array_contains.gml</script>
     </scripts>
-    <script>scripts\is.gml</script>
-    <script>scripts\string_to_real.gml</script>
+    <scripts name="string_util">
+      <script>scripts\string_to_real.gml</script>
+      <script>scripts\string_split.gml</script>
+    </scripts>
+    <scripts name="util">
+      <script>scripts\is.gml</script>
+      <script>scripts\in.gml</script>
+      <script>scripts\load.gml</script>
+    </scripts>
   </scripts>
   <objects name="objects">
     <objects name="hierarchy">
@@ -198,6 +206,7 @@
       <object>objects\objHoleCheckPoint</object>
       <object>objects\objItem</object>
       <object>objects\objCeilingRock</object>
+      <object>objects\objSpring</object>
     </objects>
   </objects>
   <rooms name="rooms">
