@@ -51,3 +51,15 @@
 	- in the cave, he will find an old relic: Amber Bracelet
 	- with its' power, he can enter the shrine of shin, where he will begin to learn his purpose and face his first trial
 	- Upon succeeding, he is granted a weapon
+	
+	
+	
+---------- Concept revolves around rolling ----------
+
+Objects:
+	- Spring (in every 45°, or better: full 360°)
+		- bounces the player off into the direction
+	- Speed Tile (4-directional)
+		- gives the player full speed in the given direction if he rolls
+	- Floor Spring
+		- shoots player in the air when z == 0

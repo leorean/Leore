@@ -185,28 +185,28 @@ draw_set_alpha(1);
 draw_sprite_ext(sprMap, -1, xo, yo, 1, 1, 0, c_white, .75);
 
 // DRAW PLAYER
-var px = objPlayer.x / room_width;
-var py = objPlayer.y / room_height;
+var px = (objPlayer.x / room_width) * sprite_get_width(sprMap) - .5;
+var py = (objPlayer.y / room_height) * sprite_get_height(sprMap) - .5;
 if ((global.timer % 16) &gt; 8) {
-    draw_sprite_ext(mskPixel, -1, xo + px * sprite_get_width(sprMap) , yo + py * sprite_get_height(sprMap), 1, 1, 0, c_white, 1);
+    draw_sprite_ext(mskPixel, -1, xo + px, yo + py, 1, 1, 0, c_white, 1);
 }
 
 // DRAW ITEMS
 instance_activate_object(objItem);
 for(var i = 0; i &lt; instance_number(objItem); i++) {
     var it = instance_find(objItem, i);
-    var px = it.x / room_width;
-    var py = it.y / room_height;
-    draw_sprite_ext(mskPixel, -1, xo + px * sprite_get_width(sprMap) , yo + py * sprite_get_height(sprMap), 1, 1, 0, c_yellow, 1);
+    px = (it.x / room_width) * sprite_get_width(sprMap) - .5;
+    py = (it.y / room_height) * sprite_get_height(sprMap) - .5;
+    draw_sprite_ext(mskPixel, -1, xo + px, yo + py, 1, 1, 0, c_yellow, 1);
 }
 
 // DRAW ENEMIES
 for (var i = 0; i &lt; ds_list_size(enemies); i++) {
     var e = ds_list_find_value(enemies, i);
     if (instance_exists(e)) {
-        px = e.x / room_width;
-        py = e.y / room_height;
-        draw_sprite_ext(mskPixel, -1, xo + px * sprite_get_width(sprMap) , yo + py * sprite_get_height(sprMap), 1, 1, 0, c_red, 1);
+        var px = (e.x / room_width) * sprite_get_width(sprMap) - .5;
+        var py = (e.y / room_height) * sprite_get_height(sprMap) - .5;
+        draw_sprite_ext(mskPixel, -1, xo + px, yo + py, 1, 1, 0, c_red, 1);
     }
 }
 </string>

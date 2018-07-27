@@ -69,7 +69,7 @@ if (keyboard_check_pressed(ord('P'))) {
         global.state = G.PAUSE;    
 }
 if (keyboard_check_pressed(ord('T'))) global.swim = !global.swim;
-if (mouse_check_button_pressed(mb_left)) {
+if (mouse_check_button_pressed(mb_left) &amp;&amp; global.debug) {
     objPlayer.x = mouse_x;
     objPlayer.y = mouse_y;    
 }

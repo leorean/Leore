@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2018.06.27" orientation="orthogonal" renderorder="right-down" width="48" height="48" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="27">
+<map version="1.0" tiledversion="2018.06.27" orientation="orthogonal" renderorder="right-down" width="48" height="48" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="35">
  <properties>
   <property name="title" value="South Beach Cave"/>
  </properties>
@@ -1565,6 +1565,9 @@
    <tile gid="949"/>
    <tile gid="949"/>
    <tile gid="949"/>
+   <tile gid="715"/>
+   <tile gid="716"/>
+   <tile gid="717"/>
    <tile gid="949"/>
    <tile gid="949"/>
    <tile gid="949"/>
@@ -1609,14 +1612,11 @@
    <tile gid="949"/>
    <tile gid="949"/>
    <tile gid="949"/>
-   <tile gid="949"/>
-   <tile gid="949"/>
-   <tile gid="949"/>
-   <tile gid="949"/>
-   <tile gid="949"/>
-   <tile gid="949"/>
-   <tile gid="949"/>
-   <tile gid="949"/>
+   <tile gid="715"/>
+   <tile gid="813"/>
+   <tile gid="763"/>
+   <tile gid="812"/>
+   <tile gid="717"/>
    <tile gid="949"/>
    <tile gid="949"/>
    <tile gid="949"/>
@@ -1660,11 +1660,11 @@
    <tile gid="949"/>
    <tile gid="949"/>
    <tile gid="949"/>
-   <tile gid="949"/>
-   <tile gid="949"/>
-   <tile gid="949"/>
-   <tile gid="949"/>
-   <tile gid="949"/>
+   <tile gid="809"/>
+   <tile gid="766"/>
+   <tile gid="763"/>
+   <tile gid="765"/>
+   <tile gid="811"/>
    <tile gid="949"/>
    <tile gid="949"/>
    <tile gid="949"/>
@@ -1709,9 +1709,9 @@
    <tile gid="949"/>
    <tile gid="949"/>
    <tile gid="949"/>
-   <tile gid="949"/>
-   <tile gid="949"/>
-   <tile gid="949"/>
+   <tile gid="809"/>
+   <tile gid="810"/>
+   <tile gid="811"/>
    <tile gid="949"/>
    <tile gid="949"/>
    <tile gid="949"/>
@@ -6181,9 +6181,9 @@
    <tile/>
    <tile gid="994"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile gid="998"/>
@@ -6229,9 +6229,9 @@
    <tile/>
    <tile gid="994"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1"/>
+   <tile gid="519"/>
+   <tile gid="1"/>
    <tile/>
    <tile gid="1185"/>
    <tile gid="1092"/>
@@ -6264,7 +6264,7 @@
    <tile/>
    <tile/>
    <tile gid="4"/>
-   <tile gid="2"/>
+   <tile/>
    <tile/>
    <tile gid="950"/>
    <tile gid="951"/>
@@ -6277,9 +6277,9 @@
    <tile/>
    <tile gid="994"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
    <tile/>
    <tile gid="998"/>
    <tile/>
@@ -6310,9 +6310,9 @@
    <tile gid="994"/>
    <tile/>
    <tile/>
-   <tile gid="283"/>
-   <tile gid="284"/>
-   <tile gid="285"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile gid="998"/>
@@ -6325,9 +6325,9 @@
    <tile gid="854"/>
    <tile gid="1183"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
    <tile/>
    <tile gid="1182"/>
    <tile gid="856"/>
@@ -6358,9 +6358,9 @@
    <tile gid="994"/>
    <tile/>
    <tile/>
-   <tile gid="377"/>
-   <tile gid="378"/>
-   <tile gid="379"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile gid="2"/>
    <tile gid="998"/>
@@ -6372,8 +6372,8 @@
    <tile gid="855"/>
    <tile gid="901"/>
    <tile gid="948"/>
-   <tile/>
-   <tile/>
+   <tile gid="1090"/>
+   <tile gid="1091"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6419,9 +6419,9 @@
    <tile gid="900"/>
    <tile gid="902"/>
    <tile gid="948"/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1139"/>
+   <tile gid="1137"/>
+   <tile gid="1138"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6455,17 +6455,17 @@
    <tile/>
    <tile gid="283"/>
    <tile gid="284"/>
-   <tile gid="284"/>
-   <tile gid="284"/>
    <tile gid="285"/>
+   <tile gid="2"/>
+   <tile/>
    <tile/>
    <tile gid="998"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="2"/>
-   <tile/>
+   <tile gid="4"/>
+   <tile gid="1139"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6503,9 +6503,9 @@
    <tile gid="2"/>
    <tile gid="377"/>
    <tile gid="378"/>
-   <tile gid="378"/>
-   <tile gid="378"/>
    <tile gid="379"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile gid="998"/>
    <tile/>
@@ -6513,7 +6513,7 @@
    <tile gid="1091"/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="1139"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6597,7 +6597,7 @@
    <tile/>
    <tile gid="994"/>
    <tile/>
-   <tile gid="424"/>
+   <tile/>
    <tile/>
    <tile gid="283"/>
    <tile gid="284"/>
@@ -6645,8 +6645,8 @@
    <tile/>
    <tile gid="994"/>
    <tile/>
-   <tile gid="518"/>
-   <tile gid="2"/>
+   <tile/>
+   <tile/>
    <tile gid="330"/>
    <tile gid="520"/>
    <tile gid="331"/>
@@ -6670,9 +6670,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="283"/>
+   <tile gid="285"/>
+   <tile gid="4"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6718,9 +6718,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="377"/>
+   <tile gid="379"/>
+   <tile gid="4"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6740,8 +6740,8 @@
    <tile gid="907"/>
    <tile/>
    <tile gid="994"/>
-   <tile gid="2"/>
-   <tile gid="519"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile gid="377"/>
    <tile gid="379"/>
@@ -6749,7 +6749,7 @@
    <tile/>
    <tile gid="4"/>
    <tile/>
-   <tile/>
+   <tile gid="334"/>
    <tile/>
    <tile gid="950"/>
    <tile gid="902"/>
@@ -6839,8 +6839,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="565"/>
-   <tile gid="567"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile gid="4"/>
@@ -9248,18 +9248,8 @@
     <property name="ty" value="18"/>
    </properties>
   </object>
-  <object id="9" name="Player" type="player" x="304" y="736" width="16" height="16"/>
-  <object id="16" name="Enemy" type="enemy" x="464" y="368" width="16" height="16">
-   <properties>
-    <property name="type" value="0"/>
-   </properties>
-  </object>
-  <object id="17" name="Enemy" type="enemy" x="400" y="368" width="16" height="16">
-   <properties>
-    <property name="type" value="0"/>
-   </properties>
-  </object>
-  <object id="18" name="amber bracelet" type="item" x="432" y="368" width="16" height="16">
+  <object id="9" name="Player" type="player" x="256" y="560" width="16" height="16"/>
+  <object id="18" name="amber bracelet" type="item" x="256" y="528" width="16" height="16">
    <properties>
     <property name="itemType" value="roll"/>
    </properties>
@@ -9283,6 +9273,41 @@
     <property name="alpha" value="0.5"/>
     <property name="scale" value="1"/>
     <property name="shimmer" value="0"/>
+   </properties>
+  </object>
+  <object id="27" name="S" type="sign" x="208" y="704" width="16" height="16">
+   <properties>
+    <property name="text" value="Danger ahead! Enter at your own risk!"/>
+   </properties>
+  </object>
+  <object id="28" type="ceilingRock" x="320" y="608" width="16" height="16">
+   <properties>
+    <property name="delay" value="0"/>
+   </properties>
+  </object>
+  <object id="30" type="ceilingRock" x="336" y="624" width="16" height="16">
+   <properties>
+    <property name="delay" value="35"/>
+   </properties>
+  </object>
+  <object id="31" type="ceilingRock" x="320" y="624" width="16" height="16">
+   <properties>
+    <property name="delay" value="25"/>
+   </properties>
+  </object>
+  <object id="32" type="ceilingRock" x="304" y="640" width="16" height="16">
+   <properties>
+    <property name="delay" value="0"/>
+   </properties>
+  </object>
+  <object id="33" type="ceilingRock" x="336" y="640" width="16" height="16">
+   <properties>
+    <property name="delay" value="45"/>
+   </properties>
+  </object>
+  <object id="34" type="ceilingRock" x="352" y="608" width="16" height="16">
+   <properties>
+    <property name="delay" value="60"/>
    </properties>
   </object>
  </objectgroup>

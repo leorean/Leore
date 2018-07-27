@@ -176,6 +176,10 @@ for (var i = 0; i < ds_list_size(objects); i++) {
             var sgn = instance_create(obj_x, obj_y, objSign);
             sgn.text = string_split(ds_map_find_value(obj, "text"), "|"); // TODO: split in message itself?!
         break;
+        case "ceilingRock": // very special - only has one purpose in the game!
+            var cn = instance_create(obj_x + 8, obj_y + 8, objCeilingRock);
+            cn.delay = real(ds_map_find_value(obj, "delay"));
+        break;
         case "enemy":
             var e = instance_create(obj_x + 8, obj_y + 8, objEnemy);
             e.type = real(ds_map_find_value(obj, "type"));

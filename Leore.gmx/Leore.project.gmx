@@ -117,6 +117,7 @@
       <sprite>sprites\sprShadow</sprite>
       <sprite>sprites\sprDestroyable</sprite>
       <sprite>sprites\sprPlayerFall</sprite>
+      <sprite>sprites\sprCeilingRock</sprite>
     </sprites>
     <sprite>sprites\sprBush</sprite>
     <sprite>sprites\sprSword</sprite>
@@ -196,6 +197,7 @@
       <object>objects\objStairs</object>
       <object>objects\objHoleCheckPoint</object>
       <object>objects\objItem</object>
+      <object>objects\objCeilingRock</object>
     </objects>
   </objects>
   <rooms name="rooms">

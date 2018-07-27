@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
+ <objecttype name="ceilingRock" color="#aa55ff">
+  <property name="delay" type="string"/>
+ </objecttype>
  <objecttype name="door" color="#ffea00">
   <property name="dir" type="string"/>
   <property name="target" type="string"/>
