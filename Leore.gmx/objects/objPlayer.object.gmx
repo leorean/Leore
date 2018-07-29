@@ -516,23 +516,15 @@ if (z != 0) { rollTimout = 5; }
 
 // COLLISION 
 
-// check for destroyables that "still exist" (e.g. avoid bumping in bushes with 0 hp)
-instance_activate_object(objDestroyable);
-for (var i = 0; i &lt; ds_list_size(dsCol); i++) {
-    var d = ds_list_find_value(dsCol, i);
-    instance_deactivate_object(d);
-}
-
 var xCol = instance_place(x + xVel, y, objDestroyable);
 var yCol = instance_place(x, y + yVel, objDestroyable);
 if (xCol &amp;&amp; is(xCol, objEnemy)) xCol = noone;
 if (yCol &amp;&amp; is(yCol, objEnemy)) yCol = noone;
 
-// stairs
+// STAIRS
 var stairs = instance_place(x + xVel, y + yVel, objStairs);
 if (stairs &amp;&amp; z == 0) {
     yVel = sign(yVel) * min(abs(yVel), .8);
-    instance_deactivate_object(objStairs);
 }
 
 instance_deactivate_object(objSolid);
@@ -541,12 +533,17 @@ xCol = false;
 yCol = false;
 for (var i = 0; i &lt; instance_number(objSolid); i++) {
     var s = instance_find(objSolid, i);
-    if (place_meeting(x + xVel, y, s) &amp;&amp; !is(s, objHole) &amp;&amp; !is(s, objStairs)) {
-        xCol = true;
+    if (!is(s, objHole) 
+        &amp;&amp; !is(s, objStairs)
+        &amp;&amp; ds_list_find_index(dsCol, s) == -1) {            
+        if (place_meeting(x + xVel, y, s)) {
+            xCol = true;
+        }
+        if (place_meeting(x, y + yVel, s)) {
+            yCol = true;
+        }
     }
-    if (place_meeting(x, y + yVel, s) &amp;&amp; !is(s, objHole) &amp;&amp; !is(s, objStairs)) {
-        yCol = true;
-}}
+}
 instance_activate_object(objSolid);
 
 if (!xCol) {
