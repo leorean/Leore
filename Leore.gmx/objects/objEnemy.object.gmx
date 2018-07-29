@@ -26,14 +26,10 @@
           <argument>
             <kind>1</kind>
             <string>type = 0;
-
 hurt = 0;
-hp = 10;
-
+hp = 1;
 xVel = 0;
 yVel = 0;
-
-destroyed = 0;
 </string>
           </argument>
         </arguments>
@@ -56,7 +52,7 @@ destroyed = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>hurt = max(hurt - 1, 0);
+            <string>/*hurt = max(hurt - 1, 0);
 
 if (hurt) {
     xVel *= .9;
@@ -72,7 +68,7 @@ if (!place_meeting(x, y + yVel, objSolid)) {
     y += yVel;
 } else {
     yVel = 0;
-}
+}*/
 </string>
           </argument>
         </arguments>

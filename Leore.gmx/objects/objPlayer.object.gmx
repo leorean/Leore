@@ -432,7 +432,7 @@ instance_activate_region(x - 32, y - 32, 64, 64, true);
 for(var i = 0; i &lt; instance_number(objDestroyable); i++) {
 
     var destroyable = instance_find(objDestroyable, i);
-    if (destroyable.object_index == objEnemy)
+    if (is(destroyable, objEnemy))
         destroyable = noone;
     
     if (place_meeting(x + xVel, y + yVel, destroyable)) {
@@ -449,7 +449,6 @@ for(var i = 0; i &lt; instance_number(objDestroyable); i++) {
 instance_activate_object(objDestroyable);
 
 // HOLES
-
 if (z == 0) {
     var minDist = 999;
     hole = noone;
@@ -488,7 +487,6 @@ if (z == 0) {
 }
 
 // SWORD
-
 if (state == S.ATTACK) {
     xVel = 0;
     yVel = 0;
