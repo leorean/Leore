@@ -200,6 +200,20 @@ for (var i = 0; i < ds_list_size(objects); i++) {
                 item.type = itemType;
             }
         break;
+        //traps:
+        case "trapFloor":
+            var t = instance_create(obj_x, obj_y, objTrapFloor);
+            t.type = real(ds_map_find_value(obj, "type"));
+        break;
+        case "trapSpawn":
+            var t = instance_create(obj_x, obj_y, objTrapSpawn);
+            t.type = real(ds_map_find_value(obj, "type"));
+            t.enemyType = real(ds_map_find_value(obj, "enemyType"));
+        break;
+        case "trapBlock":
+            var t = instance_create(obj_x, obj_y, objTrapBlock);
+            t.type = real(ds_map_find_value(obj, "type"));
+        break;                
     }
 }
 

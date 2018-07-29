@@ -129,6 +129,7 @@
       <sprite>sprites\sprSpring</sprite>
     </sprites>
     <sprite>sprites\mskSpring</sprite>
+    <sprite>sprites\mskTrap</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>
@@ -152,8 +153,6 @@
       <script>scripts\setControlsEnabled.gml</script>
       <script>scripts\keyPressed.gml</script>
     </scripts>
-    <script>scripts\log.gml</script>
-    <script>scripts\showMessage.gml</script>
     <scripts name="array_util">
       <script>scripts\array.gml</script>
       <script>scripts\get.gml</script>
@@ -167,6 +166,11 @@
       <script>scripts\is.gml</script>
       <script>scripts\in.gml</script>
       <script>scripts\load.gml</script>
+      <script>scripts\log.gml</script>
+    </scripts>
+    <scripts name="object_util">
+      <script>scripts\showMessage.gml</script>
+      <script>scripts\activateTrap.gml</script>
     </scripts>
   </scripts>
   <objects name="objects">
@@ -207,6 +211,11 @@
       <object>objects\objItem</object>
       <object>objects\objCeilingRock</object>
       <object>objects\objSpring</object>
+      <objects name="trap">
+        <object>objects\objTrapFloor</object>
+        <object>objects\objTrapBlock</object>
+        <object>objects\objTrapSpawn</object>
+      </objects>
     </objects>
   </objects>
   <rooms name="rooms">

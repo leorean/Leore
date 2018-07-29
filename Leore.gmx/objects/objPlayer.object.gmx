@@ -186,7 +186,6 @@ if (state == S.DROWN) {
 }
 
 // STORING PREV COORDINATES
-
 if (!inShallowWater &amp;&amp; !inWater) {
     xPrevDrown = x;
     yPrevDrown = y;
@@ -199,7 +198,6 @@ if (hcp) {
 }
 
 // INPUT HANDLING
-
 if (inWater &amp;&amp; !global.swim) setControlsEnabled(false);
 if (inHole) setControlsEnabled(false);
 if (hurt) setControlsEnabled(false);
@@ -216,8 +214,13 @@ kAction2Pressed = keyPressed("action2pressed");
 if (kLeft &amp;&amp; kRight) { kLeft = 0; kRight = 0; }
 if (kUp &amp;&amp; kDown) { kUp = 0; kDown = 0; }
 
-// CLIFFS
+// TRAP FLOOR
+var tf = instance_place(x, y, objTrapFloor);
+if (tf &amp;&amp; !tf.activated) {
+    activateTrap(tf);
+}
 
+// CLIFFS
 if (!inCliff)
     cliff = instance_place(x, y + 2, objCliff);
 
@@ -365,8 +368,6 @@ if (state == S.ROLL) {
     if ((!kLeft &amp;&amp; !kRight) || !kAction1) xVel = sign(xVel)*max(abs(xVel) - .1, 0);
     if (   (!kUp &amp;&amp; !kDown) || !kAction1) yVel = sign(yVel)*max(abs(yVel) - .1, 0);
 
-    /*xVel = sign(xVel) * min(abs(xVel), 3);
-    yVel = sign(yVel) * min(abs(yVel), 3);*/
 }
 
 if (inShallowWater &amp;&amp; !inWater) {
@@ -375,7 +376,6 @@ if (inShallowWater &amp;&amp; !inWater) {
 }
 
 // SWIMMING
-
 if (state == S.SWIM) {
     if (!inWater) {
         state = S.IDLE;

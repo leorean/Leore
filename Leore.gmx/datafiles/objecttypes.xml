@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
- <objecttype name="ceilingRock" color="#aa55ff">
-  <property name="delay" type="string"/>
+ <objecttype name="ceilingRock" color="#55007f">
+  <property name="delay" type="string" default="0"/>
  </objecttype>
  <objecttype name="door" color="#ffea00">
-  <property name="dir" type="string"/>
+  <property name="dir" type="string" default="up"/>
   <property name="target" type="string"/>
-  <property name="targetdir" type="string"/>
+  <property name="targetdir" type="string" default="up"/>
   <property name="tx" type="string"/>
   <property name="ty" type="string"/>
  </objecttype>
  <objecttype name="enemy" color="#ff0004">
-  <property name="type" type="string"/>
+  <property name="type" type="string" default="0"/>
  </objecttype>
  <objecttype name="item" color="#61ffdd">
   <property name="itemType" type="string"/>
  </objecttype>
  <objecttype name="light" color="#ffffff">
-  <property name="alpha" type="string"/>
-  <property name="scale" type="string"/>
-  <property name="shimmer" type="string"/>
+  <property name="alpha" type="string" default="1"/>
+  <property name="scale" type="string" default="1"/>
+  <property name="shimmer" type="string" default="0"/>
  </objecttype>
  <objecttype name="player" color="#ffffff"/>
  <objecttype name="sign" color="#e1984e">
   <property name="text" type="string"/>
+ </objecttype>
+ <objecttype name="trapBlock" color="#55007f">
+  <property name="type" type="string" default="0"/>
+ </objecttype>
+ <objecttype name="trapFloor" color="#55007f">
+  <property name="type" type="string" default="0"/>
+ </objecttype>
+ <objecttype name="trapSpawn" color="#55007f">
+  <property name="type" type="string" default="0"/>
  </objecttype>
 </objecttypes>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2018.06.27" orientation="orthogonal" renderorder="right-down" width="48" height="48" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="41">
+<map version="1.0" tiledversion="2018.06.27" orientation="orthogonal" renderorder="right-down" width="48" height="48" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="50">
  <properties>
   <property name="title" value="South Beach Cave"/>
  </properties>
@@ -5265,9 +5265,9 @@
    <tile/>
    <tile/>
    <tile gid="994"/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
    <tile gid="998"/>
    <tile/>
    <tile/>
@@ -5747,7 +5747,7 @@
    <tile gid="1183"/>
    <tile gid="1137"/>
    <tile gid="1138"/>
-   <tile/>
+   <tile gid="4"/>
    <tile gid="1137"/>
    <tile gid="1138"/>
    <tile gid="1182"/>
@@ -5794,9 +5794,9 @@
    <tile gid="901"/>
    <tile gid="948"/>
    <tile/>
+   <tile gid="1139"/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1139"/>
    <tile/>
    <tile gid="950"/>
    <tile gid="903"/>
@@ -9248,7 +9248,7 @@
     <property name="ty" value="18"/>
    </properties>
   </object>
-  <object id="9" name="Player" type="player" x="256" y="560" width="16" height="16"/>
+  <object id="9" name="Player" type="player" x="304" y="416" width="16" height="16"/>
   <object id="18" name="amber bracelet" type="item" x="256" y="528" width="16" height="16">
    <properties>
     <property name="itemType" value="roll"/>
@@ -9338,5 +9338,13 @@
     <property name="shimmer" value="0"/>
    </properties>
   </object>
+  <object id="42" name="TF" type="trapFloor" x="304" y="352" width="16" height="16"/>
+  <object id="43" name="TB" type="trapBlock" x="304" y="384" width="16" height="16"/>
+  <object id="44" name="TB" type="trapBlock" x="272" y="224" width="16" height="16"/>
+  <object id="45" name="TB" type="trapBlock" x="288" y="224" width="16" height="16"/>
+  <object id="46" name="TB" type="trapBlock" x="304" y="224" width="16" height="16"/>
+  <object id="47" name="TS" type="trapSpawn" x="160" y="272" width="16" height="16"/>
+  <object id="48" name="TS" type="trapSpawn" x="192" y="304" width="16" height="16"/>
+  <object id="49" name="TS" type="trapSpawn" x="224" y="272" width="16" height="16"/>
  </objectgroup>
 </map>
