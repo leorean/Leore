@@ -164,6 +164,7 @@ if (state == S.FALL) {
     else {
         x = xPrevHole;
         y = yPrevHole;
+        hurt = 0; invincible = 0;
         state = S.IDLE;
     }
 } else {
@@ -400,11 +401,59 @@ if (state == S.SWIM) {
 
 }
 
-// GETTING HIT
+// DESTROYING OBJECTS (ROLL)
+canDestroy = state == S.ROLL /*&amp;&amp; (max(abs(xVel), abs(yVel)) &gt; .5)*/ &amp;&amp; z == 0;
 
+ds_list_clear(dsCol);
+instance_deactivate_object(objDestroyable);
+instance_activate_region(x - 32, y - 32, 64, 64, true);
+for(var i = 0; i &lt; instance_number(objDestroyable); i++) {
+
+    var d = instance_find(objDestroyable, i);
+    if (place_meeting(x + xVel, y + yVel, d)) {
+        if (!ds_list_find_index(dsCol, d)) {
+            if (canDestroy) {
+                d.hp = max(d.hp - 1, 0);
+            }
+            if (d.hp == 0) {
+                ds_list_add(dsCol, d);
+            }
+        }
+    }
+}
+instance_activate_object(objDestroyable);
+
+// ROLLING AGAINST ENEMIES
+if (canDestroy) {
+    instance_deactivate_object(objEnemy);
+    instance_activate_region(x - 32, y - 32, 64, 64, true);
+    for(var i = 0; i &lt; instance_number(objEnemy); i++) {
+        var e = instance_place(x + xVel, y + yVel, objEnemy);
+        if (e &amp;&amp; e.hp &gt; 0 &amp;&amp; is(e, objEnemyBall)) {
+            var angle = point_direction(x, y, e.x, e.y);
+
+            var vel = max(abs(xVel), abs(yVel), 1.5);
+                
+            e.xVel = lengthdir_x(vel, angle);
+            e.yVel = lengthdir_y(vel, angle);
+            
+            xVel = -lengthdir_x(1.5, angle);
+            yVel = -lengthdir_y(1.5, angle);
+            
+            e.hurt = 20;
+        }
+    }
+    instance_activate_object(objEnemy);
+}
+
+// GETTING HIT
 invincible = max(invincible - 1, 0);
 var enemy = instance_place(x, y, objEnemy);
-if (instance_exists(enemy) &amp;&amp; enemy.hp &gt; 0 &amp;&amp; !enemy.hurt &amp;&amp; !hurt &amp;&amp; !invincible) {
+if (enemy &amp;&amp; enemy.hp &gt; 0 &amp;&amp; !enemy.hurt 
+    &amp;&amp; !hurt 
+    &amp;&amp; !invincible
+    &amp;&amp; state != S.FALL
+    &amp;&amp; state != S.DROWN) {
     var kbAngle = point_direction(cx, cy, enemy.x, enemy.y);
     xVel = lengthdir_x(-3, kbAngle);
     yVel = lengthdir_y(-3, kbAngle);
@@ -422,31 +471,6 @@ if (state == S.HURT) {
         invincible = 45;
     }
 }
-
-// DESTROYING OBJECTS (ROLL)
-canDestroy = state == S.ROLL &amp;&amp; (max(abs(xVel), abs(yVel)) &gt; .5) &amp;&amp; z == 0;
-
-ds_list_clear(dsCol);
-instance_deactivate_object(objDestroyable);
-instance_activate_region(x - 32, y - 32, 64, 64, true);
-for(var i = 0; i &lt; instance_number(objDestroyable); i++) {
-
-    var destroyable = instance_find(objDestroyable, i);
-    if (is(destroyable, objEnemy))
-        destroyable = noone;
-    
-    if (place_meeting(x + xVel, y + yVel, destroyable)) {
-        if (!ds_list_find_index(dsCol, destroyable)) {
-            if (canDestroy) {
-                destroyable.hp = max(destroyable.hp - 1, 0);
-            }
-            if (destroyable.hp == 0) {
-                ds_list_add(dsCol, destroyable);
-            }
-        }
-    }
-}
-instance_activate_object(objDestroyable);
 
 // HOLES
 if (z == 0) {
@@ -526,7 +550,7 @@ if (stairs &amp;&amp; z == 0) {
 }
 
 instance_deactivate_object(objSolid);
-instance_activate_region(cx - 2*TILE, cy - 2*TILE, 4*TILE, 4*TILE, true);
+instance_activate_region(cx - 32, cy - 32, 64, 64, true);
 xCol = false;
 yCol = false;
 for (var i = 0; i &lt; instance_number(objSolid); i++) {

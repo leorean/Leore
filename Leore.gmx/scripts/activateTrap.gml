@@ -7,7 +7,8 @@ with(_o) {
         if (ts.type == type) {
             var e = instance_create(ts.x + 8, ts.y + 8, objEnemy);
             e.type = ts.enemyType;
-        }        
+            e.trap_id = id;
+        }
     }
 
     instance_activate_object(objTrapBlock);
@@ -18,7 +19,6 @@ with(_o) {
             with(tb) { instance_create(x, y, objSolid) }
             tb.activated = true;
         }
-    }
-    
+    }    
     activated = true;
 }

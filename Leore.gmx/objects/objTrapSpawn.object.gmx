@@ -27,6 +27,7 @@
             <kind>1</kind>
             <string>type = 0;
 enemyType = 0;
+depth = LAYER_FG - 1;
 </string>
           </argument>
         </arguments>

@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>objLiving</parentName>
+  <parentName>objEnemy</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -25,12 +25,13 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>type = 0;
+            <string>xVel = 0;
+yVel = 0;
 hurt = 0;
 hp = 1;
-xVel = 0;
-yVel = 0;
-trap_id = -1;
+xCol = false;
+yCol = false;
+type = 0;
 </string>
           </argument>
         </arguments>
@@ -53,13 +54,63 @@ trap_id = -1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>switch(type) {
-    case 0:
-        var e = instance_create(x, y, objEnemyBall);
-        e.trap_id = trap_id;
-    break;
+            <string>xVel *= .93;
+yVel *= .93;
+hurt = max(hurt - 1, 0);
+
+if(hp == 0) {
+    var eff = instance_create(x, y, objEffect);
+    eff.type = 2;
+    instance_destroy();
 }
-instance_destroy();
+
+if (collision_point(x, y, objHole, 0, 1)) {
+    hp = 0;
+}
+
+instance_deactivate_object(objAny);
+instance_activate_region(x - 32, y - 32, 64 ,64, true);
+for (var i = 0; i &lt; instance_number(objAny); i++) {
+    var s = instance_find(objAny, i);
+    if (is(s, objSolid)
+    &amp;&amp; !is(s, objHole)) {
+        if (place_meeting(x + xVel, y, s)) {
+            xCol = true;
+        }
+        if (place_meeting(x, y + yVel, s)) {
+            yCol = true;
+        }
+    }
+    if(place_meeting(x + xVel, y + yVel, s) &amp;&amp;
+        s.id != id &amp;&amp; is(s, objEnemyBall) &amp;&amp; s.hp &gt; 0) {
+        
+        var angle = point_direction(x, y, s.x, s.y);
+
+        var vel = max(abs(xVel), abs(yVel), 1);
+
+        xVel = lengthdir_x(-vel, angle);
+        yVel = lengthdir_y(-vel, angle);
+        s.xVel = lengthdir_x(vel, angle);
+        s.yVel = lengthdir_y(vel, angle);
+        
+    }
+}
+instance_activate_object(objAny);
+
+if (!xCol) {
+    x += xVel;
+} else {
+        xVel = -xVel;
+}
+if (!yCol) {
+    y += yVel;
+} else {
+    yVel = -yVel;
+}
+x = max(min(x, room_width - 8), 8);
+y = max(min(y, room_height - 8), 8);
+xCol = false;
+yCol = false;
 </string>
           </argument>
         </arguments>
@@ -82,7 +133,7 @@ instance_destroy();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_self();
+            <string>draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, 1);
 </string>
           </argument>
         </arguments>

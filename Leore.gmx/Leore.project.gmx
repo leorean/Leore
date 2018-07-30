@@ -174,17 +174,18 @@
     </scripts>
   </scripts>
   <objects name="objects">
+    <object>objects\objControl</object>
+    <object>objects\objPlayer</object>
     <objects name="hierarchy">
       <object>objects\objSolid</object>
       <object>objects\objParticle</object>
+      <object>objects\objEnemy</object>
       <object>objects\objLiving</object>
       <object>objects\objAny</object>
     </objects>
     <objects name="misc">
-      <object>objects\objControl</object>
       <object>objects\objLevelTransition</object>
       <object>objects\objCamera</object>
-      <object>objects\objPlayer</object>
       <object>objects\objSword</object>
       <object>objects\objTileManager</object>
       <object>objects\objMessage</object>
@@ -204,7 +205,6 @@
       <object>objects\objHole</object>
       <object>objects\objTree</object>
       <object>objects\objSign</object>
-      <object>objects\objEnemy</object>
       <object>objects\objCliff</object>
       <object>objects\objStairs</object>
       <object>objects\objHoleCheckPoint</object>
@@ -216,6 +216,9 @@
         <object>objects\objTrapBlock</object>
         <object>objects\objTrapSpawn</object>
       </objects>
+    </objects>
+    <objects name="enemies">
+      <object>objects\objEnemyBall</object>
     </objects>
   </objects>
   <rooms name="rooms">
