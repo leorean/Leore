@@ -185,7 +185,7 @@ for (var i = 0; i < ds_list_size(objects); i++) {
         break;
         case "enemy":
             var e = instance_create(obj_x + 8, obj_y + 8, objEnemy);
-            e.type = real(ds_map_find_value(obj, "type"));
+            e.type = real(ds_map_find_value(obj, "enemyType"));
         break;
         case "light":
             var light = instance_create(obj_x + 8, obj_y + 8, objLight);
@@ -203,16 +203,16 @@ for (var i = 0; i < ds_list_size(objects); i++) {
         //traps:
         case "trapFloor":
             var t = instance_create(obj_x, obj_y, objTrapFloor);
-            t.type = real(ds_map_find_value(obj, "type"));
+            t.type = real(ds_map_find_value(obj, "trapType"));
         break;
         case "trapSpawn":
             var t = instance_create(obj_x, obj_y, objTrapSpawn);
-            t.type = real(ds_map_find_value(obj, "type"));
+            t.type = real(ds_map_find_value(obj, "trapType"));
             t.enemyType = real(ds_map_find_value(obj, "enemyType"));
         break;
         case "trapBlock":
             var t = instance_create(obj_x, obj_y, objTrapBlock);
-            t.type = real(ds_map_find_value(obj, "type"));
+            t.type = real(ds_map_find_value(obj, "trapType"));
         break;                
     }
 }

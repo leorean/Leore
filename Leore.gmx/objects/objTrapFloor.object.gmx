@@ -2,7 +2,7 @@
 <object>
   <spriteName>mskTrap</spriteName>
   <solid>0</solid>
-  <visible>0</visible>
+  <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
   <parentName>objAny</parentName>
@@ -27,6 +27,7 @@
             <kind>1</kind>
             <string>type = 0;
 activated = false;
+_activated = false;
 </string>
           </argument>
         </arguments>
@@ -49,7 +50,11 @@ activated = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (activated) {    
+            <string>if (activated) {
+
+    // TODO: distinguish different "goals":
+    // not only after all enemies are done..
+
     count = 0;
     instance_activate_object(objEnemy);
     for(var i = 0; i &lt; instance_number(objEnemy); i++) {
@@ -59,7 +64,6 @@ activated = false;
         }
     }
     if (count = 0) {
-        
         instance_activate_object(objTrapBlock);
         for(var i = 0; i &lt; instance_number(objTrapBlock); i++) {
             var tb = instance_find(objTrapBlock, i);
@@ -69,6 +73,53 @@ activated = false;
         }
     }
 }
+
+if (activated &amp;&amp; !_activated) {
+    instance_activate_object(objTrapSpawn);
+    for (var i = 0; i &lt; instance_number(objTrapSpawn); i++) {
+        var ts = instance_find(objTrapSpawn, i);
+        if (ts.type == type) {
+            var e = instance_create(ts.x + 8, ts.y + 8, objEnemy);
+            e.type = ts.enemyType;
+            e.trap_id = id;
+            
+            var eff = instance_create(ts.x + 8, ts.y + 8, objEffect);
+            eff.type = 2;
+        }
+    }
+
+    instance_activate_object(objTrapBlock);
+    for (var i = 0; i &lt; instance_number(objTrapBlock); i++) {
+        var tb = instance_find(objTrapBlock, i);
+        if (tb.type == type) {
+            tb.activated = true;
+        }
+    }    
+    _activated = true;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_text(x,y,type);
 </string>
           </argument>
         </arguments>

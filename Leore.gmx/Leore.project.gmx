@@ -171,7 +171,6 @@
     </scripts>
     <scripts name="object_util">
       <script>scripts\showMessage.gml</script>
-      <script>scripts\activateTrap.gml</script>
     </scripts>
   </scripts>
   <objects name="objects">

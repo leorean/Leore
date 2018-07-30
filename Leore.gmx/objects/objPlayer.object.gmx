@@ -218,7 +218,7 @@ if (kUp &amp;&amp; kDown) { kUp = 0; kDown = 0; }
 // TRAP FLOOR
 var tf = instance_place(x, y, objTrapFloor);
 if (tf &amp;&amp; !tf.activated) {
-    activateTrap(tf);
+    tf.activated = true;
 }
 
 // CLIFFS

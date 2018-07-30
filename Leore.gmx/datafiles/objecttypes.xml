@@ -11,7 +11,7 @@
   <property name="ty" type="string"/>
  </objecttype>
  <objecttype name="enemy" color="#ff0004">
-  <property name="type" type="string" default="0"/>
+  <property name="enemyType" type="string" default="0"/>
  </objecttype>
  <objecttype name="item" color="#61ffdd">
   <property name="itemType" type="string"/>
@@ -26,12 +26,13 @@
   <property name="text" type="string"/>
  </objecttype>
  <objecttype name="trapBlock" color="#55007f">
-  <property name="type" type="string" default="0"/>
+  <property name="trapType" type="string" default="0"/>
  </objecttype>
  <objecttype name="trapFloor" color="#55007f">
-  <property name="type" type="string" default="0"/>
+  <property name="trapType" type="string" default="0"/>
  </objecttype>
  <objecttype name="trapSpawn" color="#55007f">
-  <property name="type" type="string" default="0"/>
+  <property name="enemyType" type="string" default="0"/>
+  <property name="trapType" type="string" default="0"/>
  </objecttype>
 </objecttypes>

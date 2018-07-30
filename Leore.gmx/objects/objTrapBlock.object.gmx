@@ -56,8 +56,6 @@ depth = LAYER_FG - 1;
             <string>if (activated) {
     var b = instance_place(x, y, objSolid);
     if (!b) {
-        //var eff = instance_create(x + 8, y + 8, objEffect);
-        //eff.type = 2;
         b = instance_create(x, y, objSolid);
     }
 } else {
@@ -88,7 +86,8 @@ depth = LAYER_FG - 1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (activated) {
+            <string>draw_text(x,y,type);
+if (activated) {
     fCur = min(fCur + .2, 3);
 } else {
     fCur = max(fCur - .2, 0);
