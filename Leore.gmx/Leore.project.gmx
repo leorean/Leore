@@ -127,6 +127,7 @@
     <sprites name="level">
       <sprite>sprites\sprLight</sprite>
       <sprite>sprites\sprSpring</sprite>
+      <sprite>sprites\sprTrapBlock</sprite>
     </sprites>
     <sprite>sprites\mskSpring</sprite>
     <sprite>sprites\mskTrap</sprite>

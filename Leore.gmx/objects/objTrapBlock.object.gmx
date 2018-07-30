@@ -26,8 +26,11 @@
           <argument>
             <kind>1</kind>
             <string>type = 0;
-depth = LAYER_FG - 1;
 activated = false;
+
+fCur = 0;
+frame = 0;
+depth = LAYER_FG - 1;
 </string>
           </argument>
         </arguments>
@@ -53,13 +56,45 @@ activated = false;
             <string>if (activated) {
     var b = instance_place(x, y, objSolid);
     if (!b) {
+        //var eff = instance_create(x + 8, y + 8, objEffect);
+        //eff.type = 2;
         b = instance_create(x, y, objSolid);
-        b.visible = true;
     }
 } else {
     var b = instance_place(x, y, objSolid);
-    if(b) with(b) instance_destroy();
+    if(b) {
+        with(b) instance_destroy();
+    }
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (activated) {
+    fCur = min(fCur + .2, 3);
+} else {
+    fCur = max(fCur - .2, 0);
+}
+frame = floor(fCur);
+draw_sprite_part(sprTrapBlock, -1, frame*TILE, 0, TILE, TILE, x, y);
 </string>
           </argument>
         </arguments>

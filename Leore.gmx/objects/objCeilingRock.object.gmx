@@ -27,6 +27,7 @@
             <kind>1</kind>
             <string>delay = 0;
 z = -view_hview;
+active = false;
 </string>
           </argument>
         </arguments>
@@ -50,7 +51,7 @@ z = -view_hview;
           <argument>
             <kind>1</kind>
             <string>if (global.state != G.PLAY) exit;
-if (ds_list_find_index(global.items, "roll") == -1) exit;
+if (!active) exit;
 
 draw_sprite(sprShadow, -1, x, y);
 

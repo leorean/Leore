@@ -91,6 +91,7 @@ if (!acquired) {
         }
         switch(type) {
             case "roll":
+                with(objCeilingRock) active = true;
             case "levitate":
             case "dig":
             case "thunder":
