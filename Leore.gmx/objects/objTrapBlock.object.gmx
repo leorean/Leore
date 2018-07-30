@@ -28,14 +28,12 @@
             <string>type = 0;
 depth = LAYER_FG - 1;
 activated = false;
-
-block = instance_create(x, y, objSolid);
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="3" enumb="2">
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -53,10 +51,14 @@ block = instance_create(x, y, objSolid);
           <argument>
             <kind>1</kind>
             <string>if (activated) {
-    block.visible = true;
-    instance_activate_object(block);    
+    var b = instance_place(x, y, objSolid);
+    if (!b) {
+        b = instance_create(x, y, objSolid);
+        b.visible = true;
+    }
 } else {
-    instance_deactivate_object(block);
+    var b = instance_place(x, y, objSolid);
+    if(b) with(b) instance_destroy();
 }
 </string>
           </argument>

@@ -9337,7 +9337,6 @@
   <object id="45" name="TB" type="trapBlock" x="288" y="224" width="16" height="16"/>
   <object id="46" name="TB" type="trapBlock" x="304" y="224" width="16" height="16"/>
   <object id="47" name="TS" type="trapSpawn" x="160" y="272" width="16" height="16"/>
-  <object id="48" name="TS" type="trapSpawn" x="192" y="304" width="16" height="16"/>
-  <object id="49" name="TS" type="trapSpawn" x="224" y="272" width="16" height="16"/>
+  <object id="49" name="TS" type="trapSpawn" x="192" y="288" width="16" height="16"/>
  </objectgroup>
 </map>
