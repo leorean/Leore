@@ -580,6 +580,7 @@ if (!xCol) {
     }
     else
         xVel = 0;
+    move_outside_solid(point_direction(x,y,x+xVel,y+yVel), 1);
 }
 if (!yCol) {
     y += yVel;
@@ -593,9 +594,8 @@ if (!yCol) {
     }
     else
         yVel = 0;
+    move_outside_solid(point_direction(x,y,x+xVel,y+yVel), 1);
 }
-for(var i = 0; i &lt; 360; i++)
-    move_outside_solid(i, 1);
 
 x = max(min(x, room_width - 8), 8);
 y = max(min(y, room_height - 8), 8);
