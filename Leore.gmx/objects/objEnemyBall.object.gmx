@@ -32,6 +32,32 @@ hp = 1;
 xCol = false;
 yCol = false;
 type = 0;
+
+row = 0;
+col = 0;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>sprite_delete(sprite);
 </string>
           </argument>
         </arguments>
@@ -133,7 +159,36 @@ yCol = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, 1);
+            <string>var _x = (x) % TILE;
+var _y = (y) % TILE;
+
+
+draw_set_blend_mode(bm_normal);
+var surf = surface_create(TILE, TILE);
+surface_set_target(surf);
+
+draw_set_blend_mode(bm_normal);
+
+draw_sprite_part(sprEnemyBall, -1, TILE, 3*TILE, TILE, TILE, 0, 0);
+draw_sprite_part(sprEnemyBall, -1, TILE, 0, 3*TILE, 3*TILE, _x - 1.5*TILE, _y - 1.5*TILE);
+draw_set_blend_mode(bm_subtract);
+draw_sprite_part(sprEnemyBall, -1, 0, 0, TILE, TILE, 0, 0);
+
+draw_set_blend_mode(bm_normal);
+
+sprite = sprite_create_from_surface(surf, 0, 0, TILE, TILE, 0, 0, 8, 8);
+
+surface_reset_target();
+surface_free(surf);
+
+draw_sprite(sprite, -1, x, y);
+
+draw_set_blend_mode(bm_add);
+draw_sprite_part_ext(sprEnemyBall, -1, 0, 2*TILE, TILE ,TILE, x-8, y-8, 1, 1, c_white, .15);
+draw_sprite_part_ext(sprEnemyBall, -1, 0, 3*TILE, TILE ,TILE, x-8, y-8, 1, 1, c_white, .15);
+
+draw_set_blend_mode(bm_normal);
+draw_sprite_part(sprEnemyBall, -1, 0, TILE, TILE ,TILE, x-8, y-8);
 </string>
           </argument>
         </arguments>

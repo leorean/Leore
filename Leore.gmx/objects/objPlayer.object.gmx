@@ -594,6 +594,9 @@ if (!yCol) {
     else
         yVel = 0;
 }
+for(var i = 0; i &lt; 360; i++)
+    move_outside_solid(i, 1);
+
 x = max(min(x, room_width - 8), 8);
 y = max(min(y, room_height - 8), 8);
 instance_activate_object(objDestroyable);

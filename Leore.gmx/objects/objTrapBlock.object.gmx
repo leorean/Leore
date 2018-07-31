@@ -86,8 +86,7 @@ depth = LAYER_FG - 1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_text(x,y,type);
-if (activated) {
+            <string>if (activated) {
     fCur = min(fCur + .2, 3);
 } else {
     fCur = max(fCur - .2, 0);

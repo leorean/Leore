@@ -131,6 +131,9 @@
     </sprites>
     <sprite>sprites\mskSpring</sprite>
     <sprite>sprites\mskTrap</sprite>
+    <sprites name="enemies">
+      <sprite>sprites\sprEnemyBall</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>

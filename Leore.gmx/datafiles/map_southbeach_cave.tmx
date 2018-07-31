@@ -9248,7 +9248,7 @@
     <property name="ty" value="18"/>
    </properties>
   </object>
-  <object id="9" name="Player" type="player" x="288" y="144" width="16" height="16"/>
+  <object id="9" name="Player" type="player" x="304" y="400" width="16" height="16"/>
   <object id="18" name="amber bracelet" type="item" x="256" y="528" width="16" height="16">
    <properties>
     <property name="itemType" value="roll"/>
