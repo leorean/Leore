@@ -35,8 +35,16 @@ type = 0;
 
 row = 0;
 col = 0;
-xo = x - 8;
-yo = y - 8;
+
+d = 1.5*TILE;
+xo = x + d / 2;
+yo = y + d / 2;
+
+sprite = -1;
+eye_x = 0;
+eye_y = 0;
+eye_f = 0;
+eye_d = 0;
 </string>
           </argument>
         </arguments>
@@ -161,9 +169,27 @@ yCol = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var _x = ((x - xo) % (TILE));
-var _y = ((y - yo) % (TILE));
+            <string>var _x = (x - xo) % (d);
+var _y = (y - yo) % (d);
+var near = point_distance(x, y, objPlayer.x, objPlayer.y) &lt; 4*TILE;
 
+if (near) {
+    eye_f = min(eye_f + .2, 3);
+    if(eye_f == 3) {
+        var ang = point_direction(x, y, objPlayer.x, objPlayer.y);
+        eye_d = min(eye_d + .1, 1.5);
+        eye_x = lengthdir_x(eye_d, ang);
+        eye_y = lengthdir_y(eye_d, ang);
+    }
+} else {
+    eye_f = max(eye_f - .2, 0);
+    eye_d = 0;
+    eye_x = 0;
+    eye_y = 0;
+}
+
+if (sprite_exists(sprite))
+    sprite_delete(sprite);
 
 draw_set_blend_mode(bm_normal);
 var surf = surface_create(TILE, TILE);
@@ -171,20 +197,30 @@ surface_set_target(surf);
 
 draw_set_blend_mode(bm_normal);
 
-draw_sprite_part(sprEnemyBall, -1, TILE, 3*TILE, TILE, TILE, 0, 0);
-for(var i = -1; i &lt; 2; i++)
-    for(var j = -1; j &lt; 2; j++)
-        draw_sprite_part(sprEnemyBall, -1, TILE, 0, TILE, TILE, _x - .5*TILE + i*TILE, _y - .5*TILE + j*TILE);
-    
+// background
+draw_sprite_part(sprEnemyBall, -1, 3*TILE, 0, TILE, TILE, 0, 0);
+
+// eyeball
+for(var i = -1; i &lt; 2; i++) {
+    for(var j = -1; j &lt; 2; j++) {
+        draw_sprite_part(sprEnemyBall, -1, 1*TILE, floor(eye_f)*TILE, TILE, TILE, _x - (d*.5) + i*d, _y - (d*.5) + j*d);
+        draw_sprite_part(sprEnemyBall, -1, 2*TILE, floor(eye_f)*TILE, TILE, TILE, _x - (d*.5) + i*d + eye_x, _y - (d*.5) + j*d + eye_y);
+    }
+}
+ 
+// sub-mask   
 draw_set_blend_mode(bm_subtract);
 draw_sprite_part(sprEnemyBall, -1, 0, 0, TILE, TILE, 0, 0);
 
 draw_set_blend_mode(bm_add);
 
+// highlights
 draw_sprite_part_ext(sprEnemyBall, -1, 0, 2*TILE, TILE ,TILE, 0, 0, 1, 1, c_white, .15);
 draw_sprite_part_ext(sprEnemyBall, -1, 0, 3*TILE, TILE ,TILE, 0, 0, 1, 1, c_white, .15);
 
 draw_set_blend_mode(bm_normal);
+
+// contour
 draw_sprite_part(sprEnemyBall, -1, 0, TILE, TILE ,TILE, 0, 0);
 
 sprite = sprite_create_from_surface(surf, 0, 0, TILE, TILE, 0, 0, 8, 8);
@@ -193,9 +229,6 @@ surface_reset_target();
 surface_free(surf);
 
 draw_sprite(sprite, -1, x, y);
-//draw_sprite_part(sprEnemyBall, -1, TILE, 0, TILE, TILE, x + _x - 8, y + _y - 8);
-
-// TODO: all on one surface
 
 
 </string>
