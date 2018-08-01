@@ -3,7 +3,7 @@
   <spriteName>mskPlayer</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>-10</depth>
+  <depth>0</depth>
   <persistent>0</persistent>
   <parentName>objLiving</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -402,7 +402,7 @@ if (state == S.SWIM) {
 }
 
 // DESTROYING OBJECTS (ROLL)
-canDestroy = state == S.ROLL /*&amp;&amp; (max(abs(xVel), abs(yVel)) &gt; .5)*/ &amp;&amp; z == 0;
+canDestroy = state == S.ROLL;// /*&amp;&amp; (max(abs(xVel), abs(yVel)) &gt; .5)*/ &amp;&amp; z == 0;
 
 ds_list_clear(dsCol);
 instance_deactivate_object(objDestroyable);
@@ -429,18 +429,21 @@ if (canDestroy) {
     instance_activate_region(x - 32, y - 32, 64, 64, true);
     for(var i = 0; i &lt; instance_number(objEnemy); i++) {
         var e = instance_place(x + xVel, y + yVel, objEnemy);
-        if (e &amp;&amp; e.hp &gt; 0 &amp;&amp; is(e, objEnemyBall)) {
-            var angle = point_direction(x, y, e.x, e.y);
-
-            var vel = max(abs(xVel), abs(yVel), 1.5);
+        
+        if (e &amp;&amp; e.hp &gt; 0) {
+            // BALL ENEMY ONLY
+            if (is(e, objEnemyBall)) {
+            
+                e.hurt = 20;
+                var angle = point_direction(x, y, e.x, e.y);    
+                var vel = max(abs(xVel), abs(yVel), 1.5);
+                    
+                e.xVel = lengthdir_x(vel, angle);
+                e.yVel = lengthdir_y(vel, angle);
                 
-            e.xVel = lengthdir_x(vel, angle);
-            e.yVel = lengthdir_y(vel, angle);
-            
-            xVel = -lengthdir_x(1.5, angle);
-            yVel = -lengthdir_y(1.5, angle);
-            
-            e.hurt = 20;
+                xVel = -lengthdir_x(1.5, angle);
+                yVel = -lengthdir_y(1.5, angle);
+            }
         }
     }
     instance_activate_object(objEnemy);
@@ -477,7 +480,7 @@ if (z == 0) {
     var minDist = 999;
     hole = noone;
     instance_deactivate_object(objHole);
-    instance_activate_region(cx - 2*TILE, cy - 2*TILE, 4*TILE, 4*TILE, true);
+    instance_activate_region(x - 32, y - 32, 64, 64, true);
 
     for (var i = 0; i &lt; instance_number(objHole); i++) {
         var h = instance_find(objHole, i);
@@ -526,7 +529,6 @@ if (state == S.IDLE || state == S.WALK) {
 }
 
 // Z-MOVEMENT
-
 zVel += zGrav;
 z += zVel;
 
@@ -550,7 +552,7 @@ if (stairs &amp;&amp; z == 0) {
 }
 
 instance_deactivate_object(objSolid);
-instance_activate_region(cx - 32, cy - 32, 64, 64, true);
+instance_activate_region(x - 32, y - 32, 64, 64, true);
 xCol = false;
 yCol = false;
 for (var i = 0; i &lt; instance_number(objSolid); i++) {
@@ -580,7 +582,6 @@ if (!xCol) {
     }
     else
         xVel = 0;
-    move_outside_solid(point_direction(x,y,x+xVel,y+yVel), 1);
 }
 if (!yCol) {
     y += yVel;
@@ -594,13 +595,23 @@ if (!yCol) {
     }
     else
         yVel = 0;
-    move_outside_solid(point_direction(x,y,x+xVel,y+yVel), 1);
 }
+
+// UNSTICK (WIP)
+var obj = instance_place(x, y, objSolid);
+if (obj) {
+    if (!is(obj, objStairs) &amp;&amp; !is(obj, objHole)) {
+        x -= xVel;
+        y -= yVel;
+        //x = xprevious;
+        //y = yprevious;
+    }
+}
+
 
 x = max(min(x, room_width - 8), 8);
 y = max(min(y, room_height - 8), 8);
 instance_activate_object(objDestroyable);
-instance_activate_object(objStairs);
 </string>
           </argument>
         </arguments>

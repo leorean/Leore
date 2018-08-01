@@ -134,6 +134,7 @@
     <sprites name="enemies">
       <sprite>sprites\sprEnemyBall</sprite>
     </sprites>
+    <sprite>sprites\mskEnemyBall</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\sprTiles</background>
