@@ -44,7 +44,7 @@
 		- actions / spells cost magic
 	- enemies
 
-* STORYLINE:
+* STORYLINE (OLD):
 	- player awakes at the shore - his memory is lost
 	- player starts walking north from the southmost point of leore, south beach, where he will find the shrine of shin
 	- the entrance to the shrine is blocked, so he will find a cave below instead
@@ -52,6 +52,13 @@
 	- with its' power, he can enter the shrine of shin, where he will begin to learn his purpose and face his first trial
 	- Upon succeeding, he is granted a weapon
 	
+* STORYLINE:
+	- player awakes at the shore - his memory is lost
+	- player starts walking north from the southmost point of leore, south beach, where he will find a farmer
+	- the farmer tells him to help him with cutting down the weeds
+		- in return he gets a key to the bridge
+	- player needs the ability to cut down bushes yet
+		- there is a cave nearby where he gets the Amber Bracelet	
 	
 	
 ---------- Concept revolves around rolling ----------

@@ -1520,9 +1520,9 @@
    <tile gid="96"/>
    <tile gid="191"/>
    <tile gid="191"/>
+   <tile gid="238"/>
+   <tile gid="191"/>
    <tile gid="568"/>
-   <tile gid="191"/>
-   <tile gid="191"/>
    <tile gid="191"/>
    <tile gid="191"/>
    <tile gid="238"/>
@@ -10529,8 +10529,8 @@
    <tile gid="146"/>
    <tile gid="99"/>
    <tile/>
-   <tile gid="1"/>
-   <tile gid="1"/>
+   <tile/>
+   <tile/>
    <tile gid="719"/>
    <tile gid="720"/>
    <tile/>
@@ -10603,8 +10603,8 @@
    <tile/>
    <tile gid="380"/>
    <tile gid="146"/>
-   <tile gid="147"/>
    <tile gid="105"/>
+   <tile gid="147"/>
    <tile gid="147"/>
    <tile gid="147"/>
    <tile gid="147"/>
@@ -18027,16 +18027,6 @@
   <object id="2" name="Sign" type="sign" x="416" y="640" width="16" height="16">
    <properties>
     <property name="text" value="-South Beach-#North: Shrine of Shin#East: Ember Village"/>
-   </properties>
-  </object>
-  <object id="4" name="Enemy" type="enemy" x="272" y="592" width="16" height="16">
-   <properties>
-    <property name="type" value="0"/>
-   </properties>
-  </object>
-  <object id="17" name="Enemy" type="enemy" x="368" y="544" width="16" height="16">
-   <properties>
-    <property name="type" value="0"/>
    </properties>
   </object>
   <object id="19" name="Door" type="door" x="288" y="272" width="16" height="16">
